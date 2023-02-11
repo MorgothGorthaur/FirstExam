@@ -1,6 +1,9 @@
+package service;
+
 import dao.Dao;
 import model.Manufacturer;
 import model.Souvenir;
+import service.Exam;
 
 import java.time.LocalDate;
 import java.util.*;

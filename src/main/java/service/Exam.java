@@ -1,3 +1,5 @@
+package service;
+
 import model.Manufacturer;
 import model.Souvenir;
 
