@@ -1,4 +1,4 @@
-package model;
+package exam.model;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;

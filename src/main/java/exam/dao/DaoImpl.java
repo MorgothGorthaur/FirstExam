@@ -1,9 +1,9 @@
-package dao;
+package exam.dao;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
-import model.Manufacturer;
-import model.Souvenir;
+import exam.model.Manufacturer;
+import exam.model.Souvenir;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

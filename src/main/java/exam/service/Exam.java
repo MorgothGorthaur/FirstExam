@@ -1,7 +1,7 @@
-package service;
+package exam.service;
 
-import model.Manufacturer;
-import model.Souvenir;
+import exam.model.Manufacturer;
+import exam.model.Souvenir;
 
 import java.time.LocalDate;
 import java.util.List;

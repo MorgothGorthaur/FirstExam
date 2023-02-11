@@ -1,7 +1,7 @@
-package dao;
+package exam.dao;
 
-import model.Manufacturer;
-import model.Souvenir;
+import exam.model.Manufacturer;
+import exam.model.Souvenir;
 
 import java.util.Collection;
 import java.util.Map;

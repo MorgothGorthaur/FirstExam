@@ -1,9 +1,8 @@
-package service;
+package exam.service;
 
-import dao.Dao;
-import model.Manufacturer;
-import model.Souvenir;
-import service.Exam;
+import exam.dao.Dao;
+import exam.model.Manufacturer;
+import exam.model.Souvenir;
 
 import java.time.LocalDate;
 import java.util.*;
