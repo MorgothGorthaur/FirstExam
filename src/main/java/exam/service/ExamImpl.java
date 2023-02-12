@@ -134,12 +134,12 @@ public class ExamImpl implements Exam {
     }
 
     @Override
-    public Map<LocalDate, List<SouvenirFullDto>> getSouvenirsByYear() {
-        var map = new HashMap<LocalDate, List<SouvenirFullDto>>();
+    public Map<Integer, List<SouvenirFullDto>> getSouvenirsByYear() {
+        var map = new HashMap<Integer, List<SouvenirFullDto>>();
         for(var s : souvenirsMap.values()){
-            var list = map.get(s.getDate());
+            var list = map.get(s.getDate().getYear());
             if(list != null) list.add(mapper.toSouvenirFullDto(s));
-            else map.put(s.getDate(), new ArrayList<>(List.of(mapper.toSouvenirFullDto(s))));
+            else map.put(s.getDate().getYear(), new ArrayList<>(List.of(mapper.toSouvenirFullDto(s))));
         }
         return map;
     }
