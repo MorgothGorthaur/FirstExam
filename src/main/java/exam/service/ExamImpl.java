@@ -27,7 +27,9 @@ public class ExamImpl implements Exam {
         this.dao = dao;
         this.mapper = mapper;
         manufacturersMap = (HashMap<Long, Manufacturer>) dao.getManufacturers();
-        souvenirsMap = (HashMap<Long, Souvenir>) dao.getSouvenirs();
+        souvenirsMap = new HashMap<>();
+        manufacturersMap.values().forEach(manufacturer ->
+                souvenirsMap.putAll(manufacturer.getSouvenirs().stream().collect(Collectors.toMap(Souvenir::getId, souvenir -> souvenir))));
     }
 
     @Override
@@ -47,7 +49,6 @@ public class ExamImpl implements Exam {
         else{
             removed.getSouvenirs().forEach(souvenir -> souvenirsMap.remove(souvenir.getId()));
             dao.saveManufactures(manufacturersMap.values());
-            dao.saveSouvenirs(souvenirsMap.values());
         }
     }
 
@@ -57,7 +58,7 @@ public class ExamImpl implements Exam {
         if (removed == null) throw new RuntimeException();
         else {
             manufacturersMap.get(id).removeSouvenir(removed);
-            dao.saveSouvenirs(souvenirsMap.values());
+            dao.saveManufactures(manufacturersMap.values());
         }
     }
 
@@ -69,7 +70,7 @@ public class ExamImpl implements Exam {
             updated.setDate(souvenir.date());
             updated.setName(souvenir.name());
             updated.setPrice(souvenir.price());
-            dao.saveSouvenirs(souvenirsMap.values());
+            dao.saveManufactures(manufacturersMap.values());
         }
     }
 
@@ -94,7 +95,7 @@ public class ExamImpl implements Exam {
             souvenir.setId(generateId(souvenirsMap.keySet()));
             manufacturer.addSouvenir(souvenir);
             souvenirsMap.put(souvenir.getId(), souvenir);
-            dao.saveSouvenirs(souvenirsMap.values());
+            dao.saveManufactures(manufacturersMap.values());
         }
     }
 
