@@ -1,5 +1,9 @@
 package exam.service;
 
+import exam.dto.ManufacturerDto;
+import exam.dto.ManufacturerFullDto;
+import exam.dto.SouvenirDto;
+import exam.dto.SouvenirFullDto;
 import exam.model.Manufacturer;
 import exam.model.Souvenir;
 
@@ -8,25 +12,25 @@ import java.util.List;
 import java.util.Map;
 
 public interface Exam {
-    List<Manufacturer> getManufactures();
-    List<Souvenir> getSouvenirsByManufacturerId();
+    List<ManufacturerDto> getManufactures();
+    List<SouvenirDto> getSouvenirsByManufacturerId();
     void removeManufacturer(Long id);
     void removeSouvenir(Long id);
-    Souvenir updateSouvenir(Souvenir souvenir);
-    Manufacturer updateManufacturer(Manufacturer manufacturer);
+    void updateSouvenir(SouvenirDto souvenir);
+    void updateManufacturer(ManufacturerDto manufacturer);
 
-    void addSouvenir(Long id, Souvenir souvenir);
+    void addSouvenir(Long id, SouvenirDto souvenir);
 
-    void addManufacturer(Manufacturer manufacturer);
+    void addManufacturer(ManufacturerDto manufacturer);
 
     List<Souvenir> getSouvenirsByManufacturerId(Long manufacturerId);
 
-    List<Souvenir> getSouvenirsByCountry(String country);
+    List<SouvenirFullDto> getSouvenirsByCountry(String country);
 
-    List<Manufacturer> getManufacturerWithSouvenirsCheaperThatPrice(double price);
+    List<ManufacturerFullDto> getManufacturerWithSouvenirsCheaperThatPrice(double price);
 
-    List<Manufacturer> getManufacturersBySouvenirNameThatWasMadeThisYear(String name);
+    List<ManufacturerDto> getManufacturersBySouvenirNameThatWasMadeThisYear(String name);
 
-    Map<LocalDate, Souvenir> getSouvenirsByYear(LocalDate date);
+    Map<LocalDate, SouvenirFullDto> getSouvenirsByYear(LocalDate date);
 
 }

@@ -1,6 +1,12 @@
 package exam.service;
 
 import exam.dao.Dao;
+import exam.dto.ManufacturerDto;
+import exam.dto.ManufacturerFullDto;
+import exam.dto.SouvenirDto;
+import exam.dto.SouvenirFullDto;
+import exam.dto.mapper.Mapper;
+import exam.dto.mapper.MapperImpl;
 import exam.model.Manufacturer;
 import exam.model.Souvenir;
 
@@ -13,21 +19,23 @@ public class ExamImpl implements Exam {
     private final HashMap<Long, Souvenir> souvenirsMap;
 
     private final Dao dao;
+    private final Mapper mapper;
 
     public ExamImpl(Dao dao) {
         this.dao = dao;
         manufacturersMap = (HashMap<Long, Manufacturer>) dao.getManufacturers();
         souvenirsMap = (HashMap<Long, Souvenir>) dao.getSouvenirs();
+        mapper = new MapperImpl();
     }
 
     @Override
-    public List<Manufacturer> getManufactures() {
-        return manufacturersMap.values().stream().toList();
+    public List<ManufacturerDto> getManufactures() {
+        return manufacturersMap.values().stream().map(mapper::toManufacturerDto).toList();
     }
 
     @Override
-    public List<Souvenir> getSouvenirsByManufacturerId() {
-        return souvenirsMap.values().stream().toList();
+    public List<SouvenirDto> getSouvenirsByManufacturerId() {
+        return souvenirsMap.values().stream().map(mapper::toSouvenirDto).toList();
     }
 
     @Override
@@ -52,32 +60,31 @@ public class ExamImpl implements Exam {
     }
 
     @Override
-    public Souvenir updateSouvenir(Souvenir souvenir) {
-        var updated = souvenirsMap.get(souvenir.getId());
+    public void updateSouvenir(SouvenirDto souvenir) {
+        var updated = souvenirsMap.get(souvenir.id());
         if (updated == null) throw new RuntimeException();
         else {
-            updated.setDate(souvenir.getDate());
-            updated.setName(souvenir.getName());
-            updated.setPrice(souvenir.getPrice());
+            updated.setDate(souvenir.date());
+            updated.setName(souvenir.name());
+            updated.setPrice(souvenir.price());
             dao.saveSouvenirs(souvenirsMap.values());
-            return updated;
         }
     }
 
     @Override
-    public Manufacturer updateManufacturer(Manufacturer manufacturer) {
-        var updated = manufacturersMap.get(manufacturer.getId());
+    public void updateManufacturer(ManufacturerDto manufacturer) {
+        var updated = manufacturersMap.get(manufacturer.id());
         if (updated == null) throw new RuntimeException();
         else {
-            updated.setCountry(manufacturer.getCountry());
-            updated.setName(manufacturer.getName());
+            updated.setCountry(manufacturer.country());
+            updated.setName(manufacturer.name());
             dao.saveManufactures(manufacturersMap.values());
-            return updated;
         }
     }
 
     @Override
-    public void addSouvenir(Long id, Souvenir souvenir) {
+    public void addSouvenir(Long id, SouvenirDto dto) {
+        var souvenir = dto.toSouvenir();
         var manufacturer = manufacturersMap.get(id);
         if (manufacturer == null) throw new RuntimeException();
         else {
@@ -88,7 +95,8 @@ public class ExamImpl implements Exam {
     }
 
     @Override
-    public void addManufacturer(Manufacturer manufacturer) {
+    public void addManufacturer(ManufacturerDto dto) {
+        var manufacturer = dto.toManufacturer();
         manufacturer.setId(generateId(manufacturersMap.keySet()));
         manufacturersMap.put(manufacturer.getId(), manufacturer);
     }
@@ -101,27 +109,29 @@ public class ExamImpl implements Exam {
     }
 
     @Override
-    public List<Souvenir> getSouvenirsByCountry(String country) {
-        return souvenirsMap.values().stream().filter(souvenir -> souvenir.getManufacturer().getCountry().equals(country)).toList();
+    public List<SouvenirFullDto> getSouvenirsByCountry(String country) {
+        return souvenirsMap.values().stream().filter(souvenir -> souvenir.getManufacturer().getCountry().equals(country))
+                .map(mapper::toSouvenirFullDto).toList();
     }
 
     @Override
-    public List<Manufacturer> getManufacturerWithSouvenirsCheaperThatPrice(double price) {
+    public List<ManufacturerFullDto> getManufacturerWithSouvenirsCheaperThatPrice(double price) {
         return manufacturersMap.values().stream()
-                .filter(manufacturer -> manufacturer.makesSouvenirsCheaperThanValue(price)).toList();
+                .filter(manufacturer -> manufacturer.makesSouvenirsCheaperThanValue(price))
+                .map(mapper::toManufacturerFullDto).toList();
     }
 
     @Override
-    public List<Manufacturer> getManufacturersBySouvenirNameThatWasMadeThisYear(String name) {
+    public List<ManufacturerDto> getManufacturersBySouvenirNameThatWasMadeThisYear(String name) {
         return souvenirsMap.values().stream()
                 .filter(souvenir -> souvenir.getName().equals(name) && souvenir.getDate().getYear() == LocalDate.now().getYear())
-                .map(Souvenir::getManufacturer).toList();
+                .map(souvenir -> mapper.toManufacturerDto(souvenir.getManufacturer())).toList();
     }
 
     @Override
-    public Map<LocalDate, Souvenir> getSouvenirsByYear(LocalDate date) {
+    public Map<LocalDate, SouvenirFullDto> getSouvenirsByYear(LocalDate date) {
         return souvenirsMap.values().stream().filter(souvenir -> souvenir.getDate().getYear() == date.getYear())
-                .collect(Collectors.toMap(Souvenir::getDate, souvenir -> souvenir));
+                .collect(Collectors.toMap(Souvenir::getDate, mapper::toSouvenirFullDto));
     }
 
 
