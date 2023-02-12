@@ -18,7 +18,6 @@ public class DaoImpl implements Dao {
     private final String SOUVENIRS_FILE_NAME = "souvenirs.json";
     private final ObjectMapper mapper = new ObjectMapper();
 
-    @SneakyThrows
     @Override
     public Map<Long, Manufacturer> getManufacturers() {
         try (var reader = new BufferedReader(new FileReader(MANUFACTURER_FILE_NAME))) {
@@ -29,10 +28,12 @@ public class DaoImpl implements Dao {
                 manufactures.put(manufacturer.getId(), manufacturer);
             }
             return manufactures;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return new HashMap<>();
         }
     }
 
-    @SneakyThrows
     @Override
     public Map<Long, Souvenir> getSouvenirs() {
         try (var reader = new BufferedReader(new FileReader(SOUVENIRS_FILE_NAME))) {
@@ -43,6 +44,9 @@ public class DaoImpl implements Dao {
                 souvenirs.put(souvenir.getId(), souvenir);
             }
             return souvenirs;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return new HashMap<>();
         }
     }
 

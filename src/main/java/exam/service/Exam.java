@@ -13,7 +13,7 @@ import java.util.Map;
 
 public interface Exam {
     List<ManufacturerDto> getManufactures();
-    List<SouvenirDto> getSouvenirsByManufacturerId();
+    List<SouvenirDto> getSouvenirs();
     void removeManufacturer(Long id);
     void removeSouvenir(Long id);
     void updateSouvenir(SouvenirDto souvenir);
@@ -23,7 +23,7 @@ public interface Exam {
 
     void addManufacturer(ManufacturerDto manufacturer);
 
-    List<Souvenir> getSouvenirsByManufacturerId(Long manufacturerId);
+    List<SouvenirDto> getSouvenirsByManufacturerId(Long manufacturerId);
 
     List<SouvenirFullDto> getSouvenirsByCountry(String country);
 

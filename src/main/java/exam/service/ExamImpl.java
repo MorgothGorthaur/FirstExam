@@ -34,7 +34,7 @@ public class ExamImpl implements Exam {
     }
 
     @Override
-    public List<SouvenirDto> getSouvenirsByManufacturerId() {
+    public List<SouvenirDto> getSouvenirs() {
         return souvenirsMap.values().stream().map(mapper::toSouvenirDto).toList();
     }
 
@@ -102,10 +102,10 @@ public class ExamImpl implements Exam {
     }
 
     @Override
-    public List<Souvenir> getSouvenirsByManufacturerId(Long manufacturerId) {
+    public List<SouvenirDto> getSouvenirsByManufacturerId(Long manufacturerId) {
         var manufacturer = manufacturersMap.get(manufacturerId);
         if (manufacturer == null) throw new RuntimeException();
-        else return manufacturer.getSouvenirs();
+        else return manufacturer.getSouvenirs().stream().map(mapper::toSouvenirDto).toList();
     }
 
     @Override
