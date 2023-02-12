@@ -45,59 +45,44 @@ public class ExamImpl implements Exam {
 
     @Override
     public void removeManufacturer(Long id) {
-        var removed = manufacturersMap.remove(id);
-        if (removed == null) throw new ManufacturedNotFoundException(id);
-        else{
-            removed.getSouvenirs().forEach(souvenir -> souvenirsMap.remove(souvenir.getId()));
-            dao.saveManufactures(manufacturersMap.values());
-        }
+        var removed = getManufacturerById(id);
+        removed.getSouvenirs().forEach(souvenir -> souvenirsMap.remove(souvenir.getId()));
+        dao.saveManufactures(manufacturersMap.values());
     }
 
     @Override
     public void removeSouvenir(Long id) {
-        var removed = souvenirsMap.remove(id);
-        if (removed == null) throw new SouvenirNotFoundException(id);
-        else {
-            manufacturersMap.get(id).removeSouvenir(removed);
-            dao.saveManufactures(manufacturersMap.values());
-        }
+        var removed = getSouvenirById(id);
+        manufacturersMap.get(id).removeSouvenir(removed);
+        dao.saveManufactures(manufacturersMap.values());
     }
 
     @Override
     public void updateSouvenir(SouvenirDto souvenir) {
-        var updated = souvenirsMap.get(souvenir.id());
-        if (updated == null) throw new SouvenirNotFoundException(souvenir.id());
-        else {
-            updated.setDate(souvenir.date());
-            updated.setName(souvenir.name());
-            updated.setPrice(souvenir.price());
-            dao.saveManufactures(manufacturersMap.values());
-        }
+        var updated = getSouvenirById(souvenir.id());
+        updated.setDate(souvenir.date());
+        updated.setName(souvenir.name());
+        updated.setPrice(souvenir.price());
+        dao.saveManufactures(manufacturersMap.values());
     }
 
     @Override
     public void updateManufacturer(ManufacturerDto manufacturer) {
-        var updated = manufacturersMap.get(manufacturer.id());
-        if (updated == null) throw new ManufacturedNotFoundException(manufacturer.id());
-        else {
-            updated.setCountry(manufacturer.country());
-            updated.setName(manufacturer.name());
-            dao.saveManufactures(manufacturersMap.values());
-        }
+        var updated = getManufacturerById(manufacturer.id());
+        updated.setCountry(manufacturer.country());
+        updated.setName(manufacturer.name());
+        dao.saveManufactures(manufacturersMap.values());
     }
 
     @Override
     public void addSouvenir(Long id, SouvenirDto dto) {
         var souvenir = dto.toSouvenir();
         souvenir.setId(generateId(souvenirsMap.keySet()));
-        var manufacturer = manufacturersMap.get(id);
-        if (manufacturer == null) throw new ManufacturedNotFoundException(id);
-        else {
-            souvenir.setId(generateId(souvenirsMap.keySet()));
-            manufacturer.addSouvenir(souvenir);
-            souvenirsMap.put(souvenir.getId(), souvenir);
-            dao.saveManufactures(manufacturersMap.values());
-        }
+        var manufacturer = getManufacturerById(id);
+        souvenir.setId(generateId(souvenirsMap.keySet()));
+        manufacturer.addSouvenir(souvenir);
+        souvenirsMap.put(souvenir.getId(), souvenir);
+        dao.saveManufactures(manufacturersMap.values());
     }
 
     @Override
@@ -110,9 +95,7 @@ public class ExamImpl implements Exam {
 
     @Override
     public List<SouvenirDto> getSouvenirsByManufacturerId(Long manufacturerId) {
-        var manufacturer = manufacturersMap.get(manufacturerId);
-        if (manufacturer == null) throw new ManufacturedNotFoundException(manufacturerId);
-        else return manufacturer.getSouvenirs().stream().map(mapper::toSouvenirDto).toList();
+        return getManufacturerById(manufacturerId).getSouvenirs().stream().map(mapper::toSouvenirDto).toList();
     }
 
     @Override
@@ -138,12 +121,24 @@ public class ExamImpl implements Exam {
     @Override
     public Map<Integer, List<SouvenirFullDto>> getSouvenirsByYear() {
         var map = new HashMap<Integer, List<SouvenirFullDto>>();
-        for(var s : souvenirsMap.values()){
+        for (var s : souvenirsMap.values()) {
             var list = map.get(s.getDate().getYear());
-            if(list != null) list.add(mapper.toSouvenirFullDto(s));
+            if (list != null) list.add(mapper.toSouvenirFullDto(s));
             else map.put(s.getDate().getYear(), new ArrayList<>(List.of(mapper.toSouvenirFullDto(s))));
         }
         return map;
+    }
+
+    private Manufacturer getManufacturerById(Long id) {
+        var manufacturer = manufacturersMap.get(id);
+        if (manufacturer != null) return manufacturer;
+        else throw new ManufacturedNotFoundException(id);
+    }
+
+    private Souvenir getSouvenirById(Long id) {
+        var souvenir = souvenirsMap.get(id);
+        if (souvenir != null) return souvenir;
+        else throw new SouvenirNotFoundException(id);
     }
 
 
