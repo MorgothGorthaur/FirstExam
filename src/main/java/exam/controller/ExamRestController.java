@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/exam")
@@ -69,7 +70,7 @@ public class ExamRestController {
     }
 
     @GetMapping("/manufacturers/cheaper/{price}")
-    public List<ManufacturerFullDto> getManufacturers(@PathVariable double price){
+    public List<ManufacturerFullDto> getManufacturers(@PathVariable double price) {
         return exam.getManufacturerWithSouvenirsCheaperThatPrice(price);
     }
 
@@ -78,7 +79,13 @@ public class ExamRestController {
         return exam.getManufacturersBySouvenirNameAndYear(dto.name(), dto.date());
     }
 
-    record SouvenirNameAndYearDto(@NonNull String name,@NonNull LocalDate date) {}
+    @GetMapping("/souvenirs/years")
+    public Map<LocalDate, List<SouvenirFullDto>> getSouvenirsByYear() {
+        return exam.getSouvenirsByYear();
+    }
+
+    record SouvenirNameAndYearDto(@NonNull String name, @NonNull LocalDate date) {
+    }
 }
 
 
