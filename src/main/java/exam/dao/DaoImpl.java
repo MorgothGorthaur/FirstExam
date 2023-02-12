@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import exam.model.Manufacturer;
 import exam.model.Souvenir;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,7 +13,7 @@ import java.io.FileWriter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
+@Component
 public class DaoImpl implements Dao {
     private final String MANUFACTURER_FILE_NAME = "manufacturers.json";
     private final String SOUVENIRS_FILE_NAME = "souvenirs.json";

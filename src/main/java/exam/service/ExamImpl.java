@@ -9,11 +9,13 @@ import exam.dto.mapper.Mapper;
 import exam.dto.mapper.MapperImpl;
 import exam.model.Manufacturer;
 import exam.model.Souvenir;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Service
 public class ExamImpl implements Exam {
     private final HashMap<Long, Manufacturer> manufacturersMap;
     private final HashMap<Long, Souvenir> souvenirsMap;

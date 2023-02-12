@@ -6,7 +6,9 @@ import exam.dto.SouvenirDto;
 import exam.dto.SouvenirFullDto;
 import exam.model.Manufacturer;
 import exam.model.Souvenir;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MapperImpl implements Mapper {
     @Override
     public ManufacturerDto toManufacturerDto(Manufacturer manufacturer) {
