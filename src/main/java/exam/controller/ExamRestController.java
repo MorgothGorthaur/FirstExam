@@ -1,10 +1,12 @@
 package exam.controller;
 
 import exam.dto.ManufacturerDto;
+import exam.dto.ManufacturerFullDto;
 import exam.dto.SouvenirDto;
 import exam.dto.SouvenirFullDto;
 import exam.service.Exam;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,5 +52,25 @@ public class ExamRestController {
         exam.addSouvenir(id, dto);
     }
 
+    @PatchMapping("/manufacturers")
+    public void updateManufacturer(@RequestBody ManufacturerDto dto) {
+        exam.updateManufacturer(dto);
+    }
 
+    @PatchMapping("/souvenirs")
+    public void updateSouvenir(@RequestBody SouvenirDto dto) {
+        exam.updateSouvenir(dto);
+    }
+
+    @GetMapping("/souvenirs/{country}")
+    public List<SouvenirFullDto> getSouvenirsByCountry(@PathVariable String country) {
+        return exam.getSouvenirsByCountry(country);
+    }
+
+    @GetMapping("/manufacturers/cheaper/{price}")
+    public List<ManufacturerFullDto> getManufacturers(@PathVariable double price){
+        return exam.getManufacturerWithSouvenirsCheaperThatPrice(price);
+    }
 }
+
+
