@@ -14,7 +14,7 @@ import java.util.Map;
 public interface Exam {
     List<ManufacturerDto> getManufactures();
 
-    List<SouvenirDto> getSouvenirs();
+    List<SouvenirFullDto> getSouvenirs();
 
     void removeManufacturer(Long id);
 

@@ -36,8 +36,8 @@ public class ExamImpl implements Exam {
     }
 
     @Override
-    public List<SouvenirDto> getSouvenirs() {
-        return souvenirsMap.values().stream().map(mapper::toSouvenirDto).toList();
+    public List<SouvenirFullDto> getSouvenirs() {
+        return souvenirsMap.values().stream().map(mapper::toSouvenirFullDto).toList();
     }
 
     @Override

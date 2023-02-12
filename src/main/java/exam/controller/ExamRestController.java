@@ -2,6 +2,7 @@ package exam.controller;
 
 import exam.dto.ManufacturerDto;
 import exam.dto.SouvenirDto;
+import exam.dto.SouvenirFullDto;
 import exam.service.Exam;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class ExamRestController {
     }
 
     @GetMapping
-    public List<SouvenirDto> getSouvenirs() {
+    public List<SouvenirFullDto> getSouvenirs() {
         return exam.getSouvenirs();
     }
 
