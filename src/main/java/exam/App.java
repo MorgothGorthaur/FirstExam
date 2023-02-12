@@ -1,5 +1,6 @@
 package exam;
 
+import exam.dto.SouvenirDto;
 import exam.model.Manufacturer;
 import exam.model.Souvenir;
 
