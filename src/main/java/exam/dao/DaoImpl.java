@@ -14,11 +14,13 @@ import java.io.FileWriter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
 @Component
 public class DaoImpl implements Dao {
     private final String MANUFACTURER_FILE_NAME = "manufacturers.json";
     private final String SOUVENIRS_FILE_NAME = "souvenirs.json";
     private final ObjectMapper mapper;
+
     public DaoImpl() {
         mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
@@ -40,21 +42,6 @@ public class DaoImpl implements Dao {
         }
     }
 
-    @Override
-    public Map<Long, Souvenir> getSouvenirs() {
-        try (var reader = new BufferedReader(new FileReader(SOUVENIRS_FILE_NAME))) {
-            var souvenirs = new HashMap<Long, Souvenir>();
-            var line = "";
-            while ((line = reader.readLine()) != null) {
-                var souvenir = mapper.readValue(line, Souvenir.class);
-                souvenirs.put(souvenir.getId(), souvenir);
-            }
-            return souvenirs;
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            return new HashMap<>();
-        }
-    }
 
     @SneakyThrows
     @Override
@@ -64,11 +51,4 @@ public class DaoImpl implements Dao {
         }
     }
 
-    @SneakyThrows
-    @Override
-    public void saveSouvenirs(Collection<Souvenir> souvenirs) {
-        try (var writer = new BufferedWriter(new FileWriter(SOUVENIRS_FILE_NAME))) {
-            for (var souvenir : souvenirs) writer.append(mapper.writeValueAsString(souvenir)).append("\n");
-        }
-    }
 }
