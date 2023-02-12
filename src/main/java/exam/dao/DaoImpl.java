@@ -1,6 +1,7 @@
 package exam.dao;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.SneakyThrows;
 import exam.model.Manufacturer;
 import exam.model.Souvenir;
@@ -17,7 +18,11 @@ import java.util.Map;
 public class DaoImpl implements Dao {
     private final String MANUFACTURER_FILE_NAME = "manufacturers.json";
     private final String SOUVENIRS_FILE_NAME = "souvenirs.json";
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper;
+    public DaoImpl() {
+        mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+    }
 
     @Override
     public Map<Long, Manufacturer> getManufacturers() {
