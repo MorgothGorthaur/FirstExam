@@ -31,6 +31,6 @@ public interface Exam {
 
     List<ManufacturerDto> getManufacturersBySouvenirNameThatWasMadeThisYear(String name);
 
-    Map<LocalDate, SouvenirFullDto> getSouvenirsByYear(LocalDate date);
+    Map<LocalDate, List<SouvenirFullDto>> getSouvenirsByYear();
 
 }

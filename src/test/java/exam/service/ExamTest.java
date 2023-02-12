@@ -170,6 +170,17 @@ class ExamTest {
 
     @Test
     void getSouvenirsByYear() {
-
+        var expected = new HashMap<LocalDate, List<SouvenirFullDto>>();
+        var list = Arrays.asList(
+                new SouvenirFullDto(0L, "first souvenir name", 5, LocalDate.now(),
+                        new ManufacturerDto(0L, "first", "first country")),
+                new SouvenirFullDto(1L, "second souvenir name", 6, LocalDate.now(),
+                        new ManufacturerDto(0L, "first", "first country")),
+                new SouvenirFullDto(2L, "third souvenir name", 7, LocalDate.now(),
+                        new ManufacturerDto(1L, "second", "second country")),
+                new SouvenirFullDto(3L, "fourth souvenir name", 8, LocalDate.now(),
+                        new ManufacturerDto(1L, "second", "second country")));
+        expected.put(LocalDate.now(), list);
+        assertThat(exam.getSouvenirsByYear()).isEqualTo(expected);
     }
 }
