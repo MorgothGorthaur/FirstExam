@@ -160,7 +160,7 @@ class ExamTest {
     @Test
     void getManufacturersBySouvenirNameThatWasMadeThisYear() {
         var expected = List.of(new ManufacturerDto(0L, "first", "first country"));
-        assertThat(exam.getManufacturersBySouvenirNameThatWasMadeThisYear("first souvenir name")).isEqualTo(expected);
+        assertThat(exam.getManufacturersBySouvenirNameAndYear("first souvenir name")).isEqualTo(expected);
     }
 
     @Test

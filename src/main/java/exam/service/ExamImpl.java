@@ -127,9 +127,9 @@ public class ExamImpl implements Exam {
     }
 
     @Override
-    public List<ManufacturerDto> getManufacturersBySouvenirNameThatWasMadeThisYear(String name) {
+    public List<ManufacturerDto> getManufacturersBySouvenirNameAndYear(String name, LocalDate date) {
         return souvenirsMap.values().stream()
-                .filter(souvenir -> souvenir.getName().equals(name) && souvenir.getDate().getYear() == LocalDate.now().getYear())
+                .filter(souvenir -> souvenir.getName().equals(name) && souvenir.getDate().getYear() == date.getYear())
                 .map(souvenir -> mapper.toManufacturerDto(souvenir.getManufacturer())).toList();
     }
 

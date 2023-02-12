@@ -4,8 +4,6 @@ import exam.dto.ManufacturerDto;
 import exam.dto.ManufacturerFullDto;
 import exam.dto.SouvenirDto;
 import exam.dto.SouvenirFullDto;
-import exam.model.Manufacturer;
-import exam.model.Souvenir;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -34,7 +32,7 @@ public interface Exam {
 
     List<ManufacturerFullDto> getManufacturerWithSouvenirsCheaperThatPrice(double price);
 
-    List<ManufacturerDto> getManufacturersBySouvenirNameThatWasMadeThisYear(String name);
+    List<ManufacturerDto> getManufacturersBySouvenirNameAndYear(String name, LocalDate date);
 
     Map<LocalDate, List<SouvenirFullDto>> getSouvenirsByYear();
 
