@@ -1,12 +1,12 @@
 package exam.service;
 
-import exam.controller.ManufacturedNotFoundException;
 import exam.dao.Dao;
 import exam.dto.ManufacturerDto;
 import exam.dto.ManufacturerFullDto;
 import exam.dto.SouvenirDto;
 import exam.dto.SouvenirFullDto;
 import exam.dto.mapper.Mapper;
+import exam.exception.ManufacturedNotFoundException;
 import exam.exception.SouvenirNotFoundException;
 import exam.model.Manufacturer;
 import exam.model.Souvenir;
