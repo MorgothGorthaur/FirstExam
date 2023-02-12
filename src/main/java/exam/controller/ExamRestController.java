@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -71,6 +72,13 @@ public class ExamRestController {
     public List<ManufacturerFullDto> getManufacturers(@PathVariable double price){
         return exam.getManufacturerWithSouvenirsCheaperThatPrice(price);
     }
+
+    @GetMapping("/manufacturers/souvenir")
+    public List<ManufacturerDto> getManufacturers(@RequestBody SouvenirNameAndYearDto dto) {
+        return exam.getManufacturersBySouvenirNameAndYear(dto.name(), dto.date());
+    }
+
+    record SouvenirNameAndYearDto(@NonNull String name,@NonNull LocalDate date) {}
 }
 
 
