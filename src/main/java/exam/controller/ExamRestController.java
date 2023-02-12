@@ -25,7 +25,7 @@ public class ExamRestController {
         return exam.getSouvenirs();
     }
 
-    @GetMapping("/manufactures/{id}")
+    @GetMapping("/manufacturers/{id}")
     public List<SouvenirDto> getManufacturersSouvenirs(@PathVariable Long id) {
         return exam.getSouvenirsByManufacturerId(id);
     }

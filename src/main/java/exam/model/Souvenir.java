@@ -1,5 +1,6 @@
 package exam.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
@@ -17,6 +18,7 @@ public class Souvenir {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
     private double price;
+    @JsonBackReference
     private Manufacturer manufacturer;
 
     @Override

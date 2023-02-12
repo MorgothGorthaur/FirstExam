@@ -1,5 +1,6 @@
 package exam.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +17,7 @@ public class Manufacturer {
     private Long id;
     private String name;
     private String country;
+    @JsonManagedReference
     private List<Souvenir> souvenirs;
 
     public void addSouvenir(Souvenir souvenir) {
