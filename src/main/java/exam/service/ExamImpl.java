@@ -23,11 +23,11 @@ public class ExamImpl implements Exam {
     private final Dao dao;
     private final Mapper mapper;
 
-    public ExamImpl(Dao dao) {
+    public ExamImpl(Dao dao, Mapper mapper) {
         this.dao = dao;
+        this.mapper = mapper;
         manufacturersMap = (HashMap<Long, Manufacturer>) dao.getManufacturers();
         souvenirsMap = (HashMap<Long, Souvenir>) dao.getSouvenirs();
-        mapper = new MapperImpl();
     }
 
     @Override
