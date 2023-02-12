@@ -80,7 +80,7 @@ public class ExamRestController {
     }
 
     @GetMapping("/souvenirs/years")
-    public Map<LocalDate, List<SouvenirFullDto>> getSouvenirsByYear() {
+    public Map<Integer, List<SouvenirFullDto>> getSouvenirsByYear() {
         return exam.getSouvenirsByYear();
     }
 
