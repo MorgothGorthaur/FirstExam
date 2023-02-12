@@ -44,7 +44,7 @@ class ExamTest {
                 .collect(Collectors.toMap(Manufacturer::getId, manufacturer -> manufacturer));
         var souvenirsMap = Stream.of(firstSouvenir, secondSouvenir, thirstSouvenir, fourthSouvenir)
                 .collect(Collectors.toMap(Souvenir::getId, souvenir -> souvenir));
-        when(dao.getManufacturers()).thenReturn(manufacturersMap);
+        when(dao.readManufacturers()).thenReturn(manufacturersMap);
         when(dao.getSouvenirs()).thenReturn(souvenirsMap);
         exam = new ExamImpl(dao);
     }

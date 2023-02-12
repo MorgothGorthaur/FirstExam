@@ -6,7 +6,6 @@ import exam.dto.ManufacturerFullDto;
 import exam.dto.SouvenirDto;
 import exam.dto.SouvenirFullDto;
 import exam.dto.mapper.Mapper;
-import exam.dto.mapper.MapperImpl;
 import exam.model.Manufacturer;
 import exam.model.Souvenir;
 import org.springframework.stereotype.Service;
@@ -26,7 +25,7 @@ public class ExamImpl implements Exam {
     public ExamImpl(Dao dao, Mapper mapper) {
         this.dao = dao;
         this.mapper = mapper;
-        manufacturersMap = (HashMap<Long, Manufacturer>) dao.getManufacturers();
+        manufacturersMap = (HashMap<Long, Manufacturer>) dao.readManufacturers();
         souvenirsMap = new HashMap<>();
         manufacturersMap.values().forEach(manufacturer ->
                 souvenirsMap.putAll(manufacturer.getSouvenirs().stream().collect(Collectors.toMap(Souvenir::getId, souvenir -> souvenir))));

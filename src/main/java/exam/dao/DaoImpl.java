@@ -27,7 +27,7 @@ public class DaoImpl implements Dao {
     }
 
     @Override
-    public Map<Long, Manufacturer> getManufacturers() {
+    public Map<Long, Manufacturer> readManufacturers() {
         try (var reader = new BufferedReader(new FileReader(MANUFACTURER_FILE_NAME))) {
             var manufactures = new HashMap<Long, Manufacturer>();
             var line = "";
