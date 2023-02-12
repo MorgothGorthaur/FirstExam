@@ -22,9 +22,9 @@ public interface Exam {
 
     void updateManufacturer(ManufacturerDto manufacturer);
 
-    void addSouvenir(Long id, SouvenirDto souvenir);
+    ManufacturerFullDto addSouvenir(Long id, SouvenirDto souvenir);
 
-    void addManufacturer(ManufacturerDto manufacturer);
+    ManufacturerFullDto addManufacturer(ManufacturerDto manufacturer);
 
     List<SouvenirDto> getSouvenirsByManufacturerId(Long manufacturerId);
 

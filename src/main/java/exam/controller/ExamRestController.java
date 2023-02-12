@@ -45,19 +45,17 @@ public class ExamRestController {
     }
 
     @PostMapping("/manufacturers")
-    public void addManufacturer(@RequestBody ManufacturerDto dto) {
-        exam.addManufacturer(dto);
+    public ManufacturerFullDto addManufacturer(@RequestBody ManufacturerDto dto) {
+        return exam.addManufacturer(dto);
     }
 
     @PostMapping("/manufacturers/{id}")
-    public void addSouvenir(@PathVariable Long id, @RequestBody SouvenirDto dto) {
-        exam.addSouvenir(id, dto);
+    public ManufacturerFullDto addSouvenir(@PathVariable Long id, @RequestBody SouvenirDto dto) {
+        return exam.addSouvenir(id, dto);
     }
 
     @PatchMapping("/manufacturers")
-    public void updateManufacturer(@RequestBody ManufacturerDto dto) {
-        exam.updateManufacturer(dto);
-    }
+    public void updateManufacturer(@RequestBody ManufacturerDto dto) {exam.updateManufacturer(dto);}
 
     @PatchMapping("/souvenirs")
     public void updateSouvenir(@RequestBody SouvenirDto dto) {

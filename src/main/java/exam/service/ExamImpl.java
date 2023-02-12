@@ -75,7 +75,7 @@ public class ExamImpl implements Exam {
     }
 
     @Override
-    public void addSouvenir(Long id, SouvenirDto dto) {
+    public ManufacturerFullDto addSouvenir(Long id, SouvenirDto dto) {
         var souvenir = dto.toSouvenir();
         souvenir.setId(generateId(souvenirsMap.keySet()));
         var manufacturer = getManufacturerById(id);
@@ -83,14 +83,16 @@ public class ExamImpl implements Exam {
         manufacturer.addSouvenir(souvenir);
         souvenirsMap.put(souvenir.getId(), souvenir);
         dao.saveManufactures(manufacturersMap.values());
+        return mapper.toManufacturerFullDto(manufacturer);
     }
 
     @Override
-    public void addManufacturer(ManufacturerDto dto) {
+    public ManufacturerFullDto addManufacturer(ManufacturerDto dto) {
         var manufacturer = dto.toManufacturer();
         manufacturer.setId(generateId(manufacturersMap.keySet()));
         manufacturersMap.put(manufacturer.getId(), manufacturer);
         dao.saveManufactures(manufacturersMap.values());
+        return mapper.toManufacturerFullDto(manufacturer);
     }
 
     @Override
