@@ -1,11 +1,13 @@
 package exam.service;
 
+import exam.controller.ManufacturedNotFoundException;
 import exam.dao.Dao;
 import exam.dto.ManufacturerDto;
 import exam.dto.ManufacturerFullDto;
 import exam.dto.SouvenirDto;
 import exam.dto.SouvenirFullDto;
 import exam.dto.mapper.Mapper;
+import exam.exception.SouvenirNotFoundException;
 import exam.model.Manufacturer;
 import exam.model.Souvenir;
 import org.springframework.stereotype.Service;
@@ -44,7 +46,7 @@ public class ExamImpl implements Exam {
     @Override
     public void removeManufacturer(Long id) {
         var removed = manufacturersMap.remove(id);
-        if (removed == null) throw new RuntimeException();
+        if (removed == null) throw new ManufacturedNotFoundException(id);
         else{
             removed.getSouvenirs().forEach(souvenir -> souvenirsMap.remove(souvenir.getId()));
             dao.saveManufactures(manufacturersMap.values());
@@ -54,7 +56,7 @@ public class ExamImpl implements Exam {
     @Override
     public void removeSouvenir(Long id) {
         var removed = souvenirsMap.remove(id);
-        if (removed == null) throw new RuntimeException();
+        if (removed == null) throw new SouvenirNotFoundException(id);
         else {
             manufacturersMap.get(id).removeSouvenir(removed);
             dao.saveManufactures(manufacturersMap.values());
@@ -64,7 +66,7 @@ public class ExamImpl implements Exam {
     @Override
     public void updateSouvenir(SouvenirDto souvenir) {
         var updated = souvenirsMap.get(souvenir.id());
-        if (updated == null) throw new RuntimeException();
+        if (updated == null) throw new SouvenirNotFoundException(souvenir.id());
         else {
             updated.setDate(souvenir.date());
             updated.setName(souvenir.name());
@@ -76,7 +78,7 @@ public class ExamImpl implements Exam {
     @Override
     public void updateManufacturer(ManufacturerDto manufacturer) {
         var updated = manufacturersMap.get(manufacturer.id());
-        if (updated == null) throw new RuntimeException();
+        if (updated == null) throw new ManufacturedNotFoundException(manufacturer.id());
         else {
             updated.setCountry(manufacturer.country());
             updated.setName(manufacturer.name());
@@ -89,7 +91,7 @@ public class ExamImpl implements Exam {
         var souvenir = dto.toSouvenir();
         souvenir.setId(generateId(souvenirsMap.keySet()));
         var manufacturer = manufacturersMap.get(id);
-        if (manufacturer == null) throw new RuntimeException();
+        if (manufacturer == null) throw new ManufacturedNotFoundException(id);
         else {
             souvenir.setId(generateId(souvenirsMap.keySet()));
             manufacturer.addSouvenir(souvenir);
@@ -109,7 +111,7 @@ public class ExamImpl implements Exam {
     @Override
     public List<SouvenirDto> getSouvenirsByManufacturerId(Long manufacturerId) {
         var manufacturer = manufacturersMap.get(manufacturerId);
-        if (manufacturer == null) throw new RuntimeException();
+        if (manufacturer == null) throw new ManufacturedNotFoundException(manufacturerId);
         else return manufacturer.getSouvenirs().stream().map(mapper::toSouvenirDto).toList();
     }
 
