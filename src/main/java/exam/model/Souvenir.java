@@ -9,6 +9,7 @@ import java.util.Objects;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
 @AllArgsConstructor
 @Getter @Setter
+@NoArgsConstructor
 public class Souvenir {
     private Long id;
     private String name;

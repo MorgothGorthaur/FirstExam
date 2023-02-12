@@ -87,12 +87,14 @@ public class ExamImpl implements Exam {
     @Override
     public void addSouvenir(Long id, SouvenirDto dto) {
         var souvenir = dto.toSouvenir();
+        souvenir.setId(generateId(souvenirsMap.keySet()));
         var manufacturer = manufacturersMap.get(id);
         if (manufacturer == null) throw new RuntimeException();
         else {
             souvenir.setId(generateId(souvenirsMap.keySet()));
             manufacturer.addSouvenir(souvenir);
             souvenirsMap.put(souvenir.getId(), souvenir);
+            dao.saveSouvenirs(souvenirsMap.values());
         }
     }
 
@@ -101,6 +103,7 @@ public class ExamImpl implements Exam {
         var manufacturer = dto.toManufacturer();
         manufacturer.setId(generateId(manufacturersMap.keySet()));
         manufacturersMap.put(manufacturer.getId(), manufacturer);
+        dao.saveManufactures(manufacturersMap.values());
     }
 
     @Override
