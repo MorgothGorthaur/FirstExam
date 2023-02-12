@@ -13,10 +13,15 @@ import java.util.Map;
 
 public interface Exam {
     List<ManufacturerDto> getManufactures();
+
     List<SouvenirDto> getSouvenirs();
+
     void removeManufacturer(Long id);
+
     void removeSouvenir(Long id);
+
     void updateSouvenir(SouvenirDto souvenir);
+
     void updateManufacturer(ManufacturerDto manufacturer);
 
     void addSouvenir(Long id, SouvenirDto souvenir);
