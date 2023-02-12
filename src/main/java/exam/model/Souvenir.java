@@ -1,5 +1,6 @@
 package exam.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
 
@@ -13,6 +14,7 @@ import java.util.Objects;
 public class Souvenir {
     private Long id;
     private String name;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
     private double price;
     private Manufacturer manufacturer;
