@@ -4,28 +4,28 @@ import exam.dto.ManufacturerDto;
 import exam.dto.ManufacturerFullDto;
 import exam.dto.SouvenirDto;
 import exam.dto.SouvenirFullDto;
-import exam.dto.mapper.Mapper;
 import exam.model.Manufacturer;
 import exam.model.Souvenir;
 
 public class MapperImpl implements Mapper {
     @Override
     public ManufacturerDto toManufacturerDto(Manufacturer manufacturer) {
-        return null;
+        return new ManufacturerDto(manufacturer.getId(), manufacturer.getName(), manufacturer.getCountry());
     }
 
     @Override
     public SouvenirDto toSouvenirDto(Souvenir souvenir) {
-        return null;
+        return new SouvenirDto(souvenir.getId(), souvenir.getName(), souvenir.getPrice(), souvenir.getDate());
     }
 
     @Override
     public ManufacturerFullDto toManufacturerFullDto(Manufacturer manufacturer) {
-        return null;
+        return new ManufacturerFullDto(manufacturer.getId(), manufacturer.getName(),
+                manufacturer.getCountry(), manufacturer.getSouvenirs().stream().map(this::toSouvenirDto).toList());
     }
 
     @Override
     public SouvenirFullDto toSouvenirFullDto(Souvenir souvenir) {
-        return null;
+        return new SouvenirFullDto(souvenir.getId(), souvenir.getName(), souvenir.getPrice(), souvenir.getDate(), toManufacturerDto(souvenir.getManufacturer()));
     }
 }
