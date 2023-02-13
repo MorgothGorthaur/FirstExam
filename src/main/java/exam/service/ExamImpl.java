@@ -79,7 +79,6 @@ public class ExamImpl implements Exam {
         var souvenir = dto.toSouvenir();
         souvenir.setId(generateId(souvenirsMap.keySet()));
         var manufacturer = getManufacturerById(id);
-        souvenir.setId(generateId(souvenirsMap.keySet()));
         manufacturer.addSouvenir(souvenir);
         souvenirsMap.put(souvenir.getId(), souvenir);
         dao.saveManufactures(manufacturersMap.values());
