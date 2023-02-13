@@ -30,7 +30,7 @@ public class Manufacturer {
         souvenirs.remove(souvenir);
     }
 
-    public boolean makesSouvenirsCheaperThanValue(double price) {
+    public boolean isMakesSouvenirsCheaperThanValue(double price) {
         return souvenirs.stream().filter(souvenir -> souvenir.getPrice() > price).toList().size() == 0;
     }
 

@@ -108,7 +108,7 @@ public class ExamImpl implements Exam {
     @Override
     public List<ManufacturerFullDto> getManufacturerWithSouvenirsCheaperThatPrice(double price) {
         return manufacturersMap.values().stream()
-                .filter(manufacturer -> manufacturer.makesSouvenirsCheaperThanValue(price))
+                .filter(manufacturer -> manufacturer.isMakesSouvenirsCheaperThanValue(price))
                 .map(mapper::toManufacturerFullDto).toList();
     }
 
