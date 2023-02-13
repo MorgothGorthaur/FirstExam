@@ -8,10 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface Dao {
-    //Map<Long, Manufacturer> readManufacturers();
-
-    //void saveManufactures(Collection<Manufacturer> manufacturers);
-
     List<Manufacturer> getManufacturers();
 
     List<Souvenir> getSouvenirs();
