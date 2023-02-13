@@ -9,6 +9,7 @@ const ManufacturerList = () => {
     const [manufacturers, setManufacturers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [modal, setModal] = useState(false);
+
     useEffect(() => {
         setLoading(true);
         setTimeout(() => {
@@ -30,6 +31,10 @@ const ManufacturerList = () => {
         ManufacturerService.removeManufacturer(id);
         setManufacturers(manufacturers.filter(m => m.id !== id));
     }
+
+    const updateManufacturer = (manufacturer) => {
+        setManufacturers([...manufacturers.filter(m => m.id !== manufacturer.id), manufacturer]);
+    }
     return (
         <div>
             {loading ? (
@@ -41,13 +46,10 @@ const ManufacturerList = () => {
                     {manufacturers.length ? (
                         <div>
                             {manufacturers.map(manufacturer =>
-                                <div>
-                                    <ManufacturerItem manufacturer={manufacturer}/>
-                                    <Button variant="danger"
-                                            onClick={() => removeManufacturer(manufacturer.id)}> remove </Button>
+                                <div key={manufacturer.id}>
+                                    <ManufacturerItem manufacturer={manufacturer} removeManufacturer={removeManufacturer} updateManufacturer={updateManufacturer}/>
                                 </div>
-                            )
-                            }
+                            )}
                         </div>
                     ) : (
                         <div>
