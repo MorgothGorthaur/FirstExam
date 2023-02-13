@@ -47,13 +47,22 @@ export default class ManufacturerService {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    "id" : id,
+                    "id": id,
                     "name": name,
                     "country": country
                 })
             };
             const response = await fetch('http://localhost:8080/exam/manufacturers', requestOptions);
             if (response.status !== 200) alert(await response.json().debugMeddage);
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    static async getManufacturersCheaperThenValue(price) {
+        try {
+            const response = await fetch('http://localhost:8080/exam/manufacturers/cheaper/' + price );
+            return await response.json();
         } catch (e) {
             alert(e);
         }
