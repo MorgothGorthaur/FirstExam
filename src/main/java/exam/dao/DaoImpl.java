@@ -10,30 +10,26 @@ import exam.model.Manufacturer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
 public class DaoImpl implements Dao {
-    private final String FILE_NAME;
+    private final File storage;
     private final ObjectMapper mapper;
 
     private final Map<Long, Manufacturer> manufacturers;
 
     private final Map<Long, Souvenir> souvenirs;
 
-    public DaoImpl(@Value("${file.name}") String FILE_NAME) {
-        this.FILE_NAME = FILE_NAME;
+    public DaoImpl(@Value("${storage.folder.name}") String FILE_FOLDER_NAME) {
+        this.storage = new File(FILE_FOLDER_NAME);
         mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-        manufacturers = readManufacturers();
+        manufacturers = new HashMap<>();
         souvenirs = new HashMap<>();
-        manufacturers.values().forEach(manufacturer ->
-                souvenirs.putAll(manufacturer.getSouvenirs().stream().collect(Collectors.toMap(Souvenir::getId, souvenir -> souvenir))));
+        readDataFromStorage();
     }
     @Override
     public List<Manufacturer> getManufacturers() {
@@ -55,7 +51,7 @@ public class DaoImpl implements Dao {
         var removed = manufacturers.remove(id);
         if(removed != null) {
             removed.getSouvenirs().forEach(souvenir -> souvenirs.remove(souvenir.getId()));
-            saveManufacturers(manufacturers.values());
+            new File(storage + File.separator + removed.getId()).delete();
         } else throw new ManufacturedNotFoundException(id);
     }
 
@@ -63,8 +59,9 @@ public class DaoImpl implements Dao {
     public void removeSouvenir(Long id) {
         var removed = souvenirs.remove(id);
         if(removed != null) {
-            getManufacturerById(id).removeSouvenir(removed);
-            saveManufacturers(manufacturers.values());
+            var manufacturer = removed.getManufacturer();
+            manufacturer.removeSouvenir(removed);
+            saveManufacturer(manufacturer);
         } else throw new SouvenirNotFoundException(id);
     }
 
@@ -73,7 +70,7 @@ public class DaoImpl implements Dao {
         var updated = getManufacturerById(manufacturer.getId());
         updated.setCountry(manufacturer.getCountry());
         updated.setName(manufacturer.getName());
-        saveManufacturers(manufacturers.values());
+        saveManufacturer(updated);
     }
 
     @Override
@@ -82,14 +79,14 @@ public class DaoImpl implements Dao {
         updated.setDate(souvenir.getDate());
         updated.setName(souvenir.getName());
         updated.setPrice(souvenir.getPrice());
-        saveManufacturers(manufacturers.values());
+        saveManufacturer(updated.getManufacturer());
     }
 
     @Override
     public Manufacturer addManufacturer(Manufacturer manufacturer) {
         manufacturer.setId(generateId(manufacturers.keySet()));
         manufacturers.put(manufacturer.getId(), manufacturer);
-        saveManufacturers(manufacturers.values());
+        saveManufacturer(manufacturer);
         return manufacturer;
     }
 
@@ -99,7 +96,7 @@ public class DaoImpl implements Dao {
         var manufacturer = getManufacturerById(id);
         manufacturer.addSouvenir(souvenir);
         souvenirs.put(souvenir.getId(), souvenir);
-        saveManufacturers(manufacturers.values());
+        saveManufacturer(manufacturer);
         return manufacturer;
     }
 
@@ -119,25 +116,22 @@ public class DaoImpl implements Dao {
     private Long generateId(Set<Long> ids) {
         return ids.stream().max(Long::compare).map(id -> id + 1).orElse(0L);
     }
-    private Map<Long, Manufacturer> readManufacturers() {
-        var manufacturers = new HashMap<Long, Manufacturer>();
-        try (var reader = new BufferedReader(new FileReader(FILE_NAME))) {
-            var line = "";
-            while ((line = reader.readLine()) != null) {
-                var manufacturer = mapper.readValue(line, Manufacturer.class);
+    @SneakyThrows
+    private void readDataFromStorage() {
+        for (var file : Objects.requireNonNull(storage.listFiles())) {
+            try(var reader = new BufferedReader(new FileReader(file))) {
+                var manufacturer = mapper.readValue(reader.readLine(), Manufacturer.class);
                 manufacturers.put(manufacturer.getId(), manufacturer);
+                souvenirs.putAll(manufacturer.getSouvenirs().stream().collect(Collectors.toMap(Souvenir::getId, souvenir -> souvenir)));
             }
-        } catch (Exception ex){
-            System.out.println(ex.getMessage());
         }
-        return manufacturers;
     }
 
 
     @SneakyThrows
-    private void saveManufacturers(Collection<Manufacturer> manufacturers) {
-        try (var writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
-            for (var manufacturer : manufacturers) writer.append(mapper.writeValueAsString(manufacturer)).append("\n");
+    private void saveManufacturer(Manufacturer manufacturers) {
+        try (var writer = new BufferedWriter(new FileWriter(storage + File.separator + manufacturers.getId()))) {
+            writer.append(mapper.writeValueAsString(manufacturers));
         }
     }
 }
