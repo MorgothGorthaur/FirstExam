@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/exam/manufacturers")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class ManufacturerRestController {
     private final Dao dao;
     private final Mapper mapper;

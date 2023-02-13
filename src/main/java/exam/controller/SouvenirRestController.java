@@ -18,6 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/exam/souvenirs")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class SouvenirRestController {
     private final Dao dao;
     private final Mapper mapper;
