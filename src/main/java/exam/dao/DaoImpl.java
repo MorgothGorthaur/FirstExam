@@ -18,9 +18,7 @@ import java.util.stream.Collectors;
 public class DaoImpl implements Dao {
     private final File storage;
     private final ObjectMapper mapper;
-
     private final Map<Long, Manufacturer> manufacturers;
-
     private final Map<Long, Souvenir> souvenirs;
 
     public DaoImpl(@Value("${storage.folder.name}") String FILE_FOLDER_NAME) {
@@ -31,6 +29,7 @@ public class DaoImpl implements Dao {
         souvenirs = new HashMap<>();
         readDataFromStorage();
     }
+
     @Override
     public List<Manufacturer> getManufacturers() {
         return manufacturers.values().stream().toList();
@@ -49,7 +48,7 @@ public class DaoImpl implements Dao {
     @Override
     public void removeManufacturer(Long id) {
         var removed = manufacturers.remove(id);
-        if(removed != null) {
+        if (removed != null) {
             removed.getSouvenirs().forEach(souvenir -> souvenirs.remove(souvenir.getId()));
             new File(storage + File.separator + removed.getId()).delete();
         } else throw new ManufacturedNotFoundException(id);
@@ -58,7 +57,7 @@ public class DaoImpl implements Dao {
     @Override
     public void removeSouvenir(Long id) {
         var removed = souvenirs.remove(id);
-        if(removed != null) {
+        if (removed != null) {
             var manufacturer = removed.getManufacturer();
             manufacturer.removeSouvenir(removed);
             saveManufacturer(manufacturer);
@@ -113,13 +112,15 @@ public class DaoImpl implements Dao {
         if (souvenir != null) return souvenir;
         else throw new SouvenirNotFoundException(id);
     }
+
     private Long generateId(Set<Long> ids) {
         return ids.stream().max(Long::compare).map(id -> id + 1).orElse(0L);
     }
+
     @SneakyThrows
     private void readDataFromStorage() {
         for (var file : Objects.requireNonNull(storage.listFiles())) {
-            try(var reader = new BufferedReader(new FileReader(file))) {
+            try (var reader = new BufferedReader(new FileReader(file))) {
                 var manufacturer = mapper.readValue(reader.readLine(), Manufacturer.class);
                 manufacturers.put(manufacturer.getId(), manufacturer);
                 souvenirs.putAll(manufacturer.getSouvenirs().stream().collect(Collectors.toMap(Souvenir::getId, souvenir -> souvenir)));
