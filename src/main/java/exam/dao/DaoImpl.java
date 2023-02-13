@@ -55,7 +55,7 @@ public class DaoImpl implements Dao {
         var removed = manufacturers.remove(id);
         if(removed != null) {
             removed.getSouvenirs().forEach(souvenir -> souvenirs.remove(souvenir.getId()));
-            saveManufactures(manufacturers.values());
+            saveManufacturers(manufacturers.values());
         } else throw new ManufacturedNotFoundException(id);
     }
 
@@ -64,7 +64,7 @@ public class DaoImpl implements Dao {
         var removed = souvenirs.remove(id);
         if(removed != null) {
             getManufacturerById(id).removeSouvenir(removed);
-            saveManufactures(manufacturers.values());
+            saveManufacturers(manufacturers.values());
         } else throw new SouvenirNotFoundException(id);
     }
 
@@ -73,7 +73,7 @@ public class DaoImpl implements Dao {
         var updated = getManufacturerById(manufacturer.getId());
         updated.setCountry(manufacturer.getCountry());
         updated.setName(manufacturer.getName());
-        saveManufactures(manufacturers.values());
+        saveManufacturers(manufacturers.values());
     }
 
     @Override
@@ -82,14 +82,14 @@ public class DaoImpl implements Dao {
         updated.setDate(souvenir.getDate());
         updated.setName(souvenir.getName());
         updated.setPrice(souvenir.getPrice());
-        saveManufactures(manufacturers.values());
+        saveManufacturers(manufacturers.values());
     }
 
     @Override
     public Manufacturer addManufacturer(Manufacturer manufacturer) {
         manufacturer.setId(generateId(manufacturers.keySet()));
         manufacturers.put(manufacturer.getId(), manufacturer);
-        saveManufactures(manufacturers.values());
+        saveManufacturers(manufacturers.values());
         return manufacturer;
     }
 
@@ -99,7 +99,7 @@ public class DaoImpl implements Dao {
         var manufacturer = getManufacturerById(id);
         manufacturer.addSouvenir(souvenir);
         souvenirs.put(souvenir.getId(), souvenir);
-        saveManufactures(manufacturers.values());
+        saveManufacturers(manufacturers.values());
         return manufacturer;
     }
 
@@ -135,7 +135,7 @@ public class DaoImpl implements Dao {
 
 
     @SneakyThrows
-    private void saveManufactures(Collection<Manufacturer> manufacturers) {
+    private void saveManufacturers(Collection<Manufacturer> manufacturers) {
         try (var writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
             for (var manufacturer : manufacturers) writer.append(mapper.writeValueAsString(manufacturer)).append("\n");
         }
