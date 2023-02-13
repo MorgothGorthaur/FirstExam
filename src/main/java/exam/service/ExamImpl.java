@@ -45,16 +45,20 @@ public class ExamImpl implements Exam {
 
     @Override
     public void removeManufacturer(Long id) {
-        var removed = getManufacturerById(id);
-        removed.getSouvenirs().forEach(souvenir -> souvenirsMap.remove(souvenir.getId()));
-        dao.saveManufactures(manufacturersMap.values());
+        var removed = manufacturersMap.remove(id);
+        if(removed != null) {
+            removed.getSouvenirs().forEach(souvenir -> souvenirsMap.remove(souvenir.getId()));
+            dao.saveManufactures(manufacturersMap.values());
+        } else throw new ManufacturedNotFoundException(id);
     }
 
     @Override
     public void removeSouvenir(Long id) {
-        var removed = getSouvenirById(id);
-        manufacturersMap.get(id).removeSouvenir(removed);
-        dao.saveManufactures(manufacturersMap.values());
+        var removed = souvenirsMap.remove(id);
+        if(removed != null) {
+            getManufacturerById(id).removeSouvenir(removed);
+            dao.saveManufactures(manufacturersMap.values());
+        } else throw new SouvenirNotFoundException(id);
     }
 
     @Override
