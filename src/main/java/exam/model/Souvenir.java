@@ -20,21 +20,4 @@ public class Souvenir {
     private double price;
     @JsonBackReference
     private Manufacturer manufacturer;
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null) return false;
-        if (o == this) return true;
-        if (!(o instanceof Souvenir souvenir)) return false;
-        return Objects.equals(name, souvenir.name) && Objects.equals(date, souvenir.date) && price == souvenir.price;
-    }
-
-    @Override
-    public int hashCode() {
-        var hash = 7;
-        hash = 31 * hash + (name != null ? name.hashCode() : 0);
-        hash = 31 * hash + (date != null ? date.hashCode() : 0);
-        hash = 31 * hash + Double.valueOf(price).hashCode();
-        return hash;
-    }
 }
