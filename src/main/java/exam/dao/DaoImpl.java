@@ -35,28 +35,6 @@ public class DaoImpl implements Dao {
         manufacturers.values().forEach(manufacturer ->
                 souvenirs.putAll(manufacturer.getSouvenirs().stream().collect(Collectors.toMap(Souvenir::getId, souvenir -> souvenir))));
     }
-    private Map<Long, Manufacturer> readManufacturers() {
-        manufacturers = new HashMap<>();
-        try (var reader = new BufferedReader(new FileReader(FILE_NAME))) {
-            var line = "";
-            while ((line = reader.readLine()) != null) {
-                var manufacturer = mapper.readValue(line, Manufacturer.class);
-                manufacturers.put(manufacturer.getId(), manufacturer);
-            }
-        } catch (Exception ex){
-            System.out.println(ex.getMessage());
-        }
-        return manufacturers;
-    }
-
-
-    @SneakyThrows
-    public void saveManufactures(Collection<Manufacturer> manufacturers) {
-        try (var writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
-            for (var manufacturer : manufacturers) writer.append(mapper.writeValueAsString(manufacturer)).append("\n");
-        }
-    }
-
     @Override
     public List<Manufacturer> getManufacturers() {
         return manufacturers.values().stream().toList();
@@ -140,5 +118,26 @@ public class DaoImpl implements Dao {
     }
     private Long generateId(Set<Long> ids) {
         return ids.stream().max(Long::compare).map(id -> id + 1).orElse(0L);
+    }
+    private Map<Long, Manufacturer> readManufacturers() {
+        manufacturers = new HashMap<>();
+        try (var reader = new BufferedReader(new FileReader(FILE_NAME))) {
+            var line = "";
+            while ((line = reader.readLine()) != null) {
+                var manufacturer = mapper.readValue(line, Manufacturer.class);
+                manufacturers.put(manufacturer.getId(), manufacturer);
+            }
+        } catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return manufacturers;
+    }
+
+
+    @SneakyThrows
+    private void saveManufactures(Collection<Manufacturer> manufacturers) {
+        try (var writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
+            for (var manufacturer : manufacturers) writer.append(mapper.writeValueAsString(manufacturer)).append("\n");
+        }
     }
 }
