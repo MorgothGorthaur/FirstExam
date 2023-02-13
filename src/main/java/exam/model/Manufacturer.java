@@ -49,10 +49,4 @@ public class Manufacturer {
         hash = 31 * hash + (country != null ? country.hashCode() : 0);
         return hash;
     }
-
-    @Override
-    public String toString() {
-        return "Manufacturer(name=" + name + ", country=" + country + ")";
-    }
-
 }

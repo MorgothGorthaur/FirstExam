@@ -37,8 +37,4 @@ public class Souvenir {
         hash = 31 * hash + Double.valueOf(price).hashCode();
         return hash;
     }
-    @Override
-    public String toString(){
-        return "Souvenir(name=" + name + ", date=" + date + ", price=" + price + ", manufacturer=" + manufacturer.toString() + ")";
-    }
 }
