@@ -49,10 +49,10 @@ public class ManufacturerRestController {
     }
 
     @GetMapping("/cheaper/{price}")
-    public List<ManufacturerFullDto> getManufacturers(@PathVariable double price) {
+    public List<ManufacturerDto> getCheapestManufacturers(@PathVariable double price) {
         return dao.getManufacturers().stream()
                 .filter(manufacturer -> manufacturer.isMakesSouvenirsCheaperThanValue(price))
-                .map(mapper::toManufacturerFullDto).toList();
+                .map(mapper::toManufacturerDto).toList();
     }
 
 
