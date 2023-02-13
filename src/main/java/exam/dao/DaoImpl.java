@@ -22,9 +22,9 @@ public class DaoImpl implements Dao {
     private final String FILE_NAME;
     private final ObjectMapper mapper;
 
-    private Map<Long, Manufacturer> manufacturers;
+    private final Map<Long, Manufacturer> manufacturers;
 
-    private Map<Long, Souvenir> souvenirs;
+    private final Map<Long, Souvenir> souvenirs;
 
     public DaoImpl(@Value("${file.name}") String FILE_NAME) {
         this.FILE_NAME = FILE_NAME;
@@ -120,7 +120,7 @@ public class DaoImpl implements Dao {
         return ids.stream().max(Long::compare).map(id -> id + 1).orElse(0L);
     }
     private Map<Long, Manufacturer> readManufacturers() {
-        manufacturers = new HashMap<>();
+        var manufacturers = new HashMap<Long, Manufacturer>();
         try (var reader = new BufferedReader(new FileReader(FILE_NAME))) {
             var line = "";
             while ((line = reader.readLine()) != null) {
