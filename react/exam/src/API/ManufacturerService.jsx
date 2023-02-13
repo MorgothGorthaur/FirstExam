@@ -67,4 +67,13 @@ export default class ManufacturerService {
             alert(e);
         }
     }
+
+    static async getManufacturersSouvenirs(id) {
+        try {
+            const response = await fetch('http://localhost:8080/exam/manufacturers/' + id );
+            return await response.json();
+        } catch (e) {
+            alert(e);
+        }
+    }
 }

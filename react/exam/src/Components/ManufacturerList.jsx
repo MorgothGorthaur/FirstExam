@@ -5,7 +5,6 @@ import {Button, Modal} from "react-bootstrap";
 import ManufacturerForm from "./ManufacturerForm";
 import ManufacturerItem from "./ManufacturerItem";
 import PriceForm from "./PriceForm";
-
 const ManufacturerList = () => {
     const [manufacturers, setManufacturers] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -18,7 +17,7 @@ const ManufacturerList = () => {
     const getAll = () => {
         setLoading(true);
         setTimeout(() => {
-            fetchManufacturers();
+            ManufacturerService.getAll().then(data => setManufacturers(data));
             setLoading(false);
         }, 1000);
     }
@@ -30,10 +29,6 @@ const ManufacturerList = () => {
             setCheapestForm(false);
             setLoading(false);
         }, 1000);
-    }
-
-    async function fetchManufacturers() {
-        setManufacturers(await ManufacturerService.getAll());
     }
 
     const addManufacturer = (manufacturer) => {
