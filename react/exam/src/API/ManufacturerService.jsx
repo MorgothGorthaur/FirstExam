@@ -76,4 +76,24 @@ export default class ManufacturerService {
             alert(e);
         }
     }
+
+    static async addSouvenir(id, name, price, date) {
+        try{
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "name": name,
+                    "price": price,
+                    "date" : date
+                })
+            }
+            const response = await fetch('http://localhost:8080/exam/manufacturers/' + id, requestOptions);
+            return await response.json();
+        } catch (e) {
+            alert(e);
+        }
+    }
 }
