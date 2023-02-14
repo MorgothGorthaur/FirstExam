@@ -1,7 +1,7 @@
 import {Button, Modal} from "react-bootstrap";
 import ManufacturerForm from "./ManufacturerForm";
 import React, {useState} from "react";
-import ManufacturersSouvenir from "./ManufacturersSouvenirsList";
+import ManufacturersSouvenir from "./SouvenirsList";
 
 const ManufacturerItem = ({manufacturer, removeManufacturer, updateManufacturer}) => {
     const [modal, setModal] = useState(false);

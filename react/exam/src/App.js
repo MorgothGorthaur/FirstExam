@@ -1,5 +1,5 @@
 import './App.css';
-import ManufacturerList from './Components/ManufacturerList';
+import ManufacturerList from './Components/Manufacturer/ManufacturerList';
 function App() {
     return (
         <div>

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
-import Loader from '../UI/Loader/Loader';
-import ManufacturerService from "../API/ManufacturerService";
+import Loader from '../../UI/Loader/Loader';
+import ManufacturerService from "../../API/ManufacturerService";
 import {Button, Modal} from "react-bootstrap";
 import ManufacturerForm from "./ManufacturerForm";
 import ManufacturerItem from "./ManufacturerItem";

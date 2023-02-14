@@ -1,8 +1,8 @@
 import {Button, Form} from "react-bootstrap";
 import {useState, useEffect} from "react";
-import Input from "../UI/Input/Input";
-import ManufacturerService from "../API/ManufacturerService";
-import SouvenirService from "../API/SouvenirService";
+import Input from "../../UI/Input/Input";
+import ManufacturerService from "../../API/ManufacturerService";
+import SouvenirService from "../../API/SouvenirService";
 
 const SouvenirForm = ({CreateOrUpdate, manufacturerId, souvenir}) => {
     const [id, setId] = useState();

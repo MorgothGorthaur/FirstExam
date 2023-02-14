@@ -1,7 +1,7 @@
 import {Button, Form} from 'react-bootstrap';
-import Input from "../UI/Input/Input";
+import Input from "../../UI/Input/Input";
 import {useState, useEffect} from "react";
-import ManufacturerService from "../API/ManufacturerService";
+import ManufacturerService from "../../API/ManufacturerService";
 import data from "bootstrap/js/src/dom/data";
 
 const ManufacturerForm = ({CreateOrUpdate, manufacturer}) => {

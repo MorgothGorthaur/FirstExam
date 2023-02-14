@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {Button, Form} from "react-bootstrap";
-import Input from "../UI/Input/Input";
-import ManufacturerService from "../API/ManufacturerService";
+import Input from "../../UI/Input/Input";
+import ManufacturerService from "../../API/ManufacturerService";
 import data from "bootstrap/js/src/dom/data";
 
 const PriceForm = ({getCheapest}) => {
