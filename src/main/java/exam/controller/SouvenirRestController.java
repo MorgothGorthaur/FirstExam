@@ -45,7 +45,7 @@ public class SouvenirRestController {
         dao.updateSouvenir(dto.toSouvenir());
     }
 
-    @GetMapping("/{country}")
+    @GetMapping("/country/{country}")
     public List<SouvenirFullDto> getSouvenirsByCountry(@PathVariable String country) {
         return dao.getSouvenirs().stream().filter(souvenir -> souvenir.getManufacturer().getCountry().equals(country))
                 .map(mapper::toSouvenirFullDto).toList();
