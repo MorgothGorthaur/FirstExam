@@ -4,8 +4,10 @@ import ManufacturerService from "../API/ManufacturerService";
 import Loader from "../UI/Loader/Loader";
 import {Button, Modal} from "react-bootstrap";
 import SouvenirForm from "./SouvenirForm";
+import Souvenir from "./Souvenir";
+import SouvenirService from "../API/SouvenirService";
 
-const ManufacturersSouvenir = ({id}) => {
+const ManufacturersSouvenirsList = ({id}) => {
     const [souvenirs, setSouvenirs] = useState([]);
     const [loading, setLoading] = useState(false);
     const [modal, setModal] = useState(false);
@@ -20,6 +22,10 @@ const ManufacturersSouvenir = ({id}) => {
         setSouvenirs([...souvenirs, souvenir]);
         setModal(false);
     }
+    const remove = (id) => {
+        SouvenirService.remove(id);
+        setSouvenirs(souvenirs.filter(s => s.id !==id));
+    }
     return (
         <div>
             {
@@ -30,20 +36,23 @@ const ManufacturersSouvenir = ({id}) => {
                         {
                             souvenirs.length ? (
                                 <div>
-                                    souvenirs.map(souvenir => {
-                                    <h1> gg</h1>
-                                })
+                                    {
+                                        souvenirs.map(souvenir => <div key={souvenir.id}>
+                                                <Souvenir souvenir={souvenir} remove={remove}/>
+                                            </div>
+                                        )
+                                    }
                                 </div>
                             ) : (
                                 <h1> souvenirs not founded! </h1>
                             )
                         }
                         <Button onClick={() => setModal(true)}> add </Button>
-                        <Modal show={modal} onHide={setModal}> <SouvenirForm CreateOrUpdate={add} id = {id}/> </Modal>
+                        <Modal show={modal} onHide={setModal}> <SouvenirForm CreateOrUpdate={add} id={id}/> </Modal>
                     </div>
                 )
             }
         </div>
     );
 };
-export default ManufacturersSouvenir;
+export default ManufacturersSouvenirsList;
