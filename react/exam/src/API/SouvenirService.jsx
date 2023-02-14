@@ -7,6 +7,22 @@ export default class SouvenirService {
             alert(e);
         }
     }
+    static async getByCountry(country) {
+        try {
+            const response = await fetch('http://localhost:8080/exam/souvenirs/country/' + country);
+            return await response.json();
+        } catch (e) {
+            alert(e);
+        }
+    }
+    static async getManufacturer(id) {
+        try {
+            const response = await fetch('http://localhost:8080/exam/souvenirs/' + id);
+            return await response.json();
+        } catch (e) {
+            alert(e);
+        }
+    }
     static async remove(id) {
         try {
             const requestOptions = {
