@@ -1,4 +1,12 @@
 export default class SouvenirService {
+    static async getAll() {
+        try {
+            const response = await fetch('http://localhost:8080/exam/souvenirs');
+            return await response.json();
+        } catch (e) {
+            alert(e);
+        }
+    }
     static async remove(id) {
         try {
             const requestOptions = {

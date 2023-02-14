@@ -1,9 +1,12 @@
 import './App.css';
 import ManufacturerList from './Components/Manufacturer/ManufacturerList';
+import SouvenirForm from "./Components/SouvenirForm";
+import SouvenirItem from "./Components/Souvenir/SouvenirItem";
+import SouvenirList from "./Components/Souvenir/SouvenirList";
 function App() {
     return (
         <div>
-            <ManufacturerList/>
+            <SouvenirList/>
         </div>
     );
 }
