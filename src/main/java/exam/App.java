@@ -23,6 +23,9 @@ public class App implements CommandLineRunner {
     @Override
     @SneakyThrows
     public void run(String... args) {
-        System.out.println(reader.readLine());
+        manufacturerHandler.addManufacturer();
+        manufacturerHandler.getManufacturers();
+        manufacturerHandler.getFullManufacturer();
+
     }
 }

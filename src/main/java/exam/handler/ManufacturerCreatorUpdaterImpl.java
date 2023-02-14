@@ -14,11 +14,10 @@ public class ManufacturerCreatorUpdaterImpl implements ManufacturerCreatorUpdate
     private final BufferedReader reader;
 
     @Override
-    @SneakyThrows
     public ManufacturerDto create() {
         try {
-            var name = reader.readLine();
-            var country = reader.readLine();
+            var name = getName();
+            var country = getCountry();
             return new ManufacturerDto(null, name, country);
         } catch (ManufacturerValidationException ex) {
             System.out.println(ex.getMessage());
@@ -35,8 +34,8 @@ public class ManufacturerCreatorUpdaterImpl implements ManufacturerCreatorUpdate
             var line = "";
             while (!(line = reader.readLine()).equals("update")) {
                 switch (line) {
-                    case "name" -> name = reader.readLine();
-                    case "country" -> country = reader.readLine();
+                    case "name" -> name = getName();
+                    case "country" -> country = getCountry();
                     default -> menu();
                 }
             }
@@ -56,5 +55,15 @@ public class ManufacturerCreatorUpdaterImpl implements ManufacturerCreatorUpdate
                 + update - updates               +
                 ++++++++++++++++++++++++++++++++++
                 """);
+    }
+    @SneakyThrows
+    private String getName() {
+        System.out.print("print name: ");
+        return reader.readLine();
+    }
+    @SneakyThrows
+    private String getCountry() {
+        System.out.print("print country: ");
+        return reader.readLine();
     }
 }
