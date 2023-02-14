@@ -28,6 +28,11 @@ public class SouvenirRestController {
         return dao.getSouvenirs().stream().map(mapper::toSouvenirFullDto).toList();
     }
 
+    @GetMapping("/{id}")
+    public ManufacturerDto getManufacturer(@PathVariable Long id) {
+        return mapper.toManufacturerDto(dao.getSouvenirById(id).getManufacturer());
+
+    }
 
     @DeleteMapping("/{id}")
     public void removeSouvenir(@PathVariable Long id) {
