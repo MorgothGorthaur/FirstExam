@@ -2,57 +2,91 @@ package exam.handler;
 
 import exam.dao.Dao;
 import exam.dto.ManufacturerDto;
-import exam.dto.ManufacturerFullDto;
 import exam.dto.SouvenirDto;
 import exam.dto.mapper.Mapper;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.io.BufferedReader;
 
 @RequiredArgsConstructor
+@Component
 public class ManufacturerHandlerImpl implements ManufacturerHandler {
     private final Dao dao;
     private final Mapper mapper;
 
+    private final BufferedReader reader;
+
+    private final ManufacturerCreatorUpdater manufacturerCreatorUpdater;
+
+    private final SouvenirCreatorUpdater souvenirCreatorUpdater;
+
     @Override
-    public List<ManufacturerDto> getManufacturers() {
-        return dao.getManufacturers().stream().map(mapper::toManufacturerDto).toList();
+    public void getManufacturers() {
+        dao.getManufacturers().forEach(manufacturer -> System.out.println(mapper.toManufacturerDto(manufacturer)));
+    }
+
+
+    @Override
+    public void getFullManufacturer() {
+        System.out.println(dao.getManufacturerById(getId()));
+    }
+
+
+    @SneakyThrows
+    @Override
+    public void removeManufacturer() {
+        dao.removeManufacturer(getId());
+
     }
 
     @Override
-    public ManufacturerFullDto getFullManufacturer(Long id) {
-        return mapper.toManufacturerFullDto(dao.getManufacturerById(id));
+    public void addManufacturer() {
+        System.out.println(mapper.toManufacturerDto(dao.addManufacturer(manufacturerCreatorUpdater.create().toManufacturer())));
     }
 
     @Override
-    public void removeManufacturer(Long id) {
-        dao.removeManufacturer(id);
+    public void updateManufacturer() {
+        var updated = manufacturerCreatorUpdater.update(mapper.toManufacturerDto(dao.getManufacturerById(getId())));
+        System.out.println(mapper.toManufacturerDto(dao.updateManufacturer(updated.toManufacturer())));
     }
 
     @Override
-    public ManufacturerDto addManufacturer(ManufacturerDto dto) {
-        return mapper.toManufacturerDto(dao.addManufacturer(dto.toManufacturer()));
+    public void addSouvenir() {
+        System.out.println(mapper.toSouvenirDto(dao.addSouvenir(getId(), souvenirCreatorUpdater.create().toSouvenir())));
     }
 
     @Override
-    public ManufacturerDto updateManufacturer(ManufacturerDto dto) {
-        return mapper.toManufacturerDto(dao.updateManufacturer(dto.toManufacturer()));
+    public void updateSouvenir() {
+        System.out.println(mapper.toSouvenirDto(dao.updateSouvenir(souvenirCreatorUpdater.update(dao.getSouvenirById(getId())).toSouvenir())));
     }
 
     @Override
-    public SouvenirDto addSouvenir(Long id, SouvenirDto dto) {
-        return mapper.toSouvenirDto(dao.addSouvenir(id, dto.toSouvenir()));
+    public void getCheapest() {
+        var price = getPrice();
+        dao.getManufacturers().stream()
+                .filter(manufacturer -> manufacturer.isMakesSouvenirsCheaperThanValue(price))
+                .forEach(m -> System.out.println(mapper.toManufacturerDto(m)));
     }
 
-    @Override
-    public SouvenirDto updateSouvenir(SouvenirDto dto) {
-        return mapper.toSouvenirDto(dao.updateSouvenir(dto.toSouvenir()));
+    private Long getId() {
+        try {
+            System.out.print("print id");
+            return Long.valueOf(reader.readLine());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return getId();
+        }
     }
 
-    @Override
-    public List<ManufacturerDto> getCheapest(double price) {
-        return dao.getManufacturers().stream()
-                .filter(m -> m.isMakesSouvenirsCheaperThanValue(price))
-                .map(mapper::toManufacturerDto).toList();
+    private double getPrice() {
+        try {
+            System.out.print("get price");
+            return Double.parseDouble(reader.readLine());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return getPrice();
+        }
     }
 }

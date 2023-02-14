@@ -8,12 +8,12 @@ import exam.model.Manufacturer;
 import java.util.List;
 
 public interface ManufacturerHandler {
-    List<ManufacturerDto> getManufacturers();
-    ManufacturerFullDto getFullManufacturer(Long id);
-    void removeManufacturer(Long id);
-    ManufacturerDto addManufacturer(ManufacturerDto dto);
-    ManufacturerDto updateManufacturer(ManufacturerDto dto);
-    SouvenirDto addSouvenir(Long id, SouvenirDto dto);
-    SouvenirDto updateSouvenir(SouvenirDto dto);
-    List<ManufacturerDto> getCheapest(double price);
+    void getManufacturers();
+    void getFullManufacturer();
+    void removeManufacturer();
+    void addManufacturer();
+    void updateManufacturer();
+    void addSouvenir();
+    void updateSouvenir();
+    void getCheapest();
 }
