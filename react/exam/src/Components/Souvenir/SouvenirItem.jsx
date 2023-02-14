@@ -1,6 +1,6 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import {useState} from "react";
-import SouvenirForm from "../SouvenirForm";
+import SouvenirForm from "../Manufacturer/SouvenirForm";
 
 const SouvenirItem = ({souvenir, removeSouvenir, updateSouvenir}) => {
     const [modal, setModal] = useState(false);
