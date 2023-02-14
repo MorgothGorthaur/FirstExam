@@ -65,20 +65,22 @@ public class DaoImpl implements Dao {
     }
 
     @Override
-    public void updateManufacturer(Manufacturer manufacturer) {
+    public Manufacturer updateManufacturer(Manufacturer manufacturer) {
         var updated = getManufacturerById(manufacturer.getId());
         updated.setCountry(manufacturer.getCountry());
         updated.setName(manufacturer.getName());
         saveManufacturer(updated);
+        return updated;
     }
 
     @Override
-    public void updateSouvenir(Souvenir souvenir) {
+    public Souvenir updateSouvenir(Souvenir souvenir) {
         var updated = getSouvenirById(souvenir.getId());
         updated.setDate(souvenir.getDate());
         updated.setName(souvenir.getName());
         updated.setPrice(souvenir.getPrice());
         saveManufacturer(updated.getManufacturer());
+        return updated;
     }
 
     @Override

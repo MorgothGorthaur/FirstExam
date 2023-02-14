@@ -3,9 +3,7 @@ package exam.dao;
 import exam.model.Manufacturer;
 import exam.model.Souvenir;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 public interface Dao {
     List<Manufacturer> getManufacturers();
@@ -18,9 +16,9 @@ public interface Dao {
 
     void removeSouvenir(Long id);
 
-    void updateManufacturer(Manufacturer manufacturer);
+    Manufacturer updateManufacturer(Manufacturer manufacturer);
 
-    void updateSouvenir(Souvenir souvenir);
+    Souvenir updateSouvenir(Souvenir souvenir);
 
     Manufacturer addManufacturer(Manufacturer manufacturer);
 
