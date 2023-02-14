@@ -26,6 +26,10 @@ const ManufacturersSouvenirsList = ({id}) => {
         SouvenirService.remove(id);
         setSouvenirs(souvenirs.filter(s => s.id !==id));
     }
+
+    const update = (souvenir) => {
+        setSouvenirs([...souvenirs.filter(s => s.id !==souvenir.id), souvenir])
+    }
     return (
         <div>
             {
@@ -48,7 +52,7 @@ const ManufacturersSouvenirsList = ({id}) => {
                             )
                         }
                         <Button onClick={() => setModal(true)}> add </Button>
-                        <Modal show={modal} onHide={setModal}> <SouvenirForm CreateOrUpdate={add} id={id}/> </Modal>
+                        <Modal show={modal} onHide={setModal}> <SouvenirForm CreateOrUpdate={add} manufacturerId={id}/> </Modal>
                     </div>
                 )
             }
