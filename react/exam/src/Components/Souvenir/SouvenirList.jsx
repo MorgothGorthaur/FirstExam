@@ -18,13 +18,6 @@ const SouvenirList = () => {
             setLoading(false);
         }, 1000);
     }
-    const removeSouvenir = (id) => {
-        SouvenirService.remove(id);
-        setSouvenirs(souvenirs.filter(s => s.id !== id));
-    }
-    const updateSouvenir = (souvenir) => {
-        setSouvenirs([...souvenirs.filter(s => s.id !== souvenir.id), souvenir]);
-    }
     return (
         <div>
             {
@@ -35,9 +28,7 @@ const SouvenirList = () => {
                             <div>
                                 {souvenirs.map(souvenir =>
                                     <div key={souvenir.id}>
-                                        <SouvenirItem souvenir={souvenir}
-                                                      removeSouvenir={removeSouvenir}
-                                                      updateSouvenir={updateSouvenir}/>
+                                        <SouvenirItem souvenir={souvenir}/>
                                     </div>)}
                             </div>) : (
                             <div>
