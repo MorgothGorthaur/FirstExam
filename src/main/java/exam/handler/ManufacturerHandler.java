@@ -1,25 +1,19 @@
 package exam.handler;
 
-import exam.dto.ManufacturerDto;
-import exam.dto.ManufacturerFullDto;
-import exam.dto.SouvenirDto;
-import exam.model.Manufacturer;
-
-import java.util.List;
-
 public interface ManufacturerHandler {
     void getManufacturers();
-    void getFullManufacturer();
+
+    void getManufacturer();
+
+    void getFullManufacturers();
+
     void removeManufacturer();
-    void addManufacturer();
+
     void updateManufacturer();
-    void addSouvenir();
-    void updateSouvenir();
-    void getCheapest();
-    void getSouvenirs();
-    void getSouvenirById();
-    void removeSouvenir();
-    void getSouvenirsByYears();
-    void getSouvenirsByCountry();
-    void getSouvenirsByNameAndYear();
+
+    void addManufacturer();
+
+    void getManufacturersBySouvenirNameAndYear();
+
+    void getManufacturersThatMakesSouvenirsCheapestThenValue();
 }
