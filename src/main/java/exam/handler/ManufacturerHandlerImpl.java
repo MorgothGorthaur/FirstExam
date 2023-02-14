@@ -36,7 +36,7 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
 
     @Override
     public void getFullManufacturer() {
-        System.out.println(dao.getManufacturerById(getId()));
+        System.out.println(mapper.toManufacturerFullDto(dao.getManufacturerById(getId())));
     }
 
 
@@ -134,7 +134,7 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
 
     private Long getId() {
         try {
-            System.out.print("print id");
+            System.out.print("print id ");
             return Long.valueOf(reader.readLine());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
