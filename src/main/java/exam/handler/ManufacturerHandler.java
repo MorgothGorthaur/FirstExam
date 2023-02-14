@@ -16,4 +16,10 @@ public interface ManufacturerHandler {
     void addSouvenir();
     void updateSouvenir();
     void getCheapest();
+    void getSouvenirs();
+    void getSouvenirById();
+    void removeSouvenir();
+    void getSouvenirsByYears();
+    void getSouvenirsByCountry();
+    void getSouvenirsByNameAndYear();
 }
