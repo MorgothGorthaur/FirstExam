@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.BufferedReader;
+import java.time.LocalDate;
 
 
 @RequiredArgsConstructor
@@ -23,9 +24,33 @@ public class App implements CommandLineRunner {
     @Override
     @SneakyThrows
     public void run(String... args) {
-        manufacturerHandler.addManufacturer();
-        manufacturerHandler.getManufacturers();
-        manufacturerHandler.getFullManufacturer();
+        var line = "";
+        menu();
+        while (!(line = reader.readLine()).equals("exit")) {
+            switch (line) {
+                case "get manufacturers" -> manufacturerHandler.getManufacturers();
+                case "get full manufacturers" -> manufacturerHandler.getFullManufacturers();
+                case "get manufacturer" -> manufacturerHandler.getManufacturer();
+                case "remove manufacturer" -> manufacturerHandler.removeManufacturer();
+                case "update manufacturer" -> manufacturerHandler.updateManufacturer();
+                case "add manufacturer" -> manufacturerHandler.addManufacturer();
+                case "get manufacturer by name and year" -> manufacturerHandler.getManufacturersBySouvenirNameAndYear();
+                case "get cheapest" -> manufacturerHandler.getManufacturersThatMakesSouvenirsCheapestThenValue();
+                default -> menu();
+            }
+        }
+    }
 
+    private void menu() {
+        System.out.println("""
+                get manufacturers - for getting all manufacturers
+                get full manufacturers - for getting manufacturers with souvenirs
+                get manufacturer - for getting manufacturer with souvenirs
+                remove manufacturer - for removing manufacturers
+                update manufacturer - for updating manufacturers
+                add manufacturer - for adding manufacturers
+                get manufacturer by name and year - for getting manufacturers by souvenir name and year
+                get cheapest - for getting manufacturers that makes souvenirs cheaper then price
+                """);
     }
 }

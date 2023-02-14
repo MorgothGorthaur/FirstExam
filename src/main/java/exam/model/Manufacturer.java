@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,6 +21,10 @@ public class Manufacturer {
     private String country;
     @JsonManagedReference
     private List<Souvenir> souvenirs;
+
+    public Manufacturer(String name, String country) {
+        this(null, name, country, new ArrayList<>());
+    }
 
     public void addSouvenir(Souvenir souvenir) {
         souvenir.setManufacturer(this);
