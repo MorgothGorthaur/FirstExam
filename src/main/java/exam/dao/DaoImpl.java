@@ -90,13 +90,13 @@ public class DaoImpl implements Dao {
     }
 
     @Override
-    public Manufacturer addSouvenir(Long id, Souvenir souvenir) {
+    public Souvenir addSouvenir(Long id, Souvenir souvenir) {
         souvenir.setId(generateId(souvenirs.keySet()));
         var manufacturer = getManufacturerById(id);
         manufacturer.addSouvenir(souvenir);
         souvenirs.put(souvenir.getId(), souvenir);
         saveManufacturer(manufacturer);
-        return manufacturer;
+        return souvenir;
     }
 
     @Override

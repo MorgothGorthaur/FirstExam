@@ -39,8 +39,8 @@ public class ManufacturerRestController {
     }
 
     @PostMapping("/{id}")
-    public ManufacturerFullDto addSouvenir(@PathVariable Long id, @RequestBody SouvenirDto dto) {
-        return mapper.toManufacturerFullDto(dao.addSouvenir(id, dto.toSouvenir()));
+    public SouvenirDto addSouvenir(@PathVariable Long id, @RequestBody SouvenirDto dto) {
+        return mapper.toSouvenirDto(dao.addSouvenir(id, dto.toSouvenir()));
     }
 
     @PatchMapping

@@ -24,7 +24,7 @@ public interface Dao {
 
     Manufacturer addManufacturer(Manufacturer manufacturer);
 
-    Manufacturer addSouvenir(Long id, Souvenir souvenir);
+    Souvenir addSouvenir(Long id, Souvenir souvenir);
 
     Manufacturer getManufacturerById(Long id);
 
