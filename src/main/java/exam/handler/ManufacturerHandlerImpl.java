@@ -1,7 +1,6 @@
 package exam.handler;
 
 import exam.repository.Repository;
-import exam.dto.SouvenirDto;
 import exam.dto.mapper.Mapper;
 import exam.exception.ManufacturedNotFoundException;
 import exam.exception.SouvenirNotFoundException;
@@ -22,13 +21,64 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
     private final Mapper mapper;
     private final BufferedReader reader;
 
+    @SneakyThrows
     @Override
-    public void getManufacturers() {
+    public void menuHandler() {
+        var line = "";
+        menu();
+        while (!(line = reader.readLine()).equals("exit")) {
+            switch (line) {
+                case "get manufacturers" -> printManufacturers();
+                case "get full manufacturers" -> printFullManufacturers();
+                case "get manufacturer" -> printManufacturer();
+                case "remove manufacturer" -> removeManufacturer();
+                case "update manufacturer" ->updateManufacturer();
+                case "add manufacturer" -> addManufacturer();
+                case "get manufacturer by name and year" -> printManufacturersBySouvenirNameAndYear();
+                case "get cheapest" -> printManufacturersThatMakesSouvenirsCheapestThenValue();
+                case "get souvenirs" -> printSouvenirs();
+                case "get full souvenirs" -> printFullSouvenirs();
+                case "get souvenir" -> printSouvenir();
+                case "add souvenir" -> addSouvenir();
+                case "update souvenir" ->updateSouvenir();
+                case "remove souvenir" -> removeSouvenir();
+                case "get souvenirs by years" -> printSouvenirsByYears();
+                case "get souvenirs by country" -> printSouvenirsByCountry();
+                default -> menu();
+            }
+        }
+    }
+
+    private void menu() {
+        System.out.println("""
+                +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                + get manufacturers - for getting all manufacturers                                       +
+                + get full manufacturers - for getting manufacturers with souvenirs                       +
+                + get manufacturer - for getting manufacturer with souvenirs                              +
+                + remove manufacturer - for removing manufacturers                                        +
+                + update manufacturer - for updating manufacturers                                        +
+                + add manufacturer - for adding manufacturers                                             +
+                + get manufacturer by name and year - for getting manufacturers by souvenir name and year +
+                + get cheapest - for getting manufacturers that makes souvenirs cheaper then price        +
+                + get souvenirs - for getting souvenirs                                                   +
+                + get full souvenirs - for getting souvenirs with manufacturers                           +
+                + get souvenir - for getting souvenir                                                     +
+                + add souvenir - for adding souvenir                                                      +
+                + update souvenir - for updating souvenir                                                 +
+                + remove souvenir - remove souvenir                                                       +
+                + get souvenirs by years - for getting souvenirs by year                                  +
+                + get souvenirs by country - for getting souvenirs by country                             +
+                + menu - reprints menu                                                                    +
+                + exit - exit                                                                             +
+                +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                """);
+    }
+
+    public void printManufacturers() {
         repository.getManufacturers().forEach(manufacturer -> System.out.println(mapper.toManufacturerDto(manufacturer)));
     }
 
-    @Override
-    public void getManufacturer() {
+    public void printManufacturer() {
         try {
             System.out.println(mapper.toManufacturerFullDto(repository.getManufacturerById(setId())));
         } catch (ManufacturedNotFoundException ex) {
@@ -36,12 +86,12 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
         }
     }
 
-    @Override
-    public void getFullManufacturers() {
+
+    public void printFullManufacturers() {
         repository.getManufacturers().forEach(manufacturer -> System.out.println(mapper.toManufacturerFullDto(manufacturer)));
     }
 
-    @Override
+
     public void removeManufacturer() {
         try {
             repository.removeManufacturer(setId());
@@ -50,7 +100,6 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
         }
     }
 
-    @Override
     @SneakyThrows
     public void updateManufacturer() {
         try {
@@ -70,42 +119,41 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
         }
     }
 
-    @Override
+
     public void addManufacturer() {
         var name = setName();
         var country = setCountry();
         System.out.println("your manufacturer " + mapper.toManufacturerDto(repository.addManufacturer(new Manufacturer(name, country))));
     }
 
-    @Override
-    public void getManufacturersBySouvenirNameAndYear() {
+    public void printManufacturersBySouvenirNameAndYear() {
         repository.getManufacturersBySouvenirNameAndYear(setName(), setYear())
                 .forEach(manufacturer -> System.out.println(mapper.toManufacturerDto(manufacturer)));
     }
 
-    @Override
-    public void getManufacturersThatMakesSouvenirsCheapestThenValue() {
+
+    public void printManufacturersThatMakesSouvenirsCheapestThenValue() {
         repository.getManufacturersThatMakesSouvenirsCheaperThenValue(setPrice())
                 .forEach(manufacturer -> System.out.println(mapper.toManufacturerFullDto(manufacturer)));
     }
 
-    @Override
-    public void getSouvenirs() {
+
+    public void printSouvenirs() {
         repository.getSouvenirs().forEach(souvenir -> System.out.println(mapper.toSouvenirDto(souvenir)));
     }
 
-    @Override
-    public void getFullSouvenirs() {
+
+    public void printFullSouvenirs() {
         repository.getSouvenirs().forEach(souvenir -> System.out.println(mapper.toSouvenirFullDto(souvenir)));
     }
 
-    @Override
-    public void getSouvenir() {
+
+    public void printSouvenir() {
         System.out.println("you must set souvenir id: ");
         System.out.println(mapper.toSouvenirFullDto(repository.getSouvenirById(setId())));
     }
 
-    @Override
+
     public void addSouvenir() {
         try {
             System.out.println("you must set manufacturer id: ");
@@ -119,7 +167,6 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
         }
     }
 
-    @Override
     @SneakyThrows
     public void updateSouvenir() {
         try {
@@ -127,8 +174,8 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
             var souvenir = repository.getSouvenirById(setId());
             var line = "";
             updateSouvenirMenu();
-            while (!(line = reader.readLine()).equals("update")){
-                switch (line){
+            while (!(line = reader.readLine()).equals("update")) {
+                switch (line) {
                     case "name" -> souvenir.setName(setName());
                     case "price" -> souvenir.setPrice(setPrice());
                     case "date" -> souvenir.setDate(setDate());
@@ -141,26 +188,24 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
         }
     }
 
-    @Override
     public void removeSouvenir() {
-        try{
+        try {
             System.out.println("you must print souvenir name: ");
             repository.removeSouvenir(setId());
-        } catch (SouvenirNotFoundException ex){
+        } catch (SouvenirNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
-    @Override
-    public void getSouvenirsByYears() {
+    public void printSouvenirsByYears() {
         repository.getSouvenirsByYears().forEach((key, value) -> System.out.println(key + "\n\t" + value.stream().map(mapper::toSouvenirDto).toList()));
     }
 
-    @Override
-    public void getSouvenirsByCountry() {
-       repository.getSouvenirsByCountry(setCountry())
-               .forEach(souvenir -> System.out.println(mapper.toSouvenirDto(souvenir)));
+    public void printSouvenirsByCountry() {
+        repository.getSouvenirsByCountry(setCountry())
+                .forEach(souvenir -> System.out.println(mapper.toSouvenirDto(souvenir)));
     }
+
 
     private Long setId() {
         try {
@@ -241,7 +286,7 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
                 """);
     }
 
-    private void updateSouvenirMenu(){
+    private void updateSouvenirMenu() {
         System.out.println("""
                 ++++++++++++++++++++++++++++++
                 + name - for changing name   +
