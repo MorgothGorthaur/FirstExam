@@ -121,13 +121,15 @@ public class DaoImpl implements Dao {
 
     @SneakyThrows
     private void readDataFromStorage() {
-        for (var file : Objects.requireNonNull(storage.listFiles())) {
-            try (var reader = new BufferedReader(new FileReader(file))) {
-                var manufacturer = mapper.readValue(reader.readLine(), Manufacturer.class);
-                manufacturers.put(manufacturer.getId(), manufacturer);
-                souvenirs.putAll(manufacturer.getSouvenirs().stream().collect(Collectors.toMap(Souvenir::getId, souvenir -> souvenir)));
+        if (storage.exists()) {
+            for (var file : Objects.requireNonNull(storage.listFiles())) {
+                try (var reader = new BufferedReader(new FileReader(file))) {
+                    var manufacturer = mapper.readValue(reader.readLine(), Manufacturer.class);
+                    manufacturers.put(manufacturer.getId(), manufacturer);
+                    souvenirs.putAll(manufacturer.getSouvenirs().stream().collect(Collectors.toMap(Souvenir::getId, souvenir -> souvenir)));
+                }
             }
-        }
+        } else new File(storage.getName()).mkdir();
     }
 
 
