@@ -22,7 +22,7 @@ public class App implements CommandLineRunner {
     @Override
     @SneakyThrows
     public void run(String... args) {
-        consoleCommandHandler.menuHandler();
+        consoleCommandHandler.handleMenu();
         SpringApplication.exit(context);
     }
 

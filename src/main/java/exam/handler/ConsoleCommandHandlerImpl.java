@@ -23,7 +23,7 @@ public class ConsoleCommandHandlerImpl implements ConsoleCommandHandler {
 
     @SneakyThrows
     @Override
-    public void menuHandler() {
+    public void handleMenu() {
         var line = "";
         menu();
         while (!(line = reader.readLine()).equals("exit")) {
