@@ -1,6 +1,5 @@
 package exam.repository;
 
-import exam.dto.SouvenirDto;
 import exam.exception.ManufacturedNotFoundException;
 import exam.exception.SouvenirNotFoundException;
 import exam.model.Souvenir;
@@ -33,11 +32,6 @@ public class RepositoryImpl implements Repository {
     @Override
     public List<Souvenir> getSouvenirs() {
         return souvenirs.values().stream().toList();
-    }
-
-    @Override
-    public Set<Souvenir> getManufacturersSouvenirs(Long id) {
-        return getManufacturerById(id).getSouvenirs();
     }
 
     @Override

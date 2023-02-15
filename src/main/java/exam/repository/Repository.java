@@ -12,8 +12,6 @@ public interface Repository {
 
     List<Souvenir> getSouvenirs();
 
-    Set<Souvenir> getManufacturersSouvenirs(Long id);
-
     void removeManufacturer(Long id);
 
     void removeSouvenir(Long id);
