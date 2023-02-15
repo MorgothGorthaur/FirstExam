@@ -198,7 +198,7 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
 
     private int setYear() {
         try {
-            System.out.println("print year: ");
+            System.out.print("print year: ");
             return Integer.parseInt(reader.readLine());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -206,17 +206,20 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
         }
     }
 
-    @SneakyThrows
     private double setPrice() {
+        try {
 
-        System.out.print("print price: ");
-        var price = Double.parseDouble(reader.readLine());
-        if (price < 0) {
-            System.out.println("price must be higher then 0");
+            System.out.print("print price: ");
+            var price = Double.parseDouble(reader.readLine());
+            if (price < 0) {
+                System.out.println("price must be higher then 0");
+                return setPrice();
+            }
+            return price;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
             return setPrice();
         }
-        return price;
-
     }
 
     @SneakyThrows
