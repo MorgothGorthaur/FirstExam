@@ -8,8 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
 @AllArgsConstructor
@@ -20,10 +21,10 @@ public class Manufacturer {
     private String name;
     private String country;
     @JsonManagedReference
-    private List<Souvenir> souvenirs;
+    private Set<Souvenir> souvenirs;
 
     public Manufacturer(String name, String country) {
-        this(null, name, country, new ArrayList<>());
+        this(null, name, country, new HashSet<>());
     }
 
     public void addSouvenir(Souvenir souvenir) {
