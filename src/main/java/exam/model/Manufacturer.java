@@ -39,4 +39,20 @@ public class Manufacturer {
     public boolean isMakesSouvenirsCheaperThanValue(double price) {
         return souvenirs.stream().filter(souvenir -> souvenir.getPrice() > price).toList().size() == 0;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o == null) return false;
+        if(o == this) return true;
+        if(!(o instanceof Manufacturer manufacturer)) return false;
+        return Objects.equals(name, manufacturer.name) && Objects.equals(country, manufacturer.country);
+    }
+
+    @Override
+    public int hashCode() {
+        var hash = 7;
+        hash = 31 * hash + (name != null ? name.hashCode() : 0);
+        hash = 31 * hash + (country != null ? country.hashCode() : 0);
+        return hash;
+    }
 }
