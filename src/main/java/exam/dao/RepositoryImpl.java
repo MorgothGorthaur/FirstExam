@@ -15,13 +15,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
-public class DaoImpl implements Dao {
+public class RepositoryImpl implements Repository {
     private final File storage;
     private final ObjectMapper mapper;
     private final Map<Long, Manufacturer> manufacturers;
     private final Map<Long, Souvenir> souvenirs;
 
-    public DaoImpl(@Value("${storage.folder.name}") String FILE_FOLDER_NAME) {
+    public RepositoryImpl(@Value("${storage.folder.name}") String FILE_FOLDER_NAME) {
         this.storage = new File(FILE_FOLDER_NAME);
         mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());

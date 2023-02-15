@@ -1,6 +1,6 @@
 package exam.handler;
 
-import exam.dao.Dao;
+import exam.dao.Repository;
 import exam.dto.SouvenirDto;
 import exam.dto.mapper.Mapper;
 import exam.exception.ManufacturedNotFoundException;
@@ -14,26 +14,25 @@ import org.springframework.stereotype.Component;
 import java.io.BufferedReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 
 @RequiredArgsConstructor
 @Component
 public class ManufacturerHandlerImpl implements ManufacturerHandler {
-    private final Dao dao;
+    private final Repository repository;
     private final Mapper mapper;
     private final BufferedReader reader;
 
     @Override
     public void getManufacturers() {
-        dao.getManufacturers().forEach(manufacturer -> System.out.println(mapper.toManufacturerDto(manufacturer)));
+        repository.getManufacturers().forEach(manufacturer -> System.out.println(mapper.toManufacturerDto(manufacturer)));
     }
 
     @Override
     public void getManufacturer() {
         try {
-            System.out.println(mapper.toManufacturerFullDto(dao.getManufacturerById(setId())));
+            System.out.println(mapper.toManufacturerFullDto(repository.getManufacturerById(setId())));
         } catch (ManufacturedNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
@@ -41,13 +40,13 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
 
     @Override
     public void getFullManufacturers() {
-        dao.getManufacturers().forEach(manufacturer -> System.out.println(mapper.toManufacturerFullDto(manufacturer)));
+        repository.getManufacturers().forEach(manufacturer -> System.out.println(mapper.toManufacturerFullDto(manufacturer)));
     }
 
     @Override
     public void removeManufacturer() {
         try {
-            dao.removeManufacturer(setId());
+            repository.removeManufacturer(setId());
         } catch (ManufacturedNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
@@ -57,7 +56,7 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
     @SneakyThrows
     public void updateManufacturer() {
         try {
-            var manufacturer = dao.getManufacturerById(setId());
+            var manufacturer = repository.getManufacturerById(setId());
             updateManufacturerMenu();
             var line = "";
             while (!(line = reader.readLine()).equals("update")) {
@@ -67,7 +66,7 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
                     default -> updateManufacturerMenu();
                 }
             }
-            System.out.println("your manufacturer: " + mapper.toManufacturerDto(dao.updateManufacturer(manufacturer)));
+            System.out.println("your manufacturer: " + mapper.toManufacturerDto(repository.updateManufacturer(manufacturer)));
         } catch (ManufacturedNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
@@ -77,38 +76,38 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
     public void addManufacturer() {
         var name = setName();
         var country = setCountry();
-        System.out.println("your manufacturer " + mapper.toManufacturerDto(dao.addManufacturer(new Manufacturer(name, country))));
+        System.out.println("your manufacturer " + mapper.toManufacturerDto(repository.addManufacturer(new Manufacturer(name, country))));
     }
 
     @Override
     public void getManufacturersBySouvenirNameAndYear() {
         var name = setName();
         var year = setYear();
-        dao.getSouvenirs().stream().filter(souvenir -> souvenir.getName().equals(name) && souvenir.getDate().getYear() == year)
+        repository.getSouvenirs().stream().filter(souvenir -> souvenir.getName().equals(name) && souvenir.getDate().getYear() == year)
                 .forEach(souvenir -> System.out.println(mapper.toManufacturerDto(souvenir.getManufacturer())));
     }
 
     @Override
     public void getManufacturersThatMakesSouvenirsCheapestThenValue() {
         var price = setPrice();
-        dao.getManufacturers().stream().filter(manufacturer -> manufacturer.isMakesSouvenirsCheaperThanValue(price))
+        repository.getManufacturers().stream().filter(manufacturer -> manufacturer.isMakesSouvenirsCheaperThanValue(price))
                 .forEach(manufacturer -> System.out.println(mapper.toManufacturerFullDto(manufacturer)));
     }
 
     @Override
     public void getSouvenirs() {
-        dao.getSouvenirs().forEach(souvenir -> System.out.println(mapper.toSouvenirDto(souvenir)));
+        repository.getSouvenirs().forEach(souvenir -> System.out.println(mapper.toSouvenirDto(souvenir)));
     }
 
     @Override
     public void getFullSouvenirs() {
-        dao.getSouvenirs().forEach(souvenir -> System.out.println(mapper.toSouvenirFullDto(souvenir)));
+        repository.getSouvenirs().forEach(souvenir -> System.out.println(mapper.toSouvenirFullDto(souvenir)));
     }
 
     @Override
     public void getSouvenir() {
         System.out.println("you must set souvenir id: ");
-        System.out.println(mapper.toSouvenirFullDto(dao.getSouvenirById(setId())));
+        System.out.println(mapper.toSouvenirFullDto(repository.getSouvenirById(setId())));
     }
 
     @Override
@@ -118,7 +117,7 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
         var name = setName();
         var price = setPrice();
         var date = setDate();
-        System.out.println("your souvenir: " + mapper.toSouvenirDto(dao.addSouvenir(manufacturerId, new Souvenir(name, price, date))));
+        System.out.println("your souvenir: " + mapper.toSouvenirDto(repository.addSouvenir(manufacturerId, new Souvenir(name, price, date))));
     }
 
     @Override
@@ -126,7 +125,7 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
     public void updateSouvenir() {
         try {
             System.out.println("you must set souvenir id: ");
-            var souvenir = dao.getSouvenirById(setId());
+            var souvenir = repository.getSouvenirById(setId());
             var line = "";
             updateSouvenirMenu();
             while (!(line = reader.readLine()).equals("update")){
@@ -137,7 +136,7 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
                     default -> updateSouvenirMenu();
                 }
             }
-            System.out.println("your souvenir: " + mapper.toSouvenirDto(dao.updateSouvenir(souvenir)));
+            System.out.println("your souvenir: " + mapper.toSouvenirDto(repository.updateSouvenir(souvenir)));
         } catch (SouvenirNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
@@ -147,7 +146,7 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
     public void removeSouvenir() {
         try{
             System.out.println("you must print souvenir name: ");
-            dao.removeSouvenir(setId());
+            repository.removeSouvenir(setId());
         } catch (SouvenirNotFoundException ex){
             System.out.println(ex.getMessage());
         }
@@ -156,7 +155,7 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
     @Override
     public void getSouvenirsByYears() {
         var map = new TreeMap<Integer, List<SouvenirDto>>();
-        dao.getSouvenirs().forEach(souvenir -> {
+        repository.getSouvenirs().forEach(souvenir -> {
             var lst = map.get(souvenir.getDate().getYear());
             var dto = mapper.toSouvenirDto(souvenir);
             if(lst != null) lst.add(dto);
@@ -168,7 +167,7 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
     @Override
     public void getSouvenirsByCountry() {
         var country = setCountry();
-        dao.getSouvenirs().stream().filter(souvenir -> souvenir.getManufacturer().getCountry().equals(country))
+        repository.getSouvenirs().stream().filter(souvenir -> souvenir.getManufacturer().getCountry().equals(country))
                 .forEach(souvenir -> System.out.println(mapper.toSouvenirDto(souvenir)));
     }
 

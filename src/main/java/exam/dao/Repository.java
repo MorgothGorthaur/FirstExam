@@ -5,7 +5,7 @@ import exam.model.Souvenir;
 
 import java.util.List;
 
-public interface Dao {
+public interface Repository {
     List<Manufacturer> getManufacturers();
 
     List<Souvenir> getSouvenirs();
