@@ -112,12 +112,16 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
 
     @Override
     public void addSouvenir() {
-        System.out.println("you must set manufacturer id: ");
-        var manufacturerId = setId();
-        var name = setName();
-        var price = setPrice();
-        var date = setDate();
-        System.out.println("your souvenir: " + mapper.toSouvenirDto(repository.addSouvenir(manufacturerId, new Souvenir(name, price, date))));
+        try {
+            System.out.println("you must set manufacturer id: ");
+            var manufacturerId = setId();
+            var name = setName();
+            var price = setPrice();
+            var date = setDate();
+            System.out.println("your souvenir: " + mapper.toSouvenirDto(repository.addSouvenir(manufacturerId, new Souvenir(name, price, date))));
+        } catch (ManufacturedNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Override
