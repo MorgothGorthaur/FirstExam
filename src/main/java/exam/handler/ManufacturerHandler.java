@@ -30,4 +30,6 @@ public interface ManufacturerHandler {
     void removeSouvenir();
 
     void getSouvenirsByYears();
+
+    void getSouvenirsByCountry();
 }

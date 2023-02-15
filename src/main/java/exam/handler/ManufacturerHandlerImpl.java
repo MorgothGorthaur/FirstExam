@@ -164,6 +164,13 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
         System.out.println(map);
     }
 
+    @Override
+    public void getSouvenirsByCountry() {
+        var country = setCountry();
+        dao.getSouvenirs().stream().filter(souvenir -> souvenir.getManufacturer().getCountry().equals(country))
+                .forEach(souvenir -> System.out.println(mapper.toSouvenirDto(souvenir)));
+    }
+
     private Long setId() {
         try {
             System.out.print("print id: ");

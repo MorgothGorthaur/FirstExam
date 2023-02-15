@@ -45,6 +45,7 @@ public class App implements CommandLineRunner {
                 case "update souvenir" -> manufacturerHandler.updateSouvenir();
                 case "remove souvenir" -> manufacturerHandler.removeSouvenir();
                 case "get souvenirs by years" -> manufacturerHandler.getSouvenirsByYears();
+                case "get souvenirs by country" -> manufacturerHandler.getSouvenirsByCountry();
                 default -> menu();
             }
         }
@@ -69,6 +70,7 @@ public class App implements CommandLineRunner {
                 + update souvenir - for updating souvenir                                                 +
                 + remove souvenir - remove souvenir                                                       +
                 + get souvenirs by years - for getting souvenirs by year                                  +
+                + get souvenirs by country - for getting souvenirs by country                             +
                 + menu - reprints menu                                                                    +
                 + exit - exit                                                                             +
                 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
