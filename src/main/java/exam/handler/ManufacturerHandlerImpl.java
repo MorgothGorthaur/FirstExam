@@ -13,9 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeMap;
+
 
 @RequiredArgsConstructor
 @Component
@@ -81,16 +79,13 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
 
     @Override
     public void getManufacturersBySouvenirNameAndYear() {
-        var name = setName();
-        var year = setYear();
-        repository.getSouvenirs().stream().filter(souvenir -> souvenir.getName().equals(name) && souvenir.getDate().getYear() == year)
+        repository.getSouvenirsBySouvenirNameAndYear(setName(), setYear())
                 .forEach(souvenir -> System.out.println(mapper.toManufacturerDto(souvenir.getManufacturer())));
     }
 
     @Override
     public void getManufacturersThatMakesSouvenirsCheapestThenValue() {
-        var price = setPrice();
-        repository.getManufacturers().stream().filter(manufacturer -> manufacturer.isMakesSouvenirsCheaperThanValue(price))
+        repository.getManufacturersThatMakesSouvenirsCheaperThenValue(setPrice())
                 .forEach(manufacturer -> System.out.println(mapper.toManufacturerFullDto(manufacturer)));
     }
 
@@ -158,21 +153,13 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
 
     @Override
     public void getSouvenirsByYears() {
-        var map = new TreeMap<Integer, List<SouvenirDto>>();
-        repository.getSouvenirs().forEach(souvenir -> {
-            var lst = map.get(souvenir.getDate().getYear());
-            var dto = mapper.toSouvenirDto(souvenir);
-            if(lst != null) lst.add(dto);
-            else map.put(souvenir.getDate().getYear(), new ArrayList<>(List.of(dto)));
-        });
-        System.out.println(map);
+        repository.getSouvenirsByYears().forEach((key, value) -> System.out.println(key + "\n\t" + value.stream().map(mapper::toSouvenirDto).toList()));
     }
 
     @Override
     public void getSouvenirsByCountry() {
-        var country = setCountry();
-        repository.getSouvenirs().stream().filter(souvenir -> souvenir.getManufacturer().getCountry().equals(country))
-                .forEach(souvenir -> System.out.println(mapper.toSouvenirDto(souvenir)));
+       repository.getSouvenirsByCountry(setCountry())
+               .forEach(souvenir -> System.out.println(mapper.toSouvenirDto(souvenir)));
     }
 
     private Long setId() {
