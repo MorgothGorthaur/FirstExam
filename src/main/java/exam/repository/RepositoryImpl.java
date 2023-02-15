@@ -9,6 +9,7 @@ import exam.repository.dao.Dao;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class RepositoryImpl implements Repository {
@@ -36,7 +37,7 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public List<Souvenir> getManufacturersSouvenirs(Long id) {
-        return getManufacturerById(id).getSouvenirs();
+        return getManufacturerById(id).getSouvenirs().stream().toList();
     }
 
     @Override
@@ -110,9 +111,10 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public List<Souvenir> getSouvenirsBySouvenirNameAndYear(String name, int year) {
+    public Set<Manufacturer> getManufacturersBySouvenirNameAndYear(String name, int year) {
         return souvenirs.values().stream()
-                .filter(souvenir ->souvenir.getName().equals(name) && souvenir.getDate().getYear() == year).toList();
+                .filter(souvenir ->souvenir.getName().equals(name) && souvenir.getDate().getYear() == year)
+                .map(Souvenir::getManufacturer).collect(Collectors.toSet());
     }
 
     @Override

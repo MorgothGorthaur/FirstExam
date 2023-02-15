@@ -79,8 +79,8 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
 
     @Override
     public void getManufacturersBySouvenirNameAndYear() {
-        repository.getSouvenirsBySouvenirNameAndYear(setName(), setYear())
-                .forEach(souvenir -> System.out.println(mapper.toManufacturerDto(souvenir.getManufacturer())));
+        repository.getManufacturersBySouvenirNameAndYear(setName(), setYear())
+                .forEach(manufacturer -> System.out.println(mapper.toManufacturerDto(manufacturer)));
     }
 
     @Override
