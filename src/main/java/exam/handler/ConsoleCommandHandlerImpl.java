@@ -16,7 +16,7 @@ import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Component
-public class ManufacturerHandlerImpl implements ManufacturerHandler {
+public class ConsoleCommandHandlerImpl implements ConsoleCommandHandler {
     private final Repository repository;
     private final Mapper mapper;
     private final BufferedReader reader;

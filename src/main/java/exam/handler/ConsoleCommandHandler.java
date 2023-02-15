@@ -1,5 +1,5 @@
 package exam.handler;
 
-public interface ManufacturerHandler {
+public interface ConsoleCommandHandler {
     void menuHandler();
 }
