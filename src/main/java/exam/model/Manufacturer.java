@@ -46,7 +46,7 @@ public class Manufacturer {
         if(o == null) return false;
         if(o == this) return true;
         if(!(o instanceof Manufacturer manufacturer)) return false;
-        return Objects.equals(name, manufacturer.name) && Objects.equals(country, manufacturer.country);
+        return Objects.equals(name, manufacturer.name) && Objects.equals(country, manufacturer.country) && Objects.equals(id, manufacturer.id);
     }
 
     @Override
@@ -54,6 +54,7 @@ public class Manufacturer {
         var hash = 7;
         hash = 31 * hash + (name != null ? name.hashCode() : 0);
         hash = 31 * hash + (country != null ? country.hashCode() : 0);
+        hash = 31 * hash + (id != null ? id.hashCode() : 0);
         return hash;
     }
 }
