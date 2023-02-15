@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 @RequiredArgsConstructor
 @Component
@@ -154,7 +155,7 @@ public class ManufacturerHandlerImpl implements ManufacturerHandler {
 
     @Override
     public void getSouvenirsByYears() {
-        var map = new HashMap<Integer, List<SouvenirDto>>();
+        var map = new TreeMap<Integer, List<SouvenirDto>>();
         dao.getSouvenirs().forEach(souvenir -> {
             var lst = map.get(souvenir.getDate().getYear());
             var dto = mapper.toSouvenirDto(souvenir);
