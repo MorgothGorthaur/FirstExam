@@ -8,6 +8,8 @@ import exam.model.Manufacturer;
 import exam.model.Souvenir;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
 public class MapperImpl implements Mapper {
     @Override
@@ -23,7 +25,7 @@ public class MapperImpl implements Mapper {
     @Override
     public ManufacturerFullDto toManufacturerFullDto(Manufacturer manufacturer) {
         return new ManufacturerFullDto(manufacturer.getId(), manufacturer.getName(),
-                manufacturer.getCountry(), manufacturer.getSouvenirs().stream().map(this::toSouvenirDto).toList());
+                manufacturer.getCountry(), manufacturer.getSouvenirs().stream().map(this::toSouvenirDto).collect(Collectors.toSet()));
     }
 
     @Override

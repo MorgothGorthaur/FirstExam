@@ -10,8 +10,4 @@ public record SouvenirDto(Long id, @NonNull String name, double price, @NonNull 
     public SouvenirDto {
         if (name.equals("") && price < 0) throw new SouvenirValidationException();
     }
-
-    public Souvenir toSouvenir() {
-        return new Souvenir(id, name, date, price, null);
-    }
 }

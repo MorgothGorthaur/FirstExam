@@ -1,11 +1,9 @@
 package exam.dto;
 
-import exam.exception.ManufacturedNotFoundException;
-import exam.exception.ManufacturerValidationException;
-import lombok.NonNull;
 
-import java.util.List;
+import lombok.NonNull;
+import java.util.Set;
 
 public record ManufacturerFullDto(@NonNull Long id, @NonNull String name,
-                                  @NonNull String country, @NonNull List<SouvenirDto> souvenirs) {
+                                  @NonNull String country, @NonNull Set<SouvenirDto> souvenirs) {
 }
