@@ -1,6 +1,6 @@
 package exam.handler;
 
-import exam.dao.Repository;
+import exam.repository.Repository;
 import exam.dto.SouvenirDto;
 import exam.dto.mapper.Mapper;
 import exam.exception.ManufacturedNotFoundException;

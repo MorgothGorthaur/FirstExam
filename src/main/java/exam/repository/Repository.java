@@ -1,4 +1,4 @@
-package exam.dao;
+package exam.repository;
 
 import exam.model.Manufacturer;
 import exam.model.Souvenir;
