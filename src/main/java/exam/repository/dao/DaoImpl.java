@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -21,21 +22,22 @@ public class DaoImpl implements Dao {
 
     public DaoImpl(@Value("${storage.folder.name}") String FILE_FOLDER_NAME) {
         this.storage = new File(FILE_FOLDER_NAME);
-        if(!storage.exists()) new File(FILE_FOLDER_NAME).mkdir();
+        if (!storage.exists()) new File(FILE_FOLDER_NAME).mkdir();
         mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
     }
 
     @Override
     @SneakyThrows
-    public void readAll(Map<Long, Manufacturer> manufacturers, Map<Long, Souvenir> souvenirs) {
+    public Map<Long, Manufacturer> readAll() {
+        var manufacturers = new HashMap<Long, Manufacturer>();
         for (var file : Objects.requireNonNull(storage.listFiles())) {
             try (var reader = new BufferedReader(new FileReader(file))) {
                 var manufacturer = mapper.readValue(reader.readLine(), Manufacturer.class);
                 manufacturers.put(manufacturer.getId(), manufacturer);
-                souvenirs.putAll(manufacturer.getSouvenirs().stream().collect(Collectors.toMap(Souvenir::getId, souvenir -> souvenir)));
             }
         }
+        return manufacturers;
     }
 
     @Override

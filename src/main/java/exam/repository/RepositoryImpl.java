@@ -19,9 +19,9 @@ public class RepositoryImpl implements Repository {
 
     public RepositoryImpl(Dao dao) {
         this.dao = dao;
-        manufacturers = new HashMap<>();
+        manufacturers = dao.readAll();
         souvenirs = new HashMap<>();
-        dao.readAll(manufacturers, souvenirs);
+        manufacturers.values().forEach(manufacturer -> manufacturer.getSouvenirs().forEach(souvenir -> souvenirs.put(souvenir.getId(), souvenir)));
     }
 
     @Override
