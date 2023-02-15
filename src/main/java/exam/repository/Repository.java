@@ -12,7 +12,7 @@ public interface Repository {
 
     List<Souvenir> getSouvenirs();
 
-    List<Souvenir> getManufacturersSouvenirs(Long id);
+    Set<Souvenir> getManufacturersSouvenirs(Long id);
 
     void removeManufacturer(Long id);
 

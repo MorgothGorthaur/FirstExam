@@ -36,8 +36,8 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public List<Souvenir> getManufacturersSouvenirs(Long id) {
-        return getManufacturerById(id).getSouvenirs().stream().toList();
+    public Set<Souvenir> getManufacturersSouvenirs(Long id) {
+        return getManufacturerById(id).getSouvenirs();
     }
 
     @Override
