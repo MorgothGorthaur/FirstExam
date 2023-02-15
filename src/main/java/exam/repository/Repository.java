@@ -4,6 +4,7 @@ import exam.model.Manufacturer;
 import exam.model.Souvenir;
 
 import java.util.List;
+import java.util.Map;
 
 public interface Repository {
     List<Manufacturer> getManufacturers();
@@ -27,5 +28,13 @@ public interface Repository {
     Manufacturer getManufacturerById(Long id);
 
     Souvenir getSouvenirById(Long id);
+
+    List<Souvenir> getSouvenirsBySouvenirNameAndYear(String name, int year);
+
+    List<Souvenir> getSouvenirsByCountry(String country);
+
+    List<Manufacturer> getManufacturersThatMakesSouvenirsCheaperThenValue(double price);
+
+    Map<Integer, List<Souvenir>> getSouvenirsByYears();
 
 }

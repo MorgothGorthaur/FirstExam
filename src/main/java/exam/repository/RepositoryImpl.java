@@ -1,5 +1,6 @@
 package exam.repository;
 
+import exam.dto.SouvenirDto;
 import exam.exception.ManufacturedNotFoundException;
 import exam.exception.SouvenirNotFoundException;
 import exam.model.Souvenir;
@@ -107,6 +108,30 @@ public class RepositoryImpl implements Repository {
         if (souvenir != null) return souvenir;
         else throw new SouvenirNotFoundException(id);
     }
+
+    @Override
+    public List<Souvenir> getSouvenirsBySouvenirNameAndYear(String name, int year) {
+        return souvenirs.values().stream()
+                .filter(souvenir ->souvenir.getName().equals(name) && souvenir.getDate().getYear() == year).toList();
+    }
+
+    @Override
+    public List<Souvenir> getSouvenirsByCountry(String country) {
+        return souvenirs.values().stream().filter(souvenir -> souvenir.getManufacturer().getCountry().equals(country)).toList();
+    }
+
+    @Override
+    public List<Manufacturer> getManufacturersThatMakesSouvenirsCheaperThenValue(double price) {
+        return manufacturers.values().stream().filter(manufacturer -> manufacturer.isMakesSouvenirsCheaperThanValue(price)).toList();
+    }
+
+    @Override
+    public Map<Integer, List<Souvenir>> getSouvenirsByYears() {
+        var map = new TreeMap<Integer, List<Souvenir>>();
+        souvenirs.values().forEach(souvenir ->  map.computeIfAbsent(souvenir.getDate().getYear(), ArrayList::new).add(souvenir));
+        return map;
+    }
+
 
     private Long generateId(Set<Long> ids) {
         return ids.stream().max(Long::compare).map(id -> id + 1).orElse(0L);
