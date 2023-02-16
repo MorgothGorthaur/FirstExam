@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
 @Configuration
 public class ExamConfig {
     @Value("${storage.folder.name}")
-    String FILE_FOLDER_NAME;
+    String STORAGE_FOLDER_NAME;
 
     @Bean
     BufferedReader reader() {
@@ -29,7 +29,7 @@ public class ExamConfig {
 
     @Bean
     File storage() {
-        var storage = new File(FILE_FOLDER_NAME);
+        var storage = new File(STORAGE_FOLDER_NAME);
         if (!storage.exists()) storage.mkdir();
         return storage;
     }
