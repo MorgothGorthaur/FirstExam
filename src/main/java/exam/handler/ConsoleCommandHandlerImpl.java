@@ -28,10 +28,14 @@ public class ConsoleCommandHandlerImpl implements ConsoleCommandHandler {
         var line = "";
         printMenu();
         while (!(line = reader.readLine()).equals("exit")) {
-            var arr = line.split(" ");
-            var command = commands.get(arr[0]);
-            if(command != null) command.execute(Arrays.asList(arr));
-            else printMenu();
+            try {
+                var arr = line.split(" ");
+                var command = commands.get(arr[0]);
+                if (command != null) command.execute(Arrays.asList(arr));
+                else printMenu();
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
 
