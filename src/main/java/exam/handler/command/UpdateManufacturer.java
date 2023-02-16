@@ -24,9 +24,9 @@ public class UpdateManufacturer implements Command {
 
     @Override
     public void execute(List<String> args) {
-        var updated = repository.getManufacturerById(Long.parseLong(args.get(0)));
-        updated.setName(args.get(1));
-        updated.setCountry(args.get(2));
+        var updated = repository.getManufacturerById(Long.parseLong(args.get(1)));
+        updated.setName(args.get(2));
+        updated.setCountry(args.get(3));
         System.out.println("your manufacturer: " + mapper.toManufacturerDto(repository.updateManufacturer(updated)));
     }
 }

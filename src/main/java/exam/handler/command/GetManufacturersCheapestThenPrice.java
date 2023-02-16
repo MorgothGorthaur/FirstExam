@@ -23,7 +23,7 @@ public class GetManufacturersCheapestThenPrice implements Command {
 
     @Override
     public void execute(List<String> args) {
-        repository.getManufacturersThatMakesSouvenirsCheaperThenValue(Long.parseLong(args.get(0)))
+        repository.getManufacturersThatMakesSouvenirsCheaperThenValue(Long.parseLong(args.get(1)))
                 .forEach(System.out::println);
     }
 }

@@ -5,6 +5,7 @@ import exam.repository.Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 @Component
 @RequiredArgsConstructor
@@ -24,5 +25,10 @@ public class UpdateSouvenir implements Command {
 
     @Override
     public void execute(List<String> args) {
+        var souvenir = repository.getSouvenirById(Long.parseLong(args.get(1)));
+        souvenir.setName(args.get(2));
+        souvenir.setDate(LocalDate.parse(args.get(3)));
+        souvenir.setPrice(Long.parseLong(args.get(4)));
+        System.out.println("your souvenir: " + mapper.toSouvenirDto(repository.updateSouvenir(souvenir)));
     }
 }

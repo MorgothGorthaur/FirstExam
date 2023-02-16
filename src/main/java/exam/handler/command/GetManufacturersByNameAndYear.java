@@ -24,7 +24,7 @@ public class GetManufacturersByNameAndYear implements Command {
 
     @Override
     public void execute(List<String> args) {
-        repository.getManufacturersBySouvenirNameAndYear(args.get(0), Integer.parseInt(args.get(1)))
+        repository.getManufacturersBySouvenirNameAndYear(args.get(1), Integer.parseInt(args.get(2)))
                 .stream().map(mapper::toManufacturerDto)
                 .forEach(System.out::println);
     }

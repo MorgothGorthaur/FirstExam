@@ -26,8 +26,8 @@ public class AddSouvenir implements Command {
 
     @Override
     public void execute(List<String> args) {
-        System.out.println("your souvenir: " + mapper.toSouvenirDto(repository.addSouvenir(Long.parseLong(args.get(0)),
-                new Souvenir(args.get(1), LocalDate.parse(args.get(2)), Long.parseLong(args.get(3)))
+        System.out.println("your souvenir: " + mapper.toSouvenirDto(repository.addSouvenir(Long.parseLong(args.get(1)),
+                new Souvenir(args.get(2), LocalDate.parse(args.get(3)), Long.parseLong(args.get(4)))
         )));
     }
 }

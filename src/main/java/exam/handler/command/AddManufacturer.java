@@ -27,7 +27,7 @@ public class AddManufacturer implements Command {
     @Override
     public void execute(List<String> args) {
         System.out.println("your manufacturer: " + mapper.toManufacturerDto(
-                repository.addManufacturer(new Manufacturer(args.get(0), args.get(1)))
+                repository.addManufacturer(new Manufacturer(args.get(1), args.get(2)))
         ));
     }
 }

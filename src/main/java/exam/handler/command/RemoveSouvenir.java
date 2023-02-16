@@ -22,6 +22,6 @@ public class RemoveSouvenir implements Command {
 
     @Override
     public void execute(List<String> args) {
-        repository.removeSouvenir(Integer.parseInt(args.get(0)));
+        repository.removeSouvenir(Integer.parseInt(args.get(1)));
     }
 }
