@@ -161,7 +161,7 @@ public class ConsoleCommandHandlerImpl implements ConsoleCommandHandler {
             var name = setName();
             var price = setPrice();
             var date = setDate();
-            System.out.println("your souvenir: " + mapper.toSouvenirDto(repository.addSouvenir(manufacturerId, new Souvenir(name, price, date))));
+            System.out.println("your souvenir: " + mapper.toSouvenirDto(repository.addSouvenir(manufacturerId, new Souvenir(name, date, price))));
         } catch (ManufacturedNotFoundException ex) {
             System.out.println(ex.getMessage());
         }

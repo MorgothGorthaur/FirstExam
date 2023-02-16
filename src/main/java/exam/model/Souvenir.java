@@ -22,7 +22,7 @@ public class Souvenir {
     @JsonBackReference
     private Manufacturer manufacturer;
 
-    public Souvenir(String name, double price, LocalDate date) {
+    public Souvenir(String name, LocalDate date, double price) {
         this(null, name, date, price, null);
     }
 
