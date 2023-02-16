@@ -34,7 +34,7 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public void removeManufacturer(Long id) {
+    public void removeManufacturer(long id) {
         var removed = manufacturers.remove(id);
         if (removed != null) {
             removed.getSouvenirs().forEach(souvenir -> souvenirs.remove(souvenir.getId()));
@@ -43,7 +43,7 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public void removeSouvenir(Long id) {
+    public void removeSouvenir(long id) {
         var removed = souvenirs.remove(id);
         if (removed != null) {
             var manufacturer = removed.getManufacturer();
@@ -80,7 +80,7 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public Souvenir addSouvenir(Long id, Souvenir souvenir) {
+    public Souvenir addSouvenir(long id, Souvenir souvenir) {
         souvenir.setId(generateId(souvenirs.keySet()));
         var manufacturer = getManufacturerById(id);
         manufacturer.addSouvenir(souvenir);
@@ -90,14 +90,14 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public Manufacturer getManufacturerById(Long id) {
+    public Manufacturer getManufacturerById(long id) {
         var manufacturer = manufacturers.get(id);
         if (manufacturer != null) return manufacturer;
         else throw new ManufacturedNotFoundException(id);
     }
 
     @Override
-    public Souvenir getSouvenirById(Long id) {
+    public Souvenir getSouvenirById(long id) {
         var souvenir = souvenirs.get(id);
         if (souvenir != null) return souvenir;
         else throw new SouvenirNotFoundException(id);

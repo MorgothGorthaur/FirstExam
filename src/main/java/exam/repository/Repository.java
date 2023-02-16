@@ -12,9 +12,9 @@ public interface Repository {
 
     List<Souvenir> getSouvenirs();
 
-    void removeManufacturer(Long id);
+    void removeManufacturer(long id);
 
-    void removeSouvenir(Long id);
+    void removeSouvenir(long id);
 
     Manufacturer updateManufacturer(Manufacturer manufacturer);
 
@@ -22,11 +22,11 @@ public interface Repository {
 
     Manufacturer addManufacturer(Manufacturer manufacturer);
 
-    Souvenir addSouvenir(Long id, Souvenir souvenir);
+    Souvenir addSouvenir(long id, Souvenir souvenir);
 
-    Manufacturer getManufacturerById(Long id);
+    Manufacturer getManufacturerById(long id);
 
-    Souvenir getSouvenirById(Long id);
+    Souvenir getSouvenirById(long id);
 
     List<Manufacturer> getManufacturersBySouvenirNameAndYear(String name, int year);
 
