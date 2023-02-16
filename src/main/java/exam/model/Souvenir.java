@@ -1,5 +1,7 @@
 package exam.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
 
@@ -8,13 +10,21 @@ import java.util.Objects;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
 @AllArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
+@NoArgsConstructor
 public class Souvenir {
     private Long id;
     private String name;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
     private double price;
+    @JsonBackReference
     private Manufacturer manufacturer;
+
+    public Souvenir(String name, double price, LocalDate date) {
+        this(null, name, date, price, null);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -29,11 +39,7 @@ public class Souvenir {
         var hash = 7;
         hash = 31 * hash + (name != null ? name.hashCode() : 0);
         hash = 31 * hash + (date != null ? date.hashCode() : 0);
-        hash = 31 * hash + Double.valueOf(price).hashCode();
+        hash = 31 * hash + Double.hashCode(price);
         return hash;
-    }
-    @Override
-    public String toString(){
-        return "Souvenir(name=" + name + ", date=" + date + ", price=" + price + ", manufacturer=" + manufacturer.toString() + ")";
     }
 }
