@@ -105,10 +105,10 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public Set<Manufacturer> getManufacturersBySouvenirNameAndYear(String name, int year) {
+    public List<Manufacturer> getManufacturersBySouvenirNameAndYear(String name, int year) {
         return souvenirs.values().stream()
                 .filter(souvenir ->souvenir.getName().equals(name) && souvenir.getDate().getYear() == year)
-                .map(Souvenir::getManufacturer).collect(Collectors.toSet());
+                .map(Souvenir::getManufacturer).distinct().toList();
     }
 
     @Override

@@ -75,7 +75,7 @@ public class ConsoleCommandHandlerImpl implements ConsoleCommandHandler {
     }
 
     public void printManufacturers() {
-        repository.getManufacturers().forEach(manufacturer -> System.out.println(mapper.toManufacturerDto(manufacturer)));
+        repository.getManufacturers().stream().map(mapper::toManufacturerDto).forEach(System.out::println);
     }
 
     public void printManufacturer() {

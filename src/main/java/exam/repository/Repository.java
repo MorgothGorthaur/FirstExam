@@ -28,7 +28,7 @@ public interface Repository {
 
     Souvenir getSouvenirById(Long id);
 
-    Set<Manufacturer> getManufacturersBySouvenirNameAndYear(String name, int year);
+    List<Manufacturer> getManufacturersBySouvenirNameAndYear(String name, int year);
 
     List<Souvenir> getSouvenirsByCountry(String country);
 
