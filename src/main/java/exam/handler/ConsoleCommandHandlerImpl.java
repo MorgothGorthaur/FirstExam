@@ -52,22 +52,7 @@ public class ConsoleCommandHandlerImpl implements ConsoleCommandHandler {
     private void menu() {
         System.out.println("""
                 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                + get manufacturers - for getting all manufacturers                                        +
-                + get full manufacturers - for getting manufacturers with souvenirs                        +
-                + get manufacturer - for getting manufacturer with souvenirs                               +
-                + remove manufacturer - for removing manufacturers                                         +
-                + update manufacturer - for updating manufacturers                                         +
-                + add manufacturer - for adding manufacturers                                              +
-                + get manufacturers by name and year - for getting manufacturers by souvenir name and year +
-                + get cheapest - for getting manufacturers that makes souvenirs cheaper then price         +
-                + get souvenirs - for getting souvenirs                                                    +
-                + get full souvenirs - for getting souvenirs with manufacturers                            +
-                + get souvenir - for getting souvenir                                                      +
-                + add souvenir - for adding souvenir                                                       +
                 + update souvenir - for updating souvenir                                                  +
-                + remove souvenir - remove souvenir                                                        +
-                + get souvenirs by years - for getting souvenirs by year                                   +
-                + get souvenirs by country - for getting souvenirs by country                              +
                 + menu - reprints menu                                                                     +
                 + exit - exit                                                                              +
                 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
