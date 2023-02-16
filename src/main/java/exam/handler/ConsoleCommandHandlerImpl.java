@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -25,12 +26,17 @@ public class ConsoleCommandHandlerImpl implements ConsoleCommandHandler {
     @Override
     public void handleMenu() {
         var line = "";
-        commands.values().stream().map(Command::getName).forEach(System.out::println);
+        printMenu();
         while (!(line = reader.readLine()).equals("exit")) {
-
-
+            var arr = line.split(" ");
+            var command = commands.get(arr[0]);
+            if(command != null) command.execute(Arrays.asList(arr));
+            else printMenu();
         }
     }
 
-
+    private void printMenu() {
+        commands.values().stream().map(Command::getUsage).forEach(System.out::println);
+        System.out.println("exit - for exit");
+    }
 }
