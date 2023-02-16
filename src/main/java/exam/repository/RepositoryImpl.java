@@ -8,6 +8,8 @@ import exam.repository.filehandler.FileHandler;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Component
 public class RepositoryImpl implements Repository {
@@ -19,8 +21,9 @@ public class RepositoryImpl implements Repository {
     public RepositoryImpl(FileHandler fileHandler) {
         this.fileHandler = fileHandler;
         manufacturers = fileHandler.readAll();
-        souvenirs = new HashMap<>();
-        manufacturers.values().forEach(manufacturer -> manufacturer.getSouvenirs().forEach(souvenir -> souvenirs.put(souvenir.getId(), souvenir)));
+        souvenirs = manufacturers.values().stream()
+                .flatMap(manufacturer -> manufacturer.getSouvenirs().stream())
+                .collect(Collectors.toMap(Souvenir::getId, Function.identity()));
     }
 
     @Override
