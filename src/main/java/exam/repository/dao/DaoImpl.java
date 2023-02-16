@@ -5,6 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import exam.model.Manufacturer;
 import exam.model.Souvenir;
 import exam.repository.dao.Dao;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,16 +17,11 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class DaoImpl implements Dao {
     private final File storage;
     private final ObjectMapper mapper;
 
-    public DaoImpl(@Value("${storage.folder.name}") String FILE_FOLDER_NAME) {
-        this.storage = new File(FILE_FOLDER_NAME);
-        if (!storage.exists()) new File(FILE_FOLDER_NAME).mkdir();
-        mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-    }
 
     @Override
     @SneakyThrows
