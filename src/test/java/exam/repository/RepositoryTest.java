@@ -2,8 +2,8 @@ package exam.repository;
 
 import exam.model.Manufacturer;
 import exam.model.Souvenir;
-import exam.repository.dao.Dao;
-import exam.repository.dao.DaoImpl;
+import exam.repository.filehandler.FileHandler;
+import exam.repository.filehandler.FileHandlerImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 class RepositoryTest {
-    private final Dao dao = Mockito.mock(DaoImpl.class);
+    private final FileHandler fileHandler = Mockito.mock(FileHandlerImpl.class);
 
     private Repository repository;
 
@@ -40,8 +40,8 @@ class RepositoryTest {
                 .collect(Collectors.toMap(Manufacturer::getId, manufacturer -> manufacturer));
         var souvenirsMap = Stream.of(firstSouvenir, secondSouvenir, thirstSouvenir, fourthSouvenir)
                 .collect(Collectors.toMap(Souvenir::getId, souvenir -> souvenir));
-        when(dao.readAll()).thenReturn(manufacturersMap);
-        repository = new RepositoryImpl(dao);
+        when(fileHandler.readAll()).thenReturn(manufacturersMap);
+        repository = new RepositoryImpl(fileHandler);
     }
 
     @Test

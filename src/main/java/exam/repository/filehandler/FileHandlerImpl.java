@@ -1,24 +1,19 @@
-package exam.repository.dao;
+package exam.repository.filehandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import exam.model.Manufacturer;
-import exam.model.Souvenir;
-import exam.repository.dao.Dao;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class DaoImpl implements Dao {
+public class FileHandlerImpl implements FileHandler {
     private final File storage;
     private final ObjectMapper mapper;
 

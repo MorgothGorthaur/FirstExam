@@ -4,22 +4,21 @@ import exam.exception.ManufacturedNotFoundException;
 import exam.exception.SouvenirNotFoundException;
 import exam.model.Souvenir;
 import exam.model.Manufacturer;
-import exam.repository.dao.Dao;
+import exam.repository.filehandler.FileHandler;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Component
 public class RepositoryImpl implements Repository {
 
-    private final Dao dao;
+    private final FileHandler fileHandler;
     private final Map<Long, Manufacturer> manufacturers;
     private final Map<Long, Souvenir> souvenirs;
 
-    public RepositoryImpl(Dao dao) {
-        this.dao = dao;
-        manufacturers = dao.readAll();
+    public RepositoryImpl(FileHandler fileHandler) {
+        this.fileHandler = fileHandler;
+        manufacturers = fileHandler.readAll();
         souvenirs = new HashMap<>();
         manufacturers.values().forEach(manufacturer -> manufacturer.getSouvenirs().forEach(souvenir -> souvenirs.put(souvenir.getId(), souvenir)));
     }
@@ -39,7 +38,7 @@ public class RepositoryImpl implements Repository {
         var removed = manufacturers.remove(id);
         if (removed != null) {
             removed.getSouvenirs().forEach(souvenir -> souvenirs.remove(souvenir.getId()));
-            dao.removeManufacturer(removed);
+            fileHandler.removeManufacturer(removed);
         } else throw new ManufacturedNotFoundException(id);
     }
 
@@ -49,7 +48,7 @@ public class RepositoryImpl implements Repository {
         if (removed != null) {
             var manufacturer = removed.getManufacturer();
             manufacturer.removeSouvenir(removed);
-            dao.saveManufacturer(manufacturer);
+            fileHandler.saveManufacturer(manufacturer);
         } else throw new SouvenirNotFoundException(id);
     }
 
@@ -58,7 +57,7 @@ public class RepositoryImpl implements Repository {
         var updated = getManufacturerById(manufacturer.getId());
         updated.setCountry(manufacturer.getCountry());
         updated.setName(manufacturer.getName());
-        dao.saveManufacturer(updated);
+        fileHandler.saveManufacturer(updated);
         return updated;
     }
 
@@ -68,7 +67,7 @@ public class RepositoryImpl implements Repository {
         updated.setDate(souvenir.getDate());
         updated.setName(souvenir.getName());
         updated.setPrice(souvenir.getPrice());
-        dao.saveManufacturer(updated.getManufacturer());
+        fileHandler.saveManufacturer(updated.getManufacturer());
         return updated;
     }
 
@@ -76,7 +75,7 @@ public class RepositoryImpl implements Repository {
     public Manufacturer addManufacturer(Manufacturer manufacturer) {
         manufacturer.setId(generateId(manufacturers.keySet()));
         manufacturers.put(manufacturer.getId(), manufacturer);
-        dao.saveManufacturer(manufacturer);
+        fileHandler.saveManufacturer(manufacturer);
         return manufacturer;
     }
 
@@ -86,7 +85,7 @@ public class RepositoryImpl implements Repository {
         var manufacturer = getManufacturerById(id);
         manufacturer.addSouvenir(souvenir);
         souvenirs.put(souvenir.getId(), souvenir);
-        dao.saveManufacturer(manufacturer);
+        fileHandler.saveManufacturer(manufacturer);
         return souvenir;
     }
 
