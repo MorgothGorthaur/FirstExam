@@ -19,7 +19,7 @@ public class MapperImpl implements Mapper {
 
     @Override
     public SouvenirDto toSouvenirDto(Souvenir souvenir) {
-        return new SouvenirDto(souvenir.getId(), souvenir.getName(), souvenir.getPrice(), souvenir.getDate());
+        return new SouvenirDto(souvenir.getId(), souvenir.getName(), souvenir.getDate(), souvenir.getPrice());
     }
 
     @Override
@@ -30,6 +30,6 @@ public class MapperImpl implements Mapper {
 
     @Override
     public SouvenirFullDto toSouvenirFullDto(Souvenir souvenir) {
-        return new SouvenirFullDto(souvenir.getId(), souvenir.getName(), souvenir.getPrice(), souvenir.getDate(), toManufacturerDto(souvenir.getManufacturer()));
+        return new SouvenirFullDto(souvenir.getId(), souvenir.getName(), souvenir.getDate(), souvenir.getPrice(), toManufacturerDto(souvenir.getManufacturer()));
     }
 }

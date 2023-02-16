@@ -1,11 +1,9 @@
 package exam.repository;
 
-import exam.dto.ManufacturerDto;
 import exam.model.Manufacturer;
 import exam.model.Souvenir;
 import exam.repository.dao.Dao;
 import exam.repository.dao.DaoImpl;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -18,9 +16,7 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 class RepositoryTest {
@@ -57,10 +53,10 @@ class RepositoryTest {
 
     @Test
     void getSouvenirs() {
-        var expected = Arrays.asList(new Souvenir("first souvenir name", 5, LocalDate.now()),
-                new Souvenir("second souvenir name", 6, LocalDate.now()),
-                new Souvenir("third souvenir name", 7, LocalDate.now()),
-                new Souvenir("fourth souvenir name", 8, LocalDate.now()));
+        var expected = Arrays.asList(new Souvenir("first souvenir name", LocalDate.now(), 5),
+                new Souvenir("second souvenir name", LocalDate.now(), 6),
+                new Souvenir("third souvenir name", LocalDate.now(), 7),
+                new Souvenir("fourth souvenir name", LocalDate.now(), 8));
         assertThat(repository.getSouvenirs()).isEqualTo(expected);
 
     }
@@ -74,9 +70,9 @@ class RepositoryTest {
 
     @Test
     void removeSouvenir() {
-        var expected = Arrays.asList(new Souvenir( "second souvenir name", 6, LocalDate.now()),
-                new Souvenir("third souvenir name", 7, LocalDate.now()),
-                new Souvenir( "fourth souvenir name", 8, LocalDate.now()));
+        var expected = Arrays.asList(new Souvenir( "second souvenir name", LocalDate.now(), 6),
+                new Souvenir("third souvenir name", LocalDate.now(), 7),
+                new Souvenir( "fourth souvenir name", LocalDate.now(), 8));
         repository.removeSouvenir(0L);
         assertThat(repository.getSouvenirs()).isEqualTo(expected);
     }
@@ -104,7 +100,7 @@ class RepositoryTest {
 
     @Test
     void addSouvenir() {
-        var souvenir = new Souvenir("new", 6, LocalDate.now());
+        var souvenir = new Souvenir("new", LocalDate.now(), 6);
         var expected = new Souvenir(5L, "new",  LocalDate.now(), 6, new Manufacturer(0L, "first", "first country", new HashSet<>()));
         assertThat(repository.addSouvenir(0L, souvenir)).isEqualTo(expected);
     }

@@ -38,7 +38,7 @@ public class Manufacturer {
     }
 
     public boolean isMakesSouvenirsCheaperThanValue(double price) {
-        return souvenirs.stream().filter(souvenir -> souvenir.getPrice() > price).toList().size() == 0;
+        return souvenirs.stream().filter(souvenir -> souvenir.getPrice() >= price).toList().size() == 0;
     }
 
     @Override
