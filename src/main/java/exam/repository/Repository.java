@@ -16,13 +16,13 @@ public interface Repository {
 
     void removeSouvenir(long id);
 
-    Manufacturer updateManufacturer(Manufacturer manufacturer);
+    void updateManufacturer(Manufacturer manufacturer);
 
-    Souvenir updateSouvenir(Souvenir souvenir);
+    void updateSouvenir(Souvenir souvenir);
 
-    Manufacturer addManufacturer(Manufacturer manufacturer);
+    void addManufacturer(Manufacturer manufacturer);
 
-    Souvenir addSouvenir(long id, Souvenir souvenir);
+    void addSouvenir(long id, Souvenir souvenir);
 
     Manufacturer getManufacturerById(long id);
 

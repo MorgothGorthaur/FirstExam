@@ -56,40 +56,36 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public Manufacturer updateManufacturer(Manufacturer manufacturer) {
+    public void updateManufacturer(Manufacturer manufacturer) {
         var updated = getManufacturerById(manufacturer.getId());
         updated.setCountry(manufacturer.getCountry());
         updated.setName(manufacturer.getName());
         fileHandler.saveManufacturer(updated);
-        return updated;
     }
 
     @Override
-    public Souvenir updateSouvenir(Souvenir souvenir) {
+    public void updateSouvenir(Souvenir souvenir) {
         var updated = getSouvenirById(souvenir.getId());
         updated.setDate(souvenir.getDate());
         updated.setName(souvenir.getName());
         updated.setPrice(souvenir.getPrice());
         fileHandler.saveManufacturer(updated.getManufacturer());
-        return updated;
     }
 
     @Override
-    public Manufacturer addManufacturer(Manufacturer manufacturer) {
+    public void addManufacturer(Manufacturer manufacturer) {
         manufacturer.setId(generateId(manufacturers.keySet()));
         manufacturers.put(manufacturer.getId(), manufacturer);
         fileHandler.saveManufacturer(manufacturer);
-        return manufacturer;
     }
 
     @Override
-    public Souvenir addSouvenir(long id, Souvenir souvenir) {
+    public void addSouvenir(long id, Souvenir souvenir) {
         souvenir.setId(generateId(souvenirs.keySet()));
         var manufacturer = getManufacturerById(id);
         manufacturer.addSouvenir(souvenir);
         souvenirs.put(souvenir.getId(), souvenir);
         fileHandler.saveManufacturer(manufacturer);
-        return souvenir;
     }
 
     @Override
