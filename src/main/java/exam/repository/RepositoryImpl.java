@@ -4,24 +4,26 @@ import exam.exception.ManufacturedNotFoundException;
 import exam.exception.SouvenirNotFoundException;
 import exam.model.Souvenir;
 import exam.model.Manufacturer;
-import exam.repository.dao.Dao;
+import exam.repository.filehandler.FileHandler;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Component
 public class RepositoryImpl implements Repository {
 
-    private final Dao dao;
+    private final FileHandler fileHandler;
     private final Map<Long, Manufacturer> manufacturers;
     private final Map<Long, Souvenir> souvenirs;
 
-    public RepositoryImpl(Dao dao) {
-        this.dao = dao;
-        manufacturers = dao.readAll();
-        souvenirs = new HashMap<>();
-        manufacturers.values().forEach(manufacturer -> manufacturer.getSouvenirs().forEach(souvenir -> souvenirs.put(souvenir.getId(), souvenir)));
+    public RepositoryImpl(FileHandler fileHandler) {
+        this.fileHandler = fileHandler;
+        manufacturers = fileHandler.readAll();
+        souvenirs = manufacturers.values().stream()
+                .flatMap(manufacturer -> manufacturer.getSouvenirs().stream())
+                .collect(Collectors.toMap(Souvenir::getId, Function.identity()));
     }
 
     @Override
@@ -35,80 +37,76 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public void removeManufacturer(Long id) {
+    public void removeManufacturer(long id) {
         var removed = manufacturers.remove(id);
         if (removed != null) {
             removed.getSouvenirs().forEach(souvenir -> souvenirs.remove(souvenir.getId()));
-            dao.removeManufacturer(removed);
+            fileHandler.removeManufacturer(removed);
         } else throw new ManufacturedNotFoundException(id);
     }
 
     @Override
-    public void removeSouvenir(Long id) {
+    public void removeSouvenir(long id) {
         var removed = souvenirs.remove(id);
         if (removed != null) {
             var manufacturer = removed.getManufacturer();
             manufacturer.removeSouvenir(removed);
-            dao.saveManufacturer(manufacturer);
+            fileHandler.saveManufacturer(manufacturer);
         } else throw new SouvenirNotFoundException(id);
     }
 
     @Override
-    public Manufacturer updateManufacturer(Manufacturer manufacturer) {
+    public void updateManufacturer(Manufacturer manufacturer) {
         var updated = getManufacturerById(manufacturer.getId());
         updated.setCountry(manufacturer.getCountry());
         updated.setName(manufacturer.getName());
-        dao.saveManufacturer(updated);
-        return updated;
+        fileHandler.saveManufacturer(updated);
     }
 
     @Override
-    public Souvenir updateSouvenir(Souvenir souvenir) {
+    public void updateSouvenir(Souvenir souvenir) {
         var updated = getSouvenirById(souvenir.getId());
         updated.setDate(souvenir.getDate());
         updated.setName(souvenir.getName());
         updated.setPrice(souvenir.getPrice());
-        dao.saveManufacturer(updated.getManufacturer());
-        return updated;
+        fileHandler.saveManufacturer(updated.getManufacturer());
     }
 
     @Override
-    public Manufacturer addManufacturer(Manufacturer manufacturer) {
+    public void addManufacturer(Manufacturer manufacturer) {
         manufacturer.setId(generateId(manufacturers.keySet()));
         manufacturers.put(manufacturer.getId(), manufacturer);
-        dao.saveManufacturer(manufacturer);
-        return manufacturer;
+        fileHandler.saveManufacturer(manufacturer);
     }
 
     @Override
-    public Souvenir addSouvenir(Long id, Souvenir souvenir) {
+    public void addSouvenir(long id, Souvenir souvenir) {
         souvenir.setId(generateId(souvenirs.keySet()));
         var manufacturer = getManufacturerById(id);
         manufacturer.addSouvenir(souvenir);
         souvenirs.put(souvenir.getId(), souvenir);
-        dao.saveManufacturer(manufacturer);
-        return souvenir;
+        fileHandler.saveManufacturer(manufacturer);
     }
 
     @Override
-    public Manufacturer getManufacturerById(Long id) {
+    public Manufacturer getManufacturerById(long id) {
         var manufacturer = manufacturers.get(id);
         if (manufacturer != null) return manufacturer;
         else throw new ManufacturedNotFoundException(id);
     }
 
     @Override
-    public Souvenir getSouvenirById(Long id) {
+    public Souvenir getSouvenirById(long id) {
         var souvenir = souvenirs.get(id);
         if (souvenir != null) return souvenir;
         else throw new SouvenirNotFoundException(id);
     }
 
     @Override
-    public Set<Manufacturer> getManufacturersBySouvenirNameAndYear(String name, int year) {
+    public List<Manufacturer> getManufacturersBySouvenirNameAndYear(String name, int year) {
         return souvenirs.values().stream()
                 .filter(souvenir ->souvenir.getName().equals(name) && souvenir.getDate().getYear() == year)
-                .map(Souvenir::getManufacturer).collect(Collectors.toSet());
+                .map(Souvenir::getManufacturer).distinct().toList();
     }
 
     @Override

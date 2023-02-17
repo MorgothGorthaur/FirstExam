@@ -18,11 +18,11 @@ public class Souvenir {
     private String name;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
-    private double price;
+    private long price;
     @JsonBackReference
     private Manufacturer manufacturer;
 
-    public Souvenir(String name, LocalDate date, double price) {
+    public Souvenir(String name, LocalDate date, long price) {
         this(null, name, date, price, null);
     }
 

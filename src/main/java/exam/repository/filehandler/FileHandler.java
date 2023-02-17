@@ -1,11 +1,10 @@
-package exam.repository.dao;
+package exam.repository.filehandler;
 
 import exam.model.Manufacturer;
-import exam.model.Souvenir;
 
 import java.util.Map;
 
-public interface Dao {
+public interface FileHandler {
     Map<Long, Manufacturer> readAll();
     void saveManufacturer(Manufacturer manufacturer);
     void removeManufacturer(Manufacturer manufacturer);
