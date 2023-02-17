@@ -20,8 +20,8 @@ public class UpdateSouvenirCommand implements CreateOrUpdateCommandSouvenirComma
     }
 
     @Override
-    public String getUsage() {
-        return getName() + " \"souvenir id\" \"name\" \"date\" \"price\" - for updating souvenir";
+    public void printUsage() {
+        System.out.println(getName() + " \"souvenir id\" \"name\" \"date\" \"price\" - for updating souvenir");
     }
 
     @Override

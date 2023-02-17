@@ -19,8 +19,8 @@ public class GetSouvenirs implements Command {
     }
 
     @Override
-    public String getUsage() {
-        return getName() + " - for getting souvenirs";
+    public void printUsage() {
+        System.out.println(getName() + " - for getting souvenirs");
     }
 
     @Override

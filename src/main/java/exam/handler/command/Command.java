@@ -5,7 +5,7 @@ import java.util.List;
 public interface Command {
     String getName();
 
-    String getUsage();
+    void printUsage();
 
     void execute(List<String> args);
 }

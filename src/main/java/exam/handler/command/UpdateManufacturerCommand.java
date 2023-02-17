@@ -19,8 +19,8 @@ public class UpdateManufacturerCommand implements CreateOrUpdateCommandManufactu
     }
 
     @Override
-    public String getUsage() {
-        return getName() + " \"manufacturer id\" \"name\" \"country\" - for updating manufacturer";
+    public void printUsage() {
+        System.out.println(getName() + " \"manufacturer id\" \"name\" \"country\" - for updating manufacturer");
     }
 
     @Override

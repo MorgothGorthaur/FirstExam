@@ -18,8 +18,8 @@ public class GetSouvenirsByCountry implements Command {
     }
 
     @Override
-    public String getUsage() {
-        return getName() + " \"country\" - for getting souvenirs by country";
+    public void printUsage() {
+        System.out.println(getName() + " \"country\" - for getting souvenirs by country");
     }
 
     @Override

@@ -17,8 +17,8 @@ public class GetSouvenirsByYears implements Command {
     }
 
     @Override
-    public String getUsage() {
-        return getName() + " - for getting souvenirs by years";
+    public void printUsage() {
+        System.out.println(getName() + " - for getting souvenirs by years");
     }
 
     @Override

@@ -40,7 +40,7 @@ public class ConsoleCommandHandlerImpl implements ConsoleCommandHandler {
     }
 
     private void printMenu() {
-        commands.values().stream().map(Command::getUsage).forEach(System.out::println);
+        commands.values().stream().map(Command::printUsage).forEach(System.out::println);
         System.out.println("exit - for exit");
     }
 }

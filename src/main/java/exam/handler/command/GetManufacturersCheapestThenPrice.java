@@ -1,6 +1,5 @@
 package exam.handler.command;
 
-import exam.dto.mapper.Mapper;
 import exam.repository.Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,8 +16,8 @@ public class GetManufacturersCheapestThenPrice implements Command {
     }
 
     @Override
-    public String getUsage() {
-        return getName() + " \"price\" - for getting manufacturers that makes souvenirs cheaper then price";
+    public void printUsage() {
+        System.out.println(getName() + " \"price\" - for getting manufacturers that makes souvenirs cheaper then price");
     }
 
     @Override

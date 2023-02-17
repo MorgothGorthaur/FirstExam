@@ -21,8 +21,8 @@ public class AddManufacturer implements CreateOrUpdateCommandManufacturerCommand
     }
 
     @Override
-    public String getUsage() {
-        return getName() + " \"name\" \"country\" - for adding manufacturer";
+    public void printUsage() {
+        System.out.println(getName() + " \"name\" \"country\" - for adding manufacturer");
     }
 
     @Override

@@ -18,8 +18,8 @@ public class GetSouvenir implements Command {
     }
 
     @Override
-    public String getUsage() {
-        return getName() + " \"souvenir id\" -  for getting souvenir";
+    public void printUsage() {
+        System.out.println(getName() + " \"souvenir id\" -  for getting souvenir");
     }
 
     @Override

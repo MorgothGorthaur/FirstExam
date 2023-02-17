@@ -18,8 +18,8 @@ public class GetManufacturers implements Command {
     }
 
     @Override
-    public String getUsage() {
-        return getName() + " - for getting list of manufacturers";
+    public void printUsage() {
+        System.out.println(getName() + " - for getting list of manufacturers");
     }
 
     @Override

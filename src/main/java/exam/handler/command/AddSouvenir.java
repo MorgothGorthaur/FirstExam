@@ -21,8 +21,8 @@ public class AddSouvenir implements CreateOrUpdateCommandSouvenirCommand {
     }
 
     @Override
-    public String getUsage() {
-        return getName() + " \"manufacturer id\" \"name\" \"date\" \"price\" - for adding souvenir";
+    public void printUsage() {
+        System.out.println(getName() + " \"manufacturer id\" \"name\" \"date\" \"price\" - for adding souvenir");
     }
 
     @Override

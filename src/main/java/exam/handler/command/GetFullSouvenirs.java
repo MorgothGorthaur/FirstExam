@@ -18,8 +18,8 @@ public class GetFullSouvenirs implements Command {
     }
 
     @Override
-    public String getUsage() {
-        return getName() + " - for getting souvenirs with manufacturers";
+    public void printUsage() {
+        System.out.println(getName() + " - for getting souvenirs with manufacturers");
     }
 
     @Override
