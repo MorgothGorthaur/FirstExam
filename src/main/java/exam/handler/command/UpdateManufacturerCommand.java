@@ -29,7 +29,7 @@ public class UpdateManufacturerCommand implements CreateOrUpdateCommandManufactu
         var updated = repository.getManufacturerById(Long.parseLong(args.get(1)));
         updated.setName(args.get(2));
         updated.setCountry(args.get(3));
-        repository.addManufacturer(updated);
+        repository.updateManufacturer(updated);
         System.out.println("your manufacturer: " + mapper.toManufacturerDto(updated));
     }
 }
