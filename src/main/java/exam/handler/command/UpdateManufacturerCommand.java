@@ -25,10 +25,10 @@ public class UpdateManufacturerCommand implements CreateOrUpdateCommandManufactu
 
     @Override
     public void execute(List<String> args) {
-        checkArgs(Arrays.asList(args.get(2), args.get(3)));
-        var updated = repository.getManufacturerById(Long.parseLong(args.get(1)));
-        updated.setName(args.get(2));
-        updated.setCountry(args.get(3));
+        checkArgs(Arrays.asList(args.get(1), args.get(2)));
+        var updated = repository.getManufacturerById(Long.parseLong(args.get(0)));
+        updated.setName(args.get(1));
+        updated.setCountry(args.get(2));
         repository.updateManufacturer(updated);
         System.out.println("your manufacturer: " + mapper.toManufacturerDto(updated));
     }

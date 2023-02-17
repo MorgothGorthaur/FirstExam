@@ -24,6 +24,6 @@ public class GetSouvenirsByCountry implements Command {
 
     @Override
     public void execute(List<String> args) {
-        repository.getSouvenirsByCountry(args.get(1)).stream().map(mapper::toSouvenirDto).forEach(System.out::println);
+        repository.getSouvenirsByCountry(args.get(0)).stream().map(mapper::toSouvenirDto).forEach(System.out::println);
     }
 }

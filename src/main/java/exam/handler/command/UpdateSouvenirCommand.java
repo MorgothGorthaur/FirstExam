@@ -26,11 +26,11 @@ public class UpdateSouvenirCommand implements CreateOrUpdateCommandSouvenirComma
 
     @Override
     public void execute(List<String> args) {
-        checkArgs(Arrays.asList(args.get(2), args.get(4)));
-        var souvenir = repository.getSouvenirById(Long.parseLong(args.get(1)));
-        souvenir.setName(args.get(2));
-        souvenir.setDate(LocalDate.parse(args.get(3)));
-        souvenir.setPrice(Long.parseLong(args.get(4)));
+        checkArgs(Arrays.asList(args.get(1), args.get(3)));
+        var souvenir = repository.getSouvenirById(Long.parseLong(args.get(0)));
+        souvenir.setName(args.get(1));
+        souvenir.setDate(LocalDate.parse(args.get(2)));
+        souvenir.setPrice(Long.parseLong(args.get(3)));
         repository.updateSouvenir(souvenir);
         System.out.println("your souvenir: " + mapper.toSouvenirDto(souvenir));
     }
