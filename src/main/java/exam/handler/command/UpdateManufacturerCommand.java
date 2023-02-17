@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 @Component
 @RequiredArgsConstructor
-public class UpdateManufacturer implements Command {
+public class UpdateManufacturerCommand implements CreateOrUpdateCommandManufacturerCommand {
     private final Repository repository;
     private final Mapper mapper;
 
@@ -24,6 +24,7 @@ public class UpdateManufacturer implements Command {
 
     @Override
     public void execute(List<String> args) {
+        checkArgs(args);
         var updated = repository.getManufacturerById(Long.parseLong(args.get(1)));
         updated.setName(args.get(2));
         updated.setCountry(args.get(3));

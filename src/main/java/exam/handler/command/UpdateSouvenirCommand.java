@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 @Component
 @RequiredArgsConstructor
-public class UpdateSouvenir implements Command {
+public class UpdateSouvenirCommand implements CreateOrUpdateCommandSouvenirCommand {
     private final Repository repository;
     private final Mapper mapper;
 
@@ -25,6 +25,7 @@ public class UpdateSouvenir implements Command {
 
     @Override
     public void execute(List<String> args) {
+        checkArgs(args);
         var souvenir = repository.getSouvenirById(Long.parseLong(args.get(1)));
         souvenir.setName(args.get(2));
         souvenir.setDate(LocalDate.parse(args.get(3)));

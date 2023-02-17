@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 @Component
 @RequiredArgsConstructor
-public class AddSouvenir implements Command {
+public class AddSouvenir implements CreateOrUpdateCommandSouvenirCommand {
     private final Repository repository;
     private final Mapper mapper;
 
@@ -26,6 +26,7 @@ public class AddSouvenir implements Command {
 
     @Override
     public void execute(List<String> args) {
+        checkArgs(args);
         System.out.println("your souvenir: " + mapper.toSouvenirDto(repository.addSouvenir(Long.parseLong(args.get(1)),
                 new Souvenir(args.get(2), LocalDate.parse(args.get(3)), Long.parseLong(args.get(4)))
         )));
