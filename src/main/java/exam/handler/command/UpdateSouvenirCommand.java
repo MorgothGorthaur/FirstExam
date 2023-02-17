@@ -31,7 +31,7 @@ public class UpdateSouvenirCommand implements CreateOrUpdateCommandSouvenirComma
         souvenir.setName(args.get(2));
         souvenir.setDate(LocalDate.parse(args.get(3)));
         souvenir.setPrice(Long.parseLong(args.get(4)));
-        repository.updateManufacturer(souvenir.getManufacturer());
+        repository.updateSouvenir(souvenir);
         System.out.println("your souvenir: " + mapper.toSouvenirDto(souvenir));
     }
 }

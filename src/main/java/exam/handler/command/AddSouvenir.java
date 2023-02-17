@@ -28,7 +28,7 @@ public class AddSouvenir implements CreateOrUpdateCommandSouvenirCommand {
     @Override
     public void execute(List<String> args) {
         checkArgs(Arrays.asList(args.get(2), args.get(4)));
-        var souvenir =     new Souvenir(args.get(2), LocalDate.parse(args.get(3)), Long.parseLong(args.get(4)));
+        var souvenir = new Souvenir(args.get(2), LocalDate.parse(args.get(3)), Long.parseLong(args.get(4)));
         repository.addSouvenir(Long.parseLong(args.get(1)), souvenir);
         System.out.println("your souvenir: " + mapper.toSouvenirDto(souvenir));
     }
