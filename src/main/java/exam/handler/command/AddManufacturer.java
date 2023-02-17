@@ -7,6 +7,7 @@ import exam.repository.Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
 @Component
 @RequiredArgsConstructor
@@ -26,7 +27,7 @@ public class AddManufacturer implements CreateOrUpdateCommandManufacturerCommand
 
     @Override
     public void execute(List<String> args) {
-        checkArgs(args);
+        checkArgs(Arrays.asList(args.get(1), args.get(2)));
         System.out.println("your manufacturer: " + mapper.toManufacturerDto(
                 repository.addManufacturer(new Manufacturer(args.get(1), args.get(2)))
         ));

@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 @Component
 @RequiredArgsConstructor
@@ -25,7 +26,7 @@ public class UpdateSouvenirCommand implements CreateOrUpdateCommandSouvenirComma
 
     @Override
     public void execute(List<String> args) {
-        checkArgs(args);
+        checkArgs(Arrays.asList(args.get(2), args.get(4)));
         var souvenir = repository.getSouvenirById(Long.parseLong(args.get(1)));
         souvenir.setName(args.get(2));
         souvenir.setDate(LocalDate.parse(args.get(3)));

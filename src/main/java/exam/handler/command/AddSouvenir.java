@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 @Component
 @RequiredArgsConstructor
@@ -26,7 +27,7 @@ public class AddSouvenir implements CreateOrUpdateCommandSouvenirCommand {
 
     @Override
     public void execute(List<String> args) {
-        checkArgs(args);
+        checkArgs(Arrays.asList(args.get(2), args.get(4)));
         System.out.println("your souvenir: " + mapper.toSouvenirDto(repository.addSouvenir(Long.parseLong(args.get(1)),
                 new Souvenir(args.get(2), LocalDate.parse(args.get(3)), Long.parseLong(args.get(4)))
         )));
