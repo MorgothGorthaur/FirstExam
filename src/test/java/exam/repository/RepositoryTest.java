@@ -52,7 +52,7 @@ class RepositoryTest {
     }
 
     @Test
-    void getSouvenirs() {
+    void testGetSouvenirs() {
         var expected = Arrays.asList(new Souvenir("first souvenir name", LocalDate.now(), 5),
                 new Souvenir("second souvenir name", LocalDate.now(), 6),
                 new Souvenir("third souvenir name", LocalDate.now(), 7),
@@ -62,14 +62,14 @@ class RepositoryTest {
     }
 
     @Test
-    void removeManufacturer() {
+    void testRemoveManufacturer() {
         var expected = List.of(new Manufacturer(1L, "second", "second country", new HashSet<>()));
         repository.removeManufacturer(0L);
         assertThat(repository.getManufacturers()).isEqualTo(expected);
     }
 
     @Test
-    void removeSouvenir() {
+    void testRemoveSouvenir() {
         var expected = Arrays.asList(new Souvenir( "second souvenir name", LocalDate.now(), 6),
                 new Souvenir("third souvenir name", LocalDate.now(), 7),
                 new Souvenir( "fourth souvenir name", LocalDate.now(), 8));
@@ -78,53 +78,53 @@ class RepositoryTest {
     }
 
     @Test
-    void updateManufacturer() {
+    void testUpdateManufacturer() {
         var updated = new Manufacturer(0L, "updated", "country", new HashSet<>());
         var res = repository.updateManufacturer(updated);
         assertThat(res).isEqualTo(updated);
     }
 
     @Test
-    void updateSouvenir() {
+    void testUpdateSouvenir() {
         var updated = new Souvenir( 0L,"updated",  LocalDate.now(),4, null);
         var res = repository.updateSouvenir(updated);
         assertThat(res).isEqualTo(updated);
     }
 
     @Test
-    void addManufacturer() {
+    void testAddManufacturer() {
         var manufacturer = new Manufacturer("new", "country");
         var expected = new Manufacturer(2L, "new", "country", null);
         assertThat(repository.addManufacturer(manufacturer)).isEqualTo(expected);
     }
 
     @Test
-    void addSouvenir() {
+    void testAddSouvenir() {
         var souvenir = new Souvenir("new", LocalDate.now(), 6);
         var expected = new Souvenir(5L, "new",  LocalDate.now(), 6, new Manufacturer(0L, "first", "first country", new HashSet<>()));
         assertThat(repository.addSouvenir(0L, souvenir)).isEqualTo(expected);
     }
 
     @Test
-    void getManufacturerById() {
+    void testGetManufacturerById() {
         var expected =  new Manufacturer(0L, "first", "first country", new HashSet<>());
         assertThat(repository.getManufacturerById(0L)).isEqualTo(expected);
     }
 
     @Test
-    void getSouvenirById() {
+    void testGetSouvenirById() {
         var souvenir = new Souvenir(0L, "first souvenir name", LocalDate.now(), 5, null);
         assertThat(repository.getSouvenirById(0L)).isEqualTo(souvenir);
     }
 
     @Test
-    void getManufacturersBySouvenirNameAndYear() {
+    void testGetManufacturersBySouvenirNameAndYear() {
         var expected = new HashSet<>(List.of(new Manufacturer(0L, "first", "first country", new HashSet<>())));
         assertThat(repository.getManufacturersBySouvenirNameAndYear("first souvenir name", LocalDate.now().getYear())).isEqualTo(expected);
     }
 
     @Test
-    void getSouvenirsByCountry() {
+    void testGetSouvenirsByCountry() {
         var expected = new TreeMap<Integer, List<Souvenir>>();
         expected.put(LocalDate.now().getYear(), Arrays.asList(new Souvenir(0L, "first souvenir name", LocalDate.now(), 5, null),new Souvenir(1L, "second souvenir name", LocalDate.now(), 6, null),
                 new Souvenir(2L, "third souvenir name", LocalDate.now(), 7, null), new Souvenir(3L, "fourth souvenir name", LocalDate.now(), 8, null)));
