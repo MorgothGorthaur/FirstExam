@@ -19,7 +19,7 @@ public class GetManufacturersByNameAndYear implements Command {
 
     @Override
     public String getUsage() {
-        return "get_manufacturers_by_name_and_year \"name\" \"year\"";
+        return getName() + " \"name\" \"year\" - for getting manufacturers by souvenir name and year";
     }
 
     @Override

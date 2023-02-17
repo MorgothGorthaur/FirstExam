@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class GetSouvenirs implements Command {
@@ -19,7 +20,7 @@ public class GetSouvenirs implements Command {
 
     @Override
     public String getUsage() {
-        return "get_souvenirs - for getting souvenirs";
+        return getName() + " - for getting souvenirs";
     }
 
     @Override

@@ -19,7 +19,7 @@ public class GetManufacturers implements Command {
 
     @Override
     public String getUsage() {
-        return "get_manufacturers - for getting list of manufacturers";
+        return getName() + " - for getting list of manufacturers";
     }
 
     @Override

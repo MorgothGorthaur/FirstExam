@@ -19,7 +19,7 @@ public class GetFullSouvenirs implements Command {
 
     @Override
     public String getUsage() {
-        return "get_full_souvenirs - for getting souvenirs with manufacturers";
+        return getName() + " - for getting souvenirs with manufacturers";
     }
 
     @Override

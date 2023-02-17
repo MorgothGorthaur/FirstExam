@@ -19,7 +19,7 @@ public class GetFullManufacturers implements Command {
 
     @Override
     public String getUsage() {
-        return "get_full_manufacturers - for getting manufacturers with souvenirs";
+        return getName() + " - for getting manufacturers with souvenirs";
     }
 
     @Override

@@ -19,7 +19,7 @@ public class GetSouvenirsByCountry implements Command {
 
     @Override
     public String getUsage() {
-        return "get_souvenirs_by_country \"country\" - for getting souvenirs by country";
+        return getName() + " \"country\" - for getting souvenirs by country";
     }
 
     @Override

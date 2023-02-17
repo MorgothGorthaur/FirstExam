@@ -19,7 +19,7 @@ public class GetSouvenir implements Command {
 
     @Override
     public String getUsage() {
-        return "get_souvenir \"souvenir id\" for getting souvenir";
+        return getName() + " \"souvenir id\" -  for getting souvenir";
     }
 
     @Override

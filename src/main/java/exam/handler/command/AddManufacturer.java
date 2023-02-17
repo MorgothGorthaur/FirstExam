@@ -22,7 +22,7 @@ public class AddManufacturer implements CreateOrUpdateCommandManufacturerCommand
 
     @Override
     public String getUsage() {
-        return "add_manufacturer \"name\" \"country\" - for adding manufacturer";
+        return getName() + " \"name\" \"country\" - for adding manufacturer";
     }
 
     @Override

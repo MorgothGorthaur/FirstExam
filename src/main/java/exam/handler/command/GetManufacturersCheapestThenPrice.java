@@ -18,7 +18,7 @@ public class GetManufacturersCheapestThenPrice implements Command {
 
     @Override
     public String getUsage() {
-        return "get_manufacturers_cheaper_then \"price\" - for getting manufacturers that makes souvenirs cheaper then price";
+        return getName() + " \"price\" - for getting manufacturers that makes souvenirs cheaper then price";
     }
 
     @Override

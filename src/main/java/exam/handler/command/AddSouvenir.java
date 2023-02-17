@@ -22,7 +22,7 @@ public class AddSouvenir implements CreateOrUpdateCommandSouvenirCommand {
 
     @Override
     public String getUsage() {
-        return "add_souvenir \"manufacturer id\" \"name\" \"date\" \"price\" - for adding souvenir";
+        return getName() + " \"manufacturer id\" \"name\" \"date\" \"price\" - for adding souvenir";
     }
 
     @Override

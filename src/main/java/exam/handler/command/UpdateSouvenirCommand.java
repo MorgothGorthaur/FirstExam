@@ -21,7 +21,7 @@ public class UpdateSouvenirCommand implements CreateOrUpdateCommandSouvenirComma
 
     @Override
     public String getUsage() {
-        return "update_souvenir \"souvenir id\" \"name\" \"date\" \"price\" - for updating souvenir";
+        return getName() + " \"souvenir id\" \"name\" \"date\" \"price\" - for updating souvenir";
     }
 
     @Override

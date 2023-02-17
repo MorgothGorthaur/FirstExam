@@ -20,7 +20,7 @@ public class UpdateManufacturerCommand implements CreateOrUpdateCommandManufactu
 
     @Override
     public String getUsage() {
-        return "update_manufacturer \"manufacturer id\" \"name\" \"country\" - for updating manufacturer";
+        return getName() + " \"manufacturer id\" \"name\" \"country\" - for updating manufacturer";
     }
 
     @Override

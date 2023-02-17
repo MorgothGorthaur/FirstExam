@@ -17,7 +17,7 @@ public class RemoveSouvenir implements Command {
 
     @Override
     public String getUsage() {
-        return "remove_souvenir \"id\" - for removing souvenir";
+        return getName() + " \"id\" - for removing souvenir";
     }
 
     @Override
