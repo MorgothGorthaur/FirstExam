@@ -21,6 +21,6 @@ public class RemoveManufacturer implements Command{
 
     @Override
     public void execute(List<String> args) {
-        repository.removeManufacturer(Integer.parseInt(args.get(1)));
+        repository.removeManufacturer(Integer.parseInt(args.get(0)));
     }
 }

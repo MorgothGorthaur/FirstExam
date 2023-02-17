@@ -24,6 +24,6 @@ public class GetManufacturer implements Command {
 
     @Override
     public void execute(List<String> args) {
-        System.out.println(mapper.toManufacturerFullDto(repository.getManufacturerById(Integer.parseInt(args.get(1)))));
+        System.out.println(mapper.toManufacturerFullDto(repository.getManufacturerById(Integer.parseInt(args.get(0)))));
     }
 }
