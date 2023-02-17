@@ -28,8 +28,8 @@ public class AddManufacturer implements CreateOrUpdateCommandManufacturerCommand
     @Override
     public void execute(List<String> args) {
         checkArgs(Arrays.asList(args.get(1), args.get(2)));
-        System.out.println("your manufacturer: " + mapper.toManufacturerDto(
-                repository.addManufacturer(new Manufacturer(args.get(1), args.get(2)))
-        ));
+        var manufacturer = new Manufacturer(args.get(1), args.get(2));
+        repository.addManufacturer(manufacturer);
+        System.out.println("your manufacturer: " + mapper.toManufacturerDto(manufacturer));
     }
 }

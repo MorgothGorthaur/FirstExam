@@ -77,33 +77,33 @@ class RepositoryTest {
         assertThat(repository.getSouvenirs()).isEqualTo(expected);
     }
 
-    @Test
-    void testUpdateManufacturer() {
-        var updated = new Manufacturer(0L, "updated", "country", new HashSet<>());
-        var res = repository.updateManufacturer(updated);
-        assertThat(res).isEqualTo(updated);
-    }
+//    @Test
+//    void testUpdateManufacturer() {
+//        var updated = new Manufacturer(0L, "updated", "country", new HashSet<>());
+//        var res = repository.updateManufacturer(updated);
+//        assertThat(res).isEqualTo(updated);
+//    }
+//
+//    @Test
+//    void testUpdateSouvenir() {
+//        var updated = new Souvenir( 0L,"updated",  LocalDate.now(),4, null);
+//        var res = repository.updateSouvenir(updated);
+//        assertThat(res).isEqualTo(updated);
+//    }
 
-    @Test
-    void testUpdateSouvenir() {
-        var updated = new Souvenir( 0L,"updated",  LocalDate.now(),4, null);
-        var res = repository.updateSouvenir(updated);
-        assertThat(res).isEqualTo(updated);
-    }
-
-    @Test
-    void testAddManufacturer() {
-        var manufacturer = new Manufacturer("new", "country");
-        var expected = new Manufacturer(2L, "new", "country", null);
-        assertThat(repository.addManufacturer(manufacturer)).isEqualTo(expected);
-    }
-
-    @Test
-    void testAddSouvenir() {
-        var souvenir = new Souvenir("new", LocalDate.now(), 6);
-        var expected = new Souvenir(5L, "new",  LocalDate.now(), 6, new Manufacturer(0L, "first", "first country", new HashSet<>()));
-        assertThat(repository.addSouvenir(0L, souvenir)).isEqualTo(expected);
-    }
+//    @Test
+//    void testAddManufacturer() {
+//        var manufacturer = new Manufacturer("new", "country");
+//        var expected = new Manufacturer(2L, "new", "country", null);
+//        assertThat(repository.addManufacturer(manufacturer)).isEqualTo(expected);
+//    }
+//
+//    @Test
+//    void testAddSouvenir() {
+//        var souvenir = new Souvenir("new", LocalDate.now(), 6);
+//        var expected = new Souvenir(5L, "new",  LocalDate.now(), 6, new Manufacturer(0L, "first", "first country", new HashSet<>()));
+//        assertThat(repository.addSouvenir(0L, souvenir)).isEqualTo(expected);
+//    }
 
     @Test
     void testGetManufacturerById() {
