@@ -1,15 +1,15 @@
 package exam.handler.command;
 
 import exam.dto.mapper.Mapper;
+import exam.exception.ManufacturerValidationException;
 import exam.repository.Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.List;
 @Component
 @RequiredArgsConstructor
-public class UpdateManufacturer implements CreateOrUpdateCommandManufacturerCommand {
+public class UpdateManufacturer implements Command {
     private final Repository repository;
     private final Mapper mapper;
 
@@ -25,7 +25,7 @@ public class UpdateManufacturer implements CreateOrUpdateCommandManufacturerComm
 
     @Override
     public void execute(List<String> args) {
-        checkArgs(Arrays.asList(args.get(1), args.get(2)));
+        if(args.get(0).equals("") || args.get(1).equals("")) throw new ManufacturerValidationException();
         var updated = repository.getManufacturerById(Long.parseLong(args.get(0)));
         updated.setName(args.get(1));
         updated.setCountry(args.get(2));

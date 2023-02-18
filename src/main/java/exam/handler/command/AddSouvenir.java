@@ -1,17 +1,17 @@
 package exam.handler.command;
 
 import exam.dto.mapper.Mapper;
+import exam.exception.SouvenirValidationException;
 import exam.model.Souvenir;
 import exam.repository.Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 @Component
 @RequiredArgsConstructor
-public class AddSouvenir implements CreateOrUpdateCommandSouvenirCommand {
+public class AddSouvenir implements Command {
     private final Repository repository;
     private final Mapper mapper;
 
@@ -27,8 +27,8 @@ public class AddSouvenir implements CreateOrUpdateCommandSouvenirCommand {
 
     @Override
     public void execute(List<String> args) {
-        checkArgs(args.subList(1,args.size()));
         var souvenir = new Souvenir(args.get(1), LocalDate.parse(args.get(2)), Long.parseLong(args.get(3)));
+        if(souvenir.getName().equals("") || souvenir.getPrice() < 0 || souvenir.getDate().isAfter(LocalDate.now())) throw new SouvenirValidationException();
         repository.addSouvenir(Long.parseLong(args.get(0)), souvenir);
         System.out.println("your souvenir: " + mapper.toSouvenirDto(souvenir));
     }
