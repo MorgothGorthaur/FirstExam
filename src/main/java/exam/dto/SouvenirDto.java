@@ -1,6 +1,5 @@
 package exam.dto;
 
-import exam.exception.SouvenirValidationException;
 import lombok.NonNull;
 
 import java.time.LocalDate;
