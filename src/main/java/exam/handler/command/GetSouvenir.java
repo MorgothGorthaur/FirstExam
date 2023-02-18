@@ -24,6 +24,6 @@ public class GetSouvenir implements Command {
 
     @Override
     public void execute(List<String> args) {
-        System.out.println(mapper.toSouvenirDto(repository.getSouvenirById(Long.parseLong(args.get(0)))));
+        System.out.println(mapper.toSouvenirFullDto(repository.getSouvenirById(Long.parseLong(args.get(0)))));
     }
 }
