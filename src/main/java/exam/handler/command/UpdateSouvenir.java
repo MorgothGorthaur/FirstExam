@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 @Component
 @RequiredArgsConstructor
-public class UpdateSouvenirCommand implements CreateOrUpdateCommandSouvenirCommand {
+public class UpdateSouvenir implements CreateOrUpdateCommandSouvenirCommand {
     private final Repository repository;
     private final Mapper mapper;
 

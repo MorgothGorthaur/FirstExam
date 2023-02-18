@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 @Component
 @RequiredArgsConstructor
-public class UpdateManufacturerCommand implements CreateOrUpdateCommandManufacturerCommand {
+public class UpdateManufacturer implements CreateOrUpdateCommandManufacturerCommand {
     private final Repository repository;
     private final Mapper mapper;
 
