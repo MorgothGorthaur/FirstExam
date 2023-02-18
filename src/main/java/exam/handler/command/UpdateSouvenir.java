@@ -26,7 +26,7 @@ public class UpdateSouvenir implements CreateOrUpdateCommandSouvenirCommand {
 
     @Override
     public void execute(List<String> args) {
-        checkArgs(Arrays.asList(args.get(1), args.get(3)));
+        checkArgs(args.subList(1, args.size()));
         var souvenir = repository.getSouvenirById(Long.parseLong(args.get(0)));
         souvenir.setName(args.get(1));
         souvenir.setDate(LocalDate.parse(args.get(2)));
