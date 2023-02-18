@@ -25,7 +25,6 @@ public class UpdateManufacturer implements Command {
 
     @Override
     public void execute(List<String> args) {
-        if(args.get(0).equals("") || args.get(1).equals("")) throw new ManufacturerValidationException();
         var updated = repository.getManufacturerById(Long.parseLong(args.get(0)));
         updated.setName(args.get(1));
         updated.setCountry(args.get(2));

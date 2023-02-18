@@ -30,7 +30,7 @@ public class UpdateSouvenir implements Command {
         souvenir.setName(args.get(1));
         souvenir.setDate(LocalDate.parse(args.get(2)));
         souvenir.setPrice(Long.parseLong(args.get(3)));
-        if(souvenir.getName().equals("") || souvenir.getPrice() < 0 || souvenir.getDate().isAfter(LocalDate.now())) throw new SouvenirValidationException();
+        if(souvenir.getPrice() < 0 || souvenir.getDate().isAfter(LocalDate.now())) throw new SouvenirValidationException();
         repository.updateSouvenir(souvenir);
         System.out.println("your souvenir: " + mapper.toSouvenirDto(souvenir));
     }

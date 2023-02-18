@@ -28,7 +28,7 @@ public class AddSouvenir implements Command {
     @Override
     public void execute(List<String> args) {
         var souvenir = new Souvenir(args.get(1), LocalDate.parse(args.get(2)), Long.parseLong(args.get(3)));
-        if(souvenir.getName().equals("") || souvenir.getPrice() < 0 || souvenir.getDate().isAfter(LocalDate.now())) throw new SouvenirValidationException();
+        if(souvenir.getPrice() < 0 || souvenir.getDate().isAfter(LocalDate.now())) throw new SouvenirValidationException();
         repository.addSouvenir(Long.parseLong(args.get(0)), souvenir);
         System.out.println("your souvenir: " + mapper.toSouvenirDto(souvenir));
     }

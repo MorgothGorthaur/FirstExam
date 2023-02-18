@@ -29,7 +29,7 @@ public class ConsoleCommandHandlerImpl implements ConsoleCommandHandler {
         printMenu();
         while (!(line = reader.readLine()).equals("exit")) {
             try {
-                var args = Arrays.asList(line.split(" "));
+                var args = Arrays.asList(line.strip().replaceAll("\\s+", " ").split(" "));
                 var command = commands.get(args.get(0));
                 if (command != null) {
                     var list = args.subList(1, args.size());

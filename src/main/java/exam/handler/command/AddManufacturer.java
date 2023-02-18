@@ -27,7 +27,6 @@ public class AddManufacturer implements Command {
 
     @Override
     public void execute(List<String> args) {
-        if(args.get(0).equals("") || args.get(1).equals("")) throw new ManufacturerValidationException();
         var manufacturer = new Manufacturer(args.get(0), args.get(1));
         repository.addManufacturer(manufacturer);
         System.out.println("your manufacturer: " + mapper.toManufacturerDto(manufacturer));
