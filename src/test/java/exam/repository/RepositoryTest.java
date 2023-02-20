@@ -1,5 +1,7 @@
 package exam.repository;
 
+import exam.exception.ManufacturedNotFoundException;
+import exam.exception.SouvenirNotFoundException;
 import exam.model.Manufacturer;
 import exam.model.Souvenir;
 import exam.repository.filehandler.FileHandler;
@@ -17,6 +19,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 class RepositoryTest {
@@ -45,7 +49,7 @@ class RepositoryTest {
     }
 
     @Test
-    void getManufacturers() {
+    void testGetManufacturers() {
         var expected = Arrays.asList(new Manufacturer(0L, "first", "first country", new HashSet<>()),
                 new Manufacturer(1L, "second", "second country", new HashSet<>()));
         assertThat(repository.getManufacturers()).isEqualTo(expected);
@@ -70,9 +74,9 @@ class RepositoryTest {
 
     @Test
     void testRemoveSouvenir() {
-        var expected = Arrays.asList(new Souvenir( "second souvenir name", LocalDate.now(), 6),
+        var expected = Arrays.asList(new Souvenir("second souvenir name", LocalDate.now(), 6),
                 new Souvenir("third souvenir name", LocalDate.now(), 7),
-                new Souvenir( "fourth souvenir name", LocalDate.now(), 8));
+                new Souvenir("fourth souvenir name", LocalDate.now(), 8));
         repository.removeSouvenir(0L);
         assertThat(repository.getSouvenirs()).isEqualTo(expected);
     }
@@ -86,7 +90,7 @@ class RepositoryTest {
 
     @Test
     void testUpdateSouvenir() {
-        var expected = new Souvenir( 0L,"updated",  LocalDate.now(),4, null);
+        var expected = new Souvenir(0L, "updated", LocalDate.now(), 4, null);
         repository.updateSouvenir(expected);
         assertThat(repository.getSouvenirById(0L)).isEqualTo(expected);
     }
@@ -102,14 +106,14 @@ class RepositoryTest {
     @Test
     void testAddSouvenir() {
         var souvenir = new Souvenir("new", LocalDate.now(), 6);
-        var expected = new Souvenir(5L, "new",  LocalDate.now(), 6, new Manufacturer(0L, "first", "first country", new HashSet<>()));
+        var expected = new Souvenir(5L, "new", LocalDate.now(), 6, new Manufacturer(0L, "first", "first country", new HashSet<>()));
         repository.addSouvenir(0L, souvenir);
         assertThat(repository.getSouvenirById(4L)).isEqualTo(expected);
     }
 
     @Test
     void testGetManufacturerById() {
-        var expected =  new Manufacturer(0L, "first", "first country", new HashSet<>());
+        var expected = new Manufacturer(0L, "first", "first country", new HashSet<>());
         assertThat(repository.getManufacturerById(0L)).isEqualTo(expected);
     }
 
@@ -128,8 +132,28 @@ class RepositoryTest {
     @Test
     void testGetSouvenirsByCountry() {
         var expected = new TreeMap<Integer, List<Souvenir>>();
-        expected.put(LocalDate.now().getYear(), Arrays.asList(new Souvenir(0L, "first souvenir name", LocalDate.now(), 5, null),new Souvenir(1L, "second souvenir name", LocalDate.now(), 6, null),
+        expected.put(LocalDate.now().getYear(), Arrays.asList(new Souvenir(0L, "first souvenir name", LocalDate.now(), 5, null), new Souvenir(1L, "second souvenir name", LocalDate.now(), 6, null),
                 new Souvenir(2L, "third souvenir name", LocalDate.now(), 7, null), new Souvenir(3L, "fourth souvenir name", LocalDate.now(), 8, null)));
         assertThat(repository.getSouvenirsByYears()).isEqualTo(expected);
+    }
+
+    @Test
+    void testRemoveManufacturer_shouldThrowManufacturerNotFoundException() {
+        assertThrows(ManufacturedNotFoundException.class, () -> repository.removeManufacturer(10L));
+    }
+
+    @Test
+    void testGetManufacturerById_shouldThrowManufacturerNotFoundException() {
+        assertThrows(ManufacturedNotFoundException.class, () -> repository.getManufacturerById(10L));
+    }
+
+    @Test
+    void testRemoveSouvenir_shouldThrowSouvenirNotFoundException() {
+        assertThrows(SouvenirNotFoundException.class, () -> repository.removeSouvenir(10L));
+    }
+
+    @Test
+    void testGetSouvenirById_shouldThrowSouvenirNotFoundException() {
+        assertThrows(SouvenirNotFoundException.class, () -> repository.getSouvenirById(10L));
     }
 }
