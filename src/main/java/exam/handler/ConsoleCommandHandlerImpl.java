@@ -27,9 +27,7 @@ public class ConsoleCommandHandlerImpl implements ConsoleCommandHandler {
     public void handleMenu() {
         var line = "";
         printMenu();
-        while (!(line = reader.readLine()).equals("exit")) {
-            handleCommand(line);
-        }
+        while (!(line = reader.readLine()).equals("exit")) handleCommand(line);
     }
 
     private void handleCommand(String line) {
