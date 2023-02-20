@@ -1,7 +1,6 @@
 package exam.handler.command;
 
 import exam.dto.mapper.Mapper;
-import exam.exception.ManufacturerValidationException;
 import exam.repository.Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
