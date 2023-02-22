@@ -1,6 +1,7 @@
 package exam.handler.command;
 
 import exam.dto.mapper.Mapper;
+import exam.exception.SouvenirNotFoundException;
 import exam.exception.SouvenirValidationException;
 import exam.repository.Repository;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,8 @@ public class UpdateSouvenir implements Command {
 
     @Override
     public void execute(List<String> args) {
-        var souvenir = repository.getSouvenirById(Long.parseLong(args.get(0)));
+        var id = Long.parseLong(args.get(0));
+        var souvenir = repository.getSouvenirById(id).orElseThrow(() -> new SouvenirNotFoundException(id));
         souvenir.setName(args.get(1));
         souvenir.setDate(LocalDate.parse(args.get(2)));
         souvenir.setPrice(Long.parseLong(args.get(3)));

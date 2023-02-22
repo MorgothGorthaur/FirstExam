@@ -1,6 +1,7 @@
 package exam.handler.command;
 
 import exam.dto.mapper.Mapper;
+import exam.exception.ManufacturedNotFoundException;
 import exam.repository.Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,8 @@ public class UpdateManufacturer implements Command {
 
     @Override
     public void execute(List<String> args) {
-        var updated = repository.getManufacturerById(Long.parseLong(args.get(0)));
+        var id = Long.parseLong(args.get(0));
+        var updated = repository.getManufacturerById(id).orElseThrow(() -> new ManufacturedNotFoundException(id));
         updated.setName(args.get(1));
         updated.setCountry(args.get(2));
         repository.updateManufacturer(updated);

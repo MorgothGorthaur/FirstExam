@@ -1,6 +1,7 @@
 package exam.handler.command;
 
 import exam.dto.mapper.Mapper;
+import exam.exception.ManufacturedNotFoundException;
 import exam.repository.Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,8 @@ public class GetManufacturer implements Command {
 
     @Override
     public void execute(List<String> args) {
-        System.out.println(mapper.toManufacturerFullDto(repository.getManufacturerById(Integer.parseInt(args.get(0)))));
+        var id = Long.parseLong(args.get(0));
+        var manufacturer = repository.getManufacturerById(id).orElseThrow(() -> new ManufacturedNotFoundException(id));
+        System.out.println(mapper.toManufacturerFullDto(manufacturer));
     }
 }

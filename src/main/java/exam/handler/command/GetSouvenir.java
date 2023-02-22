@@ -1,6 +1,7 @@
 package exam.handler.command;
 
 import exam.dto.mapper.Mapper;
+import exam.exception.SouvenirNotFoundException;
 import exam.repository.Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,8 @@ public class GetSouvenir implements Command {
 
     @Override
     public void execute(List<String> args) {
-        System.out.println(mapper.toSouvenirFullDto(repository.getSouvenirById(Long.parseLong(args.get(0)))));
+        var id= Long.parseLong(args.get(0));
+        var souvenir = repository.getSouvenirById(id).orElseThrow(() -> new SouvenirNotFoundException(id));
+        System.out.println(mapper.toSouvenirFullDto(souvenir));
     }
 }
