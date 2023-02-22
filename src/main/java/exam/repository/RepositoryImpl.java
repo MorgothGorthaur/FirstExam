@@ -18,12 +18,17 @@ public class RepositoryImpl implements Repository {
     private final Map<Long, Manufacturer> manufacturers;
     private final Map<Long, Souvenir> souvenirs;
 
+    private Long manufacturersNextId;
+    private Long souvenirsNextId;
+
     public RepositoryImpl(FileHandler fileHandler) {
         this.fileHandler = fileHandler;
         manufacturers = fileHandler.readAll();
         souvenirs = manufacturers.values().stream()
                 .flatMap(manufacturer -> manufacturer.getSouvenirs().stream())
                 .collect(Collectors.toMap(Souvenir::getId, Function.identity()));
+        manufacturersNextId = generateNextId(manufacturers.keySet());
+        souvenirsNextId = generateNextId(souvenirs.keySet());
     }
 
     @Override
@@ -74,14 +79,14 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void addManufacturer(Manufacturer manufacturer) {
-        manufacturer.setId(generateId(manufacturers.keySet()));
+        manufacturer.setId(manufacturersNextId++);
         manufacturers.put(manufacturer.getId(), manufacturer);
         fileHandler.saveManufacturer(manufacturer);
     }
 
     @Override
     public void addSouvenir(long id, Souvenir souvenir) {
-        souvenir.setId(generateId(souvenirs.keySet()));
+        souvenir.setId(souvenirsNextId++);
         var manufacturer = getManufacturerById(id);
         manufacturer.addSouvenir(souvenir);
         souvenirs.put(souvenir.getId(), souvenir);
@@ -105,7 +110,7 @@ public class RepositoryImpl implements Repository {
     @Override
     public List<Manufacturer> getManufacturersBySouvenirNameAndYear(String name, int year) {
         return souvenirs.values().stream()
-                .filter(souvenir ->souvenir.getName().equals(name) && souvenir.getDate().getYear() == year)
+                .filter(souvenir -> souvenir.getName().equals(name) && souvenir.getDate().getYear() == year)
                 .map(Souvenir::getManufacturer).distinct().toList();
     }
 
@@ -122,12 +127,12 @@ public class RepositoryImpl implements Repository {
     @Override
     public Map<Integer, List<Souvenir>> getSouvenirsByYears() {
         var map = new TreeMap<Integer, List<Souvenir>>();
-        souvenirs.values().forEach(souvenir ->  map.computeIfAbsent(souvenir.getDate().getYear(), ArrayList::new).add(souvenir));
+        souvenirs.values().forEach(souvenir -> map.computeIfAbsent(souvenir.getDate().getYear(), ArrayList::new).add(souvenir));
         return map;
     }
 
 
-    private Long generateId(Set<Long> ids) {
+    private Long generateNextId(Set<Long> ids) {
         return ids.stream().max(Long::compare).map(id -> id + 1).orElse(0L);
     }
 }
