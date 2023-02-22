@@ -1,5 +1,6 @@
 package exam.handler.command;
 
+import exam.exception.ManufacturedNotFoundException;
 import exam.repository.Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,8 @@ public class RemoveManufacturer implements Command{
 
     @Override
     public void execute(List<String> args) {
-        repository.removeManufacturer(Integer.parseInt(args.get(0)));
+        var id = Long.parseLong(args.get(0));
+        if(repository.getManufacturerById(id).isPresent()) repository.removeManufacturer(id);
+        else throw new ManufacturedNotFoundException(id);
     }
 }

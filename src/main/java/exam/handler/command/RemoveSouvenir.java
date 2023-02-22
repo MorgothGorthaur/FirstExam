@@ -1,5 +1,6 @@
 package exam.handler.command;
 
+import exam.exception.SouvenirNotFoundException;
 import exam.repository.Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,8 @@ public class RemoveSouvenir implements Command {
 
     @Override
     public void execute(List<String> args) {
-        repository.removeSouvenir(Integer.parseInt(args.get(0)));
+        var id = Long.parseLong(args.get(0));
+        if(repository.getSouvenirById(id).isPresent()) repository.removeSouvenir(id);
+        else throw new SouvenirNotFoundException(id);
     }
 }
