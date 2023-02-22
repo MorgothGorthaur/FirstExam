@@ -85,14 +85,14 @@ class RepositoryTest {
     void testUpdateManufacturer() {
         var expected = new Manufacturer(0L, "updated", "country", new HashSet<>());
         repository.updateManufacturer(expected);
-        assertThat(repository.getManufacturerById(0L)).isEqualTo(expected);
+        assertThat(repository.getManufacturerById(0L)).isPresent().get().isEqualTo(expected);
     }
 
     @Test
     void testUpdateSouvenir() {
         var expected = new Souvenir(0L, "updated", LocalDate.now(), 4, null);
         repository.updateSouvenir(expected);
-        assertThat(repository.getSouvenirById(0L)).isEqualTo(expected);
+        assertThat(repository.getSouvenirById(0L)).isPresent().get().isEqualTo(expected);
     }
 
     @Test
@@ -100,7 +100,7 @@ class RepositoryTest {
         var manufacturer = new Manufacturer("new", "country");
         var expected = new Manufacturer(2L, "new", "country", new HashSet<>());
         repository.addManufacturer(manufacturer);
-        assertThat(repository.getManufacturerById(2L)).isEqualTo(expected);
+        assertThat(repository.getManufacturerById(2L)).isPresent().get().isEqualTo(expected);
     }
 
     @Test
@@ -108,19 +108,19 @@ class RepositoryTest {
         var souvenir = new Souvenir("new", LocalDate.now(), 6);
         var expected = new Souvenir(5L, "new", LocalDate.now(), 6, new Manufacturer(0L, "first", "first country", new HashSet<>()));
         repository.addSouvenir(0L, souvenir);
-        assertThat(repository.getSouvenirById(4L)).isEqualTo(expected);
+        assertThat(repository.getSouvenirById(4L)).isPresent().get().isEqualTo(expected);
     }
 
     @Test
     void testGetManufacturerById() {
         var expected = new Manufacturer(0L, "first", "first country", new HashSet<>());
-        assertThat(repository.getManufacturerById(0L)).isEqualTo(expected);
+        assertThat(repository.getManufacturerById(0L)).isPresent().get().isEqualTo(expected);
     }
 
     @Test
     void testGetSouvenirById() {
         var souvenir = new Souvenir(0L, "first souvenir name", LocalDate.now(), 5, null);
-        assertThat(repository.getSouvenirById(0L)).isEqualTo(souvenir);
+        assertThat(repository.getSouvenirById(0L)).isPresent().get().isEqualTo(souvenir);
     }
 
     @Test
@@ -137,23 +137,5 @@ class RepositoryTest {
         assertThat(repository.getSouvenirsByYears()).isEqualTo(expected);
     }
 
-    @Test
-    void testRemoveManufacturer_shouldThrowManufacturerNotFoundException() {
-        assertThrows(ManufacturedNotFoundException.class, () -> repository.removeManufacturer(10L));
-    }
 
-    @Test
-    void testGetManufacturerById_shouldThrowManufacturerNotFoundException() {
-        assertThrows(ManufacturedNotFoundException.class, () -> repository.getManufacturerById(10L));
-    }
-
-    @Test
-    void testRemoveSouvenir_shouldThrowSouvenirNotFoundException() {
-        assertThrows(SouvenirNotFoundException.class, () -> repository.removeSouvenir(10L));
-    }
-
-    @Test
-    void testGetSouvenirById_shouldThrowSouvenirNotFoundException() {
-        assertThrows(SouvenirNotFoundException.class, () -> repository.getSouvenirById(10L));
-    }
 }
