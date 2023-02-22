@@ -5,6 +5,7 @@ import exam.model.Souvenir;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 public interface Repository {
@@ -24,9 +25,9 @@ public interface Repository {
 
     void addSouvenir(long id, Souvenir souvenir);
 
-    Manufacturer getManufacturerById(long id);
+    Optional<Manufacturer> getManufacturerById(long id);
 
-    Souvenir getSouvenirById(long id);
+    Optional<Souvenir> getSouvenirById(long id);
 
     List<Manufacturer> getManufacturersBySouvenirNameAndYear(String name, int year);
 

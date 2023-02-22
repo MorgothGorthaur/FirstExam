@@ -62,19 +62,23 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void updateManufacturer(Manufacturer manufacturer) {
-        var updated = getManufacturerById(manufacturer.getId());
-        updated.setCountry(manufacturer.getCountry());
-        updated.setName(manufacturer.getName());
-        fileHandler.saveManufacturer(updated);
+        var updated = manufacturers.get(manufacturer.getId());
+        if (updated != null) {
+            updated.setCountry(manufacturer.getCountry());
+            updated.setName(manufacturer.getName());
+            fileHandler.saveManufacturer(updated);
+        }
     }
 
     @Override
     public void updateSouvenir(Souvenir souvenir) {
-        var updated = getSouvenirById(souvenir.getId());
-        updated.setDate(souvenir.getDate());
-        updated.setName(souvenir.getName());
-        updated.setPrice(souvenir.getPrice());
-        fileHandler.saveManufacturer(updated.getManufacturer());
+        var updated = souvenirs.get(souvenir.getId());
+        if (updated != null) {
+            updated.setDate(souvenir.getDate());
+            updated.setName(souvenir.getName());
+            updated.setPrice(souvenir.getPrice());
+            fileHandler.saveManufacturer(updated.getManufacturer());
+        }
     }
 
     @Override
@@ -87,24 +91,22 @@ public class RepositoryImpl implements Repository {
     @Override
     public void addSouvenir(long id, Souvenir souvenir) {
         souvenir.setId(souvenirsNextId++);
-        var manufacturer = getManufacturerById(id);
-        manufacturer.addSouvenir(souvenir);
-        souvenirs.put(souvenir.getId(), souvenir);
-        fileHandler.saveManufacturer(manufacturer);
-    }
-
-    @Override
-    public Manufacturer getManufacturerById(long id) {
         var manufacturer = manufacturers.get(id);
-        if (manufacturer != null) return manufacturer;
-        else throw new ManufacturedNotFoundException(id);
+        if (manufacturer != null) {
+            manufacturer.addSouvenir(souvenir);
+            souvenirs.put(souvenir.getId(), souvenir);
+            fileHandler.saveManufacturer(manufacturer);
+        }
     }
 
     @Override
-    public Souvenir getSouvenirById(long id) {
-        var souvenir = souvenirs.get(id);
-        if (souvenir != null) return souvenir;
-        else throw new SouvenirNotFoundException(id);
+    public Optional<Manufacturer> getManufacturerById(long id) {
+        return Optional.ofNullable(manufacturers.get(id));
+    }
+
+    @Override
+    public Optional<Souvenir> getSouvenirById(long id) {
+        return Optional.ofNullable(souvenirs.get(id));
     }
 
     @Override
