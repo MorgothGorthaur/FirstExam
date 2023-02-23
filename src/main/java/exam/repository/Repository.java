@@ -17,10 +17,6 @@ public interface Repository {
 
     void removeSouvenir(long id);
 
-    void updateManufacturer(Manufacturer manufacturer);
-
-    void updateSouvenir(Souvenir souvenir);
-
     void addManufacturer(Manufacturer manufacturer);
 
     void addSouvenir(Souvenir souvenir);

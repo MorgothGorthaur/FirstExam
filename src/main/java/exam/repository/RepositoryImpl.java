@@ -61,27 +61,6 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public void updateManufacturer(Manufacturer manufacturer) {
-        var updated = manufacturers.get(manufacturer.getId());
-        if (updated != null) {
-            updated.setCountry(manufacturer.getCountry());
-            updated.setName(manufacturer.getName());
-            fileHandler.saveManufacturer(updated);
-        } else throw new ManufacturedNotFoundException(manufacturer.getId());
-    }
-
-    @Override
-    public void updateSouvenir(Souvenir souvenir) {
-        var updated = souvenirs.get(souvenir.getId());
-        if (updated != null) {
-            updated.setDate(souvenir.getDate());
-            updated.setName(souvenir.getName());
-            updated.setPrice(souvenir.getPrice());
-            fileHandler.saveManufacturer(updated.getManufacturer());
-        } else throw new SouvenirNotFoundException(souvenir.getId());
-    }
-
-    @Override
     public void addManufacturer(Manufacturer manufacturer) {
         manufacturer.setId(manufacturersNextId++);
         manufacturers.put(manufacturer.getId(), manufacturer);
