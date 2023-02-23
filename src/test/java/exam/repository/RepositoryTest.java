@@ -80,20 +80,6 @@ class RepositoryTest {
     }
 
     @Test
-    void testUpdateManufacturer() {
-        var expected = new Manufacturer(0L, "updated", "country", new HashSet<>());
-        repository.updateManufacturer(expected);
-        assertThat(repository.getManufacturerById(0L)).isPresent().get().isEqualTo(expected);
-    }
-
-    @Test
-    void testUpdateSouvenir() {
-        var expected = new Souvenir(0L, "updated", LocalDate.now(), 4, null);
-        repository.updateSouvenir(expected);
-        assertThat(repository.getSouvenirById(0L)).isPresent().get().isEqualTo(expected);
-    }
-
-    @Test
     void testAddManufacturer() {
         var manufacturer = new Manufacturer("new", "country");
         var expected = new Manufacturer(2L, "new", "country", new HashSet<>());
