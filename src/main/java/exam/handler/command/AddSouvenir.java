@@ -22,7 +22,7 @@ public class AddSouvenir implements Command {
 
     @Override
     public void printUsage() {
-        System.out.println(getName() + " \"manufacturer id\" \"name\" \"date\" \"price\" - for adding souvenir");
+        System.out.println("+\t" + getName() + " \"manufacturer id\" \"name\" \"date\" \"price\" - for adding souvenir\t\t +");
     }
 
     @Override

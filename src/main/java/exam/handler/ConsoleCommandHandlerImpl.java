@@ -42,7 +42,12 @@ public class ConsoleCommandHandlerImpl implements ConsoleCommandHandler {
     }
 
     private void printMenu() {
+        System.out.println("""
+                            ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                            +                                   menu                                             +""");
         commands.values().forEach(Command::printUsage);
-        System.out.println("exit - for exit");
+        System.out.println("""
+                            +                               exit - for exit                                      +
+                            ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++""");
     }
 }

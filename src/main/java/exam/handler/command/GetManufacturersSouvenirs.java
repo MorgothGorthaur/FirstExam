@@ -19,7 +19,9 @@ public class GetManufacturersSouvenirs implements Command{
 
     @Override
     public void printUsage() {
-        System.out.println(getName() + " \"manufacturer id\" - for getting souvenirs by manufacturer id");
+        System.out.println("""
+                           +\t%s "manufacturer id" - for getting souvenirs by \t\t +
+                           +\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t manufacturer id +""".replace("%s", getName()));
     }
 
     @Override

@@ -17,7 +17,7 @@ public class RemoveManufacturer implements Command{
 
     @Override
     public void printUsage() {
-        System.out.println(getName() + " \"id\" - for removing manufacturer");
+        System.out.println("+\t" + getName() + " \"id\" - for removing manufacturer\t\t\t\t\t\t\t +");
     }
 
     @Override

@@ -19,7 +19,7 @@ public class GetFullManufacturers implements Command {
 
     @Override
     public void printUsage() {
-        System.out.println(getName() + " - for getting manufacturers with souvenirs");
+        System.out.println("+\t" + getName() + " - for getting manufacturers with souvenirs\t\t\t\t +");
     }
 
     @Override

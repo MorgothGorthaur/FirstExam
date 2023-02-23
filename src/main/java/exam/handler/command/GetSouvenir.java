@@ -20,7 +20,7 @@ public class GetSouvenir implements Command {
 
     @Override
     public void printUsage() {
-        System.out.println(getName() + " \"souvenir id\" -  for getting souvenir");
+        System.out.println("+\t" + getName() + " \"souvenir id\" -  for getting souvenir\t\t\t\t\t\t\t\t +");
     }
 
     @Override

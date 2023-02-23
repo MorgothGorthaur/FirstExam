@@ -20,7 +20,9 @@ public class UpdateManufacturer implements Command {
 
     @Override
     public void printUsage() {
-        System.out.println(getName() + " \"manufacturer id\" \"name\" \"country\" - for updating manufacturer");
+        System.out.println("""
+                            +\t%s "manufacturer id" "name" "country" - for updating\t\t\t +
+                            +\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tmanufacturer +""".replace("%s", getName()));
     }
 
     @Override

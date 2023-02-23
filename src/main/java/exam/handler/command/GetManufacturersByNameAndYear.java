@@ -19,7 +19,9 @@ public class GetManufacturersByNameAndYear implements Command {
 
     @Override
     public void printUsage() {
-        System.out.println(getName() + " \"name\" \"year\" - for getting manufacturers by souvenir name and year");
+        System.out.println("""
+                              +\t%s "name" "year" - for getting manufacturers by\t +
+                              +\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  souvenir name and year +""".replace("%s", getName()));
     }
 
     @Override

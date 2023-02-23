@@ -20,7 +20,7 @@ public class GetManufacturer implements Command {
 
     @Override
     public void printUsage() {
-        System.out.println(getName() + " \"id\" - for getting manufacturer");
+        System.out.println("+\t" + getName() + " \"id\" - for getting manufacturer\t\t\t\t\t\t\t\t +");
     }
 
     @Override
