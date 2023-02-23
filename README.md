@@ -11,10 +11,20 @@ If the manufacturer will be removed, all souvenir manufacturers will be removed 
 <div>
 <h5>
 The program allows you to receive information about manufacturers (with/without souvenirs) and souvenirs (with/without) of the manufacturer, 
-  </h5>
+</h5>
+<h5>
 receive information about souvenirs of the specified manufacturer(by id),
+  </h5>
+<h5>
 receive information about souvenirs of the specified country,
+  </h5>
+<h5>
 receive information about manufacturers, whose souvenirs are cheaper then specified price,
+  </h5>
+<h5>
 receive information about manufacturers by souvenir name and year,
+  </h5>
+<h5>
 receive information about souvenirs by years.
+  </h5>
 </div>
