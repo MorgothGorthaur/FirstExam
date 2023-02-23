@@ -29,9 +29,11 @@ public class UpdateSouvenir implements Command {
     @Override
     public void execute(List<String> args) {
         var id = Long.parseLong(args.get(0));
-        var souvenir = new Souvenir(id, args.get(1), LocalDate.parse(args.get(2)), Long.parseLong(args.get(3)), null);
-        if(souvenir.getPrice() < 0 || souvenir.getDate().isAfter(LocalDate.now())) throw new SouvenirValidationException();
-        repository.updateSouvenir(souvenir);
-        System.out.println("your souvenir: " + mapper.toSouvenirDto(souvenir));
+        if(repository.getSouvenirById(id).isPresent()) {
+            var souvenir = new Souvenir(id, args.get(1), LocalDate.parse(args.get(2)), Long.parseLong(args.get(3)), null);
+            if (souvenir.getPrice() < 0 || souvenir.getDate().isAfter(LocalDate.now())) throw new SouvenirValidationException();
+            repository.updateSouvenir(souvenir);
+            System.out.println("your souvenir: " + mapper.toSouvenirDto(souvenir));
+        } else throw new SouvenirNotFoundException(id);
     }
 }
