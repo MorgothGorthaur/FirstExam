@@ -4,6 +4,7 @@ import exam.dto.mapper.Mapper;
 import exam.exception.ManufacturedNotFoundException;
 import exam.model.Manufacturer;
 import exam.repository.Repository;
+import exam.repository.filehandler.FileHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,8 @@ import java.util.List;
 public class UpdateManufacturer implements Command {
     private final Repository repository;
     private final Mapper mapper;
+
+    private final FileHandler fileHandler;
 
     @Override
     public String getName() {
@@ -30,8 +33,11 @@ public class UpdateManufacturer implements Command {
 
     @Override
     public void execute(List<String> args) {
-        var updated = new Manufacturer(Long.parseLong(args.get(0)), args.get(1), args.get(2), new HashSet<>());
-        repository.updateManufacturer(updated);
+        var id = Long.parseLong(args.get(0));
+        var updated = repository.getManufacturerById(id).orElseThrow(() -> new ManufacturedNotFoundException(id));
+        updated.setName(args.get(1));
+        updated.setCountry(args.get(2));
+        fileHandler.saveManufacturer(updated);
         System.out.println("your manufacturer: " + mapper.toManufacturerDto(updated));
     }
 }

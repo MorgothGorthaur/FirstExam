@@ -5,6 +5,7 @@ import exam.exception.SouvenirNotFoundException;
 import exam.exception.SouvenirValidationException;
 import exam.model.Souvenir;
 import exam.repository.Repository;
+import exam.repository.filehandler.FileHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +17,7 @@ import java.util.List;
 public class UpdateSouvenir implements Command {
     private final Repository repository;
     private final Mapper mapper;
-
+    private final FileHandler fileHandler;
     @Override
     public String getName() {
         return "update_souvenir";
@@ -29,10 +30,16 @@ public class UpdateSouvenir implements Command {
 
     @Override
     public void execute(List<String> args) {
-        var souvenir = new Souvenir(Long.parseLong(args.get(0)), args.get(1), LocalDate.parse(args.get(2)), Long.parseLong(args.get(3)), null);
-        if (souvenir.getPrice() < 0 || souvenir.getDate().isAfter(LocalDate.now()))
-            throw new SouvenirValidationException();
-        repository.updateSouvenir(souvenir);
+        var id = Long.parseLong(args.get(0));
+        var name = args.get(1);
+        var date = LocalDate.parse(args.get(2));
+        var price = Long.parseLong(args.get(3));
+        if(price < 0 || date.isAfter(LocalDate.now())) throw new SouvenirValidationException();
+        var souvenir = repository.getSouvenirById(id).orElseThrow(() -> new SouvenirNotFoundException(id));
+        souvenir.setName(name);
+        souvenir.setDate(date);
+        souvenir.setPrice(price);
+        fileHandler.saveManufacturer(souvenir.getManufacturer());
         System.out.println("your souvenir: " + mapper.toSouvenirDto(souvenir));
     }
 }
