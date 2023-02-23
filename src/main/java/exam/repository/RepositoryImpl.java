@@ -47,7 +47,7 @@ public class RepositoryImpl implements Repository {
         if (removed != null) {
             removed.getSouvenirs().forEach(souvenir -> souvenirs.remove(souvenir.getId()));
             fileHandler.removeManufacturer(removed);
-        }
+        } else throw new ManufacturedNotFoundException(id);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class RepositoryImpl implements Repository {
             var manufacturer = removed.getManufacturer();
             manufacturer.removeSouvenir(removed);
             fileHandler.saveManufacturer(manufacturer);
-        }
+        } else throw new SouvenirNotFoundException(id);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class RepositoryImpl implements Repository {
             updated.setCountry(manufacturer.getCountry());
             updated.setName(manufacturer.getName());
             fileHandler.saveManufacturer(updated);
-        }
+        } else throw new ManufacturedNotFoundException(manufacturer.getId());
     }
 
     @Override
@@ -78,7 +78,7 @@ public class RepositoryImpl implements Repository {
             updated.setName(souvenir.getName());
             updated.setPrice(souvenir.getPrice());
             fileHandler.saveManufacturer(updated.getManufacturer());
-        }
+        } else throw new SouvenirNotFoundException(souvenir.getId());
     }
 
     @Override
