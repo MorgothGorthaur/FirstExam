@@ -23,7 +23,7 @@ public interface Repository {
 
     void addManufacturer(Manufacturer manufacturer);
 
-    void addSouvenir(long id, Souvenir souvenir);
+    void addSouvenir(Souvenir souvenir);
 
     Optional<Manufacturer> getManufacturerById(long id);
 

@@ -89,14 +89,10 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public void addSouvenir(long id, Souvenir souvenir) {
+    public void addSouvenir(Souvenir souvenir) {
         souvenir.setId(souvenirsNextId++);
-        var manufacturer = manufacturers.get(id);
-        if (manufacturer != null) {
-            manufacturer.addSouvenir(souvenir);
-            souvenirs.put(souvenir.getId(), souvenir);
-            fileHandler.saveManufacturer(manufacturer);
-        }
+        souvenirs.put(souvenir.getId(), souvenir);
+        fileHandler.saveManufacturer(souvenir.getManufacturer());
     }
 
     @Override
