@@ -30,12 +30,8 @@ public class UpdateManufacturer implements Command {
 
     @Override
     public void execute(List<String> args) {
-        var id = Long.parseLong(args.get(0));
-        if (repository.getManufacturerById(id).isPresent()) {
-            var updated = new Manufacturer(id, args.get(1), args.get(2), new HashSet<>());
-            repository.updateManufacturer(updated);
-            System.out.println("your manufacturer: " + mapper.toManufacturerDto(updated));
-        } else throw new ManufacturedNotFoundException(id);
-
+        var updated = new Manufacturer(Long.parseLong(args.get(0)), args.get(1), args.get(2), new HashSet<>());
+        repository.updateManufacturer(updated);
+        System.out.println("your manufacturer: " + mapper.toManufacturerDto(updated));
     }
 }

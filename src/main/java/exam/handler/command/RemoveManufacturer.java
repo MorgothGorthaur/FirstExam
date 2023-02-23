@@ -22,8 +22,6 @@ public class RemoveManufacturer implements Command{
 
     @Override
     public void execute(List<String> args) {
-        var id = Long.parseLong(args.get(0));
-        if(repository.getManufacturerById(id).isPresent()) repository.removeManufacturer(id);
-        else throw new ManufacturedNotFoundException(id);
+        repository.removeManufacturer(Long.parseLong(args.get(0)));
     }
 }

@@ -23,8 +23,6 @@ public class RemoveSouvenir implements Command {
 
     @Override
     public void execute(List<String> args) {
-        var id = Long.parseLong(args.get(0));
-        if(repository.getSouvenirById(id).isPresent()) repository.removeSouvenir(id);
-        else throw new SouvenirNotFoundException(id);
+       repository.removeSouvenir(Long.parseLong(args.get(0)));
     }
 }
