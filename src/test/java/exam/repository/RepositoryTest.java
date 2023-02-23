@@ -42,8 +42,6 @@ class RepositoryTest {
         secondManufacturer.addSouvenir(fourthSouvenir);
         var manufacturersMap = Stream.of(firstManufacturer, secondManufacturer)
                 .collect(Collectors.toMap(Manufacturer::getId, manufacturer -> manufacturer));
-        var souvenirsMap = Stream.of(firstSouvenir, secondSouvenir, thirstSouvenir, fourthSouvenir)
-                .collect(Collectors.toMap(Souvenir::getId, souvenir -> souvenir));
         when(fileHandler.readAll()).thenReturn(manufacturersMap);
         repository = new RepositoryImpl(fileHandler);
     }
