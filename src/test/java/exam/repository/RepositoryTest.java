@@ -90,8 +90,8 @@ class RepositoryTest {
     @Test
     void testAddSouvenir() {
         var souvenir = new Souvenir("new", LocalDate.now(), 6);
-        var expected = new Souvenir(5L, "new", LocalDate.now(), 6, new Manufacturer(0L, "first", "first country", new HashSet<>()));
-        repository.addSouvenir(0L, souvenir);
+        var expected = new Souvenir(4L, "new", LocalDate.now(), 6, null);
+        repository.addSouvenir(souvenir);
         assertThat(repository.getSouvenirById(4L)).isPresent().get().isEqualTo(expected);
     }
 
