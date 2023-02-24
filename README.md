@@ -77,3 +77,8 @@ receive information about souvenirs by years.
   <h3> getting  souvenirs by manufacturer id </h3>
  </div>
   <br/>
+  <div align = "center">
+  <img src="/screens/getting_souvenirs_by_years.png" />
+  <h3> getting souvenirs by years </h3>
+ </div>
+  <br/>
