@@ -82,11 +82,6 @@ receive information about souvenirs by years.
   <h3> getting souvenirs by years </h3>
  </div>
   <br/>
-  <div align = "center">
-  <img src="/screens/getting_manufacturers_with_souvenirs_cheaper_then_price.png" />
-  <h3> getting manufacturers with souvenirs cheaper then price </h3>
- </div>
-  <br/>
 <div align = "center">
   <img src="/screens/updating_manufacturer.png" />
   <h3> updating manufacturer </h3>
@@ -95,5 +90,15 @@ receive information about souvenirs by years.
   <div align = "center">
   <img src="/screens/updating_souvenir.png" />
   <h3> updating souvenirs </h3>
+ </div>
+  <br/>
+  <div align = "center">
+  <img src="/screens/getting_manufacturers_with_souvenirs_cheaper_then_price.png" />
+  <h3> getting manufacturers with souvenirs cheaper then price </h3>
+ </div>
+  <br/>
+    <div align = "center">
+  <img src="/screens/removing_souvenir.png" />
+  <h3> removing souvenir </h3>
  </div>
   <br/>
