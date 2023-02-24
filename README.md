@@ -28,3 +28,10 @@ receive information about manufacturers by souvenir name and year,
 receive information about souvenirs by years.
   </h5>
 </div>
+<h2>Used Technologies:</h2>
+ <div>
+  Spring Boot, Lombok, Jackson, Mockito, JUnit, AssertJ 
+  </div>
+  <div>
+  Build: Maven
+  </dib>
