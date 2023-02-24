@@ -35,3 +35,10 @@ receive information about souvenirs by years.
   <div>
   Build: Maven
   </dib>
+ <h2>  examples </h2>
+ <div>
+ <div align = "center">
+  <img src="/screens/adding_manufacturer.png" />
+  <h3> adding manufacturer </h3>
+ </div>
+  <br/>
