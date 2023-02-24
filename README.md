@@ -98,7 +98,7 @@ receive information about souvenirs by years.
  </div>
   <br/>
     <div align = "center">
-  <img src="/screens/removing_souvenir.png" />
+  <img src="/screens/removing_souvenirs.png" />
   <h3> removing souvenir </h3>
  </div>
   <br/>
