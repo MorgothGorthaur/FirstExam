@@ -102,3 +102,8 @@ receive information about souvenirs by years.
   <h3> removing souvenir </h3>
  </div>
   <br/>
+  <div align = "center">
+  <img src="/screens/removing_manufacturers.png" />
+  <h3> removing manufacturer (with souvenirs) </h3>
+ </div>
+  <br/>
