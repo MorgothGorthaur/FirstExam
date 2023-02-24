@@ -44,6 +44,16 @@ receive information about souvenirs by years.
   <br/>
   <div align = "center">
   <img src="/screens/adding_souvenir.png" />
-  <h3> adding manufacturer </h3>
+  <h3> adding souvenir </h3>
+ </div>
+  <br/>
+  <div align = "center">
+  <img src="/screens/getting_manufacturers.png" />
+  <h3> getting manufacturers </h3>
+ </div>
+  <br/>
+  <div align = "center">
+  <img src="/screens/getting_souvenirs.png" />
+  <h3> getting souvenirs </h3>
  </div>
   <br/>
