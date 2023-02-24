@@ -67,3 +67,8 @@ receive information about souvenirs by years.
   <h3> getting souvenir </h3>
  </div>
   <br/>
+<div align = "center">
+  <img src="/screens/getting_souvenirs_by_country.png" />
+  <h3> getting souvenirs by country </h3>
+ </div>
+  <br/>
