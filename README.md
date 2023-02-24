@@ -46,6 +46,11 @@ receive information about souvenirs by years.
   <img src="/screens/adding_souvenir.png" />
   <h3> adding souvenir </h3>
  </div>
+    <br/>
+  <div align = "center">
+  <img src="/screens/adding_souvenir_with_exception.png" />
+  <h3> adding souvenir with bad data returns error message</h3>
+ </div>
   <br/>
   <div align = "center">
   <img src="/screens/getting_manufacturers.png" />
