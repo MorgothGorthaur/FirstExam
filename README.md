@@ -1,4 +1,5 @@
 # FirstExam
+
 <h2> Description </h2>
 <div>
 This is a Java Spring Boot console application dedicated to work with file storage.
@@ -34,7 +35,7 @@ receive information about souvenirs by years.
   </div>
   <div>
   Build: Maven
-  </dib>
+  </div>
  <h2>  examples </h2>
  <div>
  <div align = "center">
@@ -117,3 +118,4 @@ receive information about souvenirs by years.
   <h3> removing manufacturer (with souvenirs) </h3>
  </div>
   <br/>
+</div>
