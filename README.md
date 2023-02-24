@@ -98,6 +98,11 @@ receive information about souvenirs by years.
  </div>
   <br/>
     <div align = "center">
+  <img src="/screens/getting_manufacturers_by_souvenir_name_and_year.png" />
+  <h3> getting manufacturers by souvenir name and year </h3>
+ </div>
+  <br/>
+    <div align = "center">
   <img src="/screens/removing_souvenirs.png" />
   <h3> removing souvenir </h3>
  </div>
