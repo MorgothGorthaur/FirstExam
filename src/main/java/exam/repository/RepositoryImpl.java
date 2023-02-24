@@ -18,8 +18,8 @@ public class RepositoryImpl implements Repository {
     private final Map<Long, Manufacturer> manufacturers;
     private final Map<Long, Souvenir> souvenirs;
 
-    private Long manufacturersNextId;
-    private Long souvenirsNextId;
+    private long manufacturersNextId;
+    private long souvenirsNextId;
 
     public RepositoryImpl(FileHandler fileHandler) {
         this.fileHandler = fileHandler;
