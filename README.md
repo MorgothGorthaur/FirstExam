@@ -57,3 +57,13 @@ receive information about souvenirs by years.
   <h3> getting souvenirs </h3>
  </div>
   <br/>
+<div align = "center">
+  <img src="/screens/getting_manufacturer.png" />
+  <h3> getting manufacturer </h3>
+ </div>
+  <br/>
+  <div align = "center">
+  <img src="/screens/getting_souvenir.png" />
+  <h3> getting souvenir </h3>
+ </div>
+  <br/>
