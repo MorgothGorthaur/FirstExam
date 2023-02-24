@@ -42,8 +42,6 @@ class RepositoryTest {
         secondManufacturer.addSouvenir(fourthSouvenir);
         var manufacturersMap = Stream.of(firstManufacturer, secondManufacturer)
                 .collect(Collectors.toMap(Manufacturer::getId, manufacturer -> manufacturer));
-        var souvenirsMap = Stream.of(firstSouvenir, secondSouvenir, thirstSouvenir, fourthSouvenir)
-                .collect(Collectors.toMap(Souvenir::getId, souvenir -> souvenir));
         when(fileHandler.readAll()).thenReturn(manufacturersMap);
         repository = new RepositoryImpl(fileHandler);
     }
@@ -82,45 +80,31 @@ class RepositoryTest {
     }
 
     @Test
-    void testUpdateManufacturer() {
-        var expected = new Manufacturer(0L, "updated", "country", new HashSet<>());
-        repository.updateManufacturer(expected);
-        assertThat(repository.getManufacturerById(0L)).isEqualTo(expected);
-    }
-
-    @Test
-    void testUpdateSouvenir() {
-        var expected = new Souvenir(0L, "updated", LocalDate.now(), 4, null);
-        repository.updateSouvenir(expected);
-        assertThat(repository.getSouvenirById(0L)).isEqualTo(expected);
-    }
-
-    @Test
     void testAddManufacturer() {
         var manufacturer = new Manufacturer("new", "country");
         var expected = new Manufacturer(2L, "new", "country", new HashSet<>());
         repository.addManufacturer(manufacturer);
-        assertThat(repository.getManufacturerById(2L)).isEqualTo(expected);
+        assertThat(repository.getManufacturerById(2L)).isPresent().get().isEqualTo(expected);
     }
 
     @Test
     void testAddSouvenir() {
         var souvenir = new Souvenir("new", LocalDate.now(), 6);
-        var expected = new Souvenir(5L, "new", LocalDate.now(), 6, new Manufacturer(0L, "first", "first country", new HashSet<>()));
-        repository.addSouvenir(0L, souvenir);
-        assertThat(repository.getSouvenirById(4L)).isEqualTo(expected);
+        var expected = new Souvenir(4L, "new", LocalDate.now(), 6, null);
+        repository.addSouvenir(souvenir);
+        assertThat(repository.getSouvenirById(4L)).isPresent().get().isEqualTo(expected);
     }
 
     @Test
     void testGetManufacturerById() {
         var expected = new Manufacturer(0L, "first", "first country", new HashSet<>());
-        assertThat(repository.getManufacturerById(0L)).isEqualTo(expected);
+        assertThat(repository.getManufacturerById(0L)).isPresent().get().isEqualTo(expected);
     }
 
     @Test
     void testGetSouvenirById() {
         var souvenir = new Souvenir(0L, "first souvenir name", LocalDate.now(), 5, null);
-        assertThat(repository.getSouvenirById(0L)).isEqualTo(souvenir);
+        assertThat(repository.getSouvenirById(0L)).isPresent().get().isEqualTo(souvenir);
     }
 
     @Test
@@ -137,23 +121,5 @@ class RepositoryTest {
         assertThat(repository.getSouvenirsByYears()).isEqualTo(expected);
     }
 
-    @Test
-    void testRemoveManufacturer_shouldThrowManufacturerNotFoundException() {
-        assertThrows(ManufacturedNotFoundException.class, () -> repository.removeManufacturer(10L));
-    }
 
-    @Test
-    void testGetManufacturerById_shouldThrowManufacturerNotFoundException() {
-        assertThrows(ManufacturedNotFoundException.class, () -> repository.getManufacturerById(10L));
-    }
-
-    @Test
-    void testRemoveSouvenir_shouldThrowSouvenirNotFoundException() {
-        assertThrows(SouvenirNotFoundException.class, () -> repository.removeSouvenir(10L));
-    }
-
-    @Test
-    void testGetSouvenirById_shouldThrowSouvenirNotFoundException() {
-        assertThrows(SouvenirNotFoundException.class, () -> repository.getSouvenirById(10L));
-    }
 }

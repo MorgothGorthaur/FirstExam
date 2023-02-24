@@ -1,5 +1,6 @@
 package exam.handler.command;
 
+import exam.exception.ManufacturedNotFoundException;
 import exam.repository.Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -16,11 +17,11 @@ public class RemoveManufacturer implements Command{
 
     @Override
     public void printUsage() {
-        System.out.println(getName() + " \"id\" - for removing manufacturer");
+        System.out.println("+\t" + getName() + " \"id\" - for removing manufacturer\t\t\t\t\t\t\t +");
     }
 
     @Override
     public void execute(List<String> args) {
-        repository.removeManufacturer(Integer.parseInt(args.get(0)));
+        repository.removeManufacturer(Long.parseLong(args.get(0)));
     }
 }

@@ -1,7 +1,7 @@
 package exam.exception;
 
 public class ManufacturedNotFoundException extends RuntimeException {
-    public ManufacturedNotFoundException(Long id) {
+    public ManufacturedNotFoundException(long id) {
         super("manufacturer with id=" + id + " not founded!");
     }
 }

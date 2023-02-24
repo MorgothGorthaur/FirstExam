@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class AddManufacturer implements Command {
@@ -21,7 +22,7 @@ public class AddManufacturer implements Command {
 
     @Override
     public void printUsage() {
-        System.out.println(getName() + " \"name\" \"country\" - for adding manufacturer");
+        System.out.println("+\t" + getName() + " \"name\" \"country\" - for adding manufacturer\t\t\t\t\t\t +");
     }
 
     @Override

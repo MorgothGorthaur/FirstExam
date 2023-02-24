@@ -18,7 +18,9 @@ public class GetManufacturersCheapestThenPrice implements Command {
 
     @Override
     public void printUsage() {
-        System.out.println(getName() + " \"price\" - for getting manufacturers that makes souvenirs cheaper then price");
+        System.out.println("""
+                              +\t%s "price" - for getting \t\t\t +
+                              +\t\t\t\t\t\t\t   manufacturers that makes souvenirs cheaper then price +""".replace("%s", getName()));
     }
 
     @Override
