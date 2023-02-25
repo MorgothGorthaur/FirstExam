@@ -6,7 +6,6 @@ import exam.model.Souvenir;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 public interface Repository {
     List<Manufacturer> getManufacturers();
@@ -29,7 +28,7 @@ public interface Repository {
 
     List<Souvenir> getSouvenirsByCountry(String country);
 
-    List<Manufacturer> getManufacturersThatMakesSouvenirsCheaperThenValue(double price);
+    List<Manufacturer> getManufacturersThatMakesSouvenirsCheaperThenValue(long price);
 
     Map<Integer, List<Souvenir>> getSouvenirsByYears();
 

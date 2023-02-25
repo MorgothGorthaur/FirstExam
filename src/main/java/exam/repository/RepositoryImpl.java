@@ -97,7 +97,7 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public List<Manufacturer> getManufacturersThatMakesSouvenirsCheaperThenValue(double price) {
+    public List<Manufacturer> getManufacturersThatMakesSouvenirsCheaperThenValue(long price) {
         return manufacturers.values().stream().filter(manufacturer -> manufacturer.isMakesSouvenirsCheaperThanValue(price)).toList();
     }
 

@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -37,7 +36,7 @@ public class Manufacturer {
         souvenirs.remove(souvenir);
     }
 
-    public boolean isMakesSouvenirsCheaperThanValue(double price) {
+    public boolean isMakesSouvenirsCheaperThanValue(long price) {
         return souvenirs.size() > 0 && souvenirs.stream().filter(souvenir -> souvenir.getPrice() >= price).toList().size() == 0;
     }
 
