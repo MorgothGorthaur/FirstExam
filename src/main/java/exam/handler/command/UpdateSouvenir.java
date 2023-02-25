@@ -9,6 +9,7 @@ import exam.repository.filehandler.FileHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -33,8 +34,8 @@ public class UpdateSouvenir implements Command {
         var id = Long.parseLong(args.get(0));
         var name = args.get(1);
         var date = LocalDate.parse(args.get(2));
-        var price = Long.parseLong(args.get(3));
-        if(price < 0 || date.isAfter(LocalDate.now())) throw new SouvenirValidationException();
+        var price = new BigDecimal(args.get(3));
+        if(price.signum() < 0 || date.isAfter(LocalDate.now())) throw new SouvenirValidationException();
         var souvenir = repository.getSouvenirById(id).orElseThrow(() -> new SouvenirNotFoundException(id));
         souvenir.setName(name);
         souvenir.setDate(date);

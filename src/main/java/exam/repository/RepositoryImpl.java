@@ -7,6 +7,7 @@ import exam.model.Manufacturer;
 import exam.repository.filehandler.FileHandler;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -97,7 +98,7 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public List<Manufacturer> getManufacturersThatMakesSouvenirsCheaperThenValue(long price) {
+    public List<Manufacturer> getManufacturersThatMakesSouvenirsCheaperThenValue(BigDecimal price) {
         return manufacturers.values().stream().filter(manufacturer -> manufacturer.isMakesSouvenirsCheaperThanValue(price)).toList();
     }
 

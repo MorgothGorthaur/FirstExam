@@ -5,6 +5,7 @@ import exam.repository.Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 @Component
 @RequiredArgsConstructor
@@ -25,7 +26,7 @@ public class GetManufacturersCheapestThenPrice implements Command {
 
     @Override
     public void execute(List<String> args) {
-        repository.getManufacturersThatMakesSouvenirsCheaperThenValue(Long.parseLong(args.get(0)))
+        repository.getManufacturersThatMakesSouvenirsCheaperThenValue(new BigDecimal(args.get(0)))
                 .stream().map(mapper::toManufacturerDto)
                 .forEach(System.out::println);
     }

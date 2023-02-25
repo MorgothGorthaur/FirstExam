@@ -3,6 +3,7 @@ package exam.repository;
 import exam.model.Manufacturer;
 import exam.model.Souvenir;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -28,7 +29,7 @@ public interface Repository {
 
     List<Souvenir> getSouvenirsByCountry(String country);
 
-    List<Manufacturer> getManufacturersThatMakesSouvenirsCheaperThenValue(long price);
+    List<Manufacturer> getManufacturersThatMakesSouvenirsCheaperThenValue(BigDecimal price);
 
     Map<Integer, List<Souvenir>> getSouvenirsByYears();
 

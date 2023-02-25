@@ -8,6 +8,7 @@ import exam.repository.Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 @Component
@@ -29,8 +30,8 @@ public class AddSouvenir implements Command {
     @Override
     public void execute(List<String> args) {
         var manufacturerId = Long.parseLong(args.get(0));
-        var souvenir = new Souvenir(args.get(1), LocalDate.parse(args.get(2)), Long.parseLong(args.get(3)));
-        if(souvenir.getPrice() < 0 || souvenir.getDate().isAfter(LocalDate.now())) throw new SouvenirValidationException();
+        var souvenir = new Souvenir(args.get(1), LocalDate.parse(args.get(2)), new BigDecimal(args.get(3)));
+        if(souvenir.getPrice().signum() < 0 || souvenir.getDate().isAfter(LocalDate.now())) throw new SouvenirValidationException();
         var manufacturer = repository.getManufacturerById(manufacturerId)
                 .orElseThrow(() -> new ManufacturedNotFoundException(manufacturerId));
         manufacturer.addSouvenir(souvenir);

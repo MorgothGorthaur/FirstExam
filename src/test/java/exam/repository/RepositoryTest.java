@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -31,14 +32,14 @@ class RepositoryTest {
     @BeforeEach
     void setUp() {
         var firstManufacturer = new Manufacturer(0L, "first", "first country", new HashSet<>());
-        var firstSouvenir = new Souvenir(0L, "first souvenir name", LocalDate.now(), 5, null);
+        var firstSouvenir = new Souvenir(0L, "first souvenir name", LocalDate.now(), new BigDecimal(5), null);
         firstManufacturer.addSouvenir(firstSouvenir);
-        var secondSouvenir = new Souvenir(1L, "second souvenir name", LocalDate.now(), 6, null);
+        var secondSouvenir = new Souvenir(1L, "second souvenir name", LocalDate.now(), new BigDecimal(6), null);
         firstManufacturer.addSouvenir(secondSouvenir);
         var secondManufacturer = new Manufacturer(1L, "second", "second country", new HashSet<>());
-        var thirstSouvenir = new Souvenir(2L, "third souvenir name", LocalDate.now(), 7, null);
+        var thirstSouvenir = new Souvenir(2L, "third souvenir name", LocalDate.now(), new BigDecimal(7), null);
         secondManufacturer.addSouvenir(thirstSouvenir);
-        var fourthSouvenir = new Souvenir(3L, "fourth souvenir name", LocalDate.now(), 8, null);
+        var fourthSouvenir = new Souvenir(3L, "fourth souvenir name", LocalDate.now(), new BigDecimal(8), null);
         secondManufacturer.addSouvenir(fourthSouvenir);
         var manufacturersMap = Stream.of(firstManufacturer, secondManufacturer)
                 .collect(Collectors.toMap(Manufacturer::getId, manufacturer -> manufacturer));
@@ -55,10 +56,10 @@ class RepositoryTest {
 
     @Test
     void testGetSouvenirs() {
-        var expected = Arrays.asList(new Souvenir("first souvenir name", LocalDate.now(), 5),
-                new Souvenir("second souvenir name", LocalDate.now(), 6),
-                new Souvenir("third souvenir name", LocalDate.now(), 7),
-                new Souvenir("fourth souvenir name", LocalDate.now(), 8));
+        var expected = Arrays.asList(new Souvenir("first souvenir name", LocalDate.now(), new BigDecimal(5)),
+                new Souvenir("second souvenir name", LocalDate.now(), new BigDecimal(6)),
+                new Souvenir("third souvenir name", LocalDate.now(), new BigDecimal(7)),
+                new Souvenir("fourth souvenir name", LocalDate.now(), new BigDecimal(8)));
         assertThat(repository.getSouvenirs()).isEqualTo(expected);
 
     }
@@ -72,9 +73,9 @@ class RepositoryTest {
 
     @Test
     void testRemoveSouvenir() {
-        var expected = Arrays.asList(new Souvenir("second souvenir name", LocalDate.now(), 6),
-                new Souvenir("third souvenir name", LocalDate.now(), 7),
-                new Souvenir("fourth souvenir name", LocalDate.now(), 8));
+        var expected = Arrays.asList(new Souvenir("second souvenir name", LocalDate.now(), new BigDecimal(6)),
+                new Souvenir("third souvenir name", LocalDate.now(), new BigDecimal(7)),
+                new Souvenir("fourth souvenir name", LocalDate.now(), new BigDecimal(8)));
         repository.removeSouvenir(0L);
         assertThat(repository.getSouvenirs()).isEqualTo(expected);
     }
@@ -89,8 +90,8 @@ class RepositoryTest {
 
     @Test
     void testAddSouvenir() {
-        var souvenir = new Souvenir("new", LocalDate.now(), 6);
-        var expected = new Souvenir(4L, "new", LocalDate.now(), 6, null);
+        var souvenir = new Souvenir("new", LocalDate.now(), new BigDecimal(6));
+        var expected = new Souvenir(4L, "new", LocalDate.now(), new BigDecimal(6), null);
         repository.addSouvenir(souvenir);
         assertThat(repository.getSouvenirById(4L)).isPresent().get().isEqualTo(expected);
     }
@@ -103,7 +104,7 @@ class RepositoryTest {
 
     @Test
     void testGetSouvenirById() {
-        var souvenir = new Souvenir(0L, "first souvenir name", LocalDate.now(), 5, null);
+        var souvenir = new Souvenir(0L, "first souvenir name", LocalDate.now(), new BigDecimal(5), null);
         assertThat(repository.getSouvenirById(0L)).isPresent().get().isEqualTo(souvenir);
     }
 
@@ -116,8 +117,8 @@ class RepositoryTest {
     @Test
     void testGetSouvenirsByCountry() {
         var expected = new TreeMap<Integer, List<Souvenir>>();
-        expected.put(LocalDate.now().getYear(), Arrays.asList(new Souvenir(0L, "first souvenir name", LocalDate.now(), 5, null), new Souvenir(1L, "second souvenir name", LocalDate.now(), 6, null),
-                new Souvenir(2L, "third souvenir name", LocalDate.now(), 7, null), new Souvenir(3L, "fourth souvenir name", LocalDate.now(), 8, null)));
+        expected.put(LocalDate.now().getYear(), Arrays.asList(new Souvenir(0L, "first souvenir name", LocalDate.now(), new BigDecimal(5), null), new Souvenir(1L, "second souvenir name", LocalDate.now(), new BigDecimal(6), null),
+                new Souvenir(2L, "third souvenir name", LocalDate.now(), new BigDecimal(7), null), new Souvenir(3L, "fourth souvenir name", LocalDate.now(), new BigDecimal(8), null)));
         assertThat(repository.getSouvenirsByYears()).isEqualTo(expected);
     }
 

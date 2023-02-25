@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -36,8 +37,8 @@ public class Manufacturer {
         souvenirs.remove(souvenir);
     }
 
-    public boolean isMakesSouvenirsCheaperThanValue(long price) {
-        return souvenirs.size() > 0 && souvenirs.stream().filter(souvenir -> souvenir.getPrice() >= price).toList().size() == 0;
+    public boolean isMakesSouvenirsCheaperThanValue(BigDecimal price) {
+        return souvenirs.size() > 0 && souvenirs.stream().filter(souvenir -> souvenir.getPrice().compareTo(price) >= 0).toList().size() == 0;
     }
 
     @Override
