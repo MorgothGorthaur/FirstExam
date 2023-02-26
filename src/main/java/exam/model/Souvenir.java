@@ -39,7 +39,7 @@ public class Souvenir {
         var hash = 7;
         hash = 31 * hash + (name != null ? name.hashCode() : 0);
         hash = 31 * hash + (date != null ? date.hashCode() : 0);
-        hash = 31 * hash + Double.hashCode(price);
+        hash = 31 * hash + Long.hashCode(price);
         return hash;
     }
 }
